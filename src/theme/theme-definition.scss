@@ -1,0 +1,35 @@
+@use 'sass:map';
+@use './light-theme' as *;
+@use './dark-theme' as *;
+
+@mixin light-theme {
+    @include theme-styling($light-theme);
+}
+
+@mixin dark-theme {
+    @include theme-styling($dark-theme);
+}
+
+@mixin theme-styling($theme) {
+    $clr-primary: map-get($map: $theme, $key: "primary");
+    $clr-secondary: map-get($map: $theme, $key: "secondary");
+    $clr-background: map-get($map: $theme, $key: "background");
+    $clr-surface: map-get($map: $theme, $key: "surface");
+    $clr-error: map-get($map: $theme, $key: "error");
+    $clr-onPrimary: map-get($map: $theme, $key: "onPrimary");
+    $clr-onSecondary: map-get($map: $theme, $key: "onSecondary");
+    $clr-onBackground: map-get($map: $theme, $key: "onBackground");
+    $clr-onSurface: map-get($map: $theme, $key: "onSurface");
+    $clr-onError: map-get($map: $theme, $key: "onError");
+
+    body {
+        background-color: $clr-background;
+        color: $clr-onBackground;
+    }
+
+
+    div {
+        background-color: $clr-background;
+        color: $clr-onBackground;
+    }
+}
