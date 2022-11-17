@@ -22,14 +22,29 @@
     $clr-onSurface: map-get($map: $theme, $key: "onSurface");
     $clr-onError: map-get($map: $theme, $key: "onError");
 
-    body {
+    .background {
         background-color: $clr-background;
         color: $clr-onBackground;
     }
 
 
-    div {
-        background-color: $clr-background;
-        color: $clr-onBackground;
+    .primary {
+        background-color: $clr-primary;
+        color: $clr-onPrimary;
+    }
+
+    .secondary {
+        background-color: $clr-secondary;
+        color: $clr-onSecondary;
+    }
+
+    .surface {
+        background-color: $clr-surface;
+        color: $clr-onSurface;
+    }
+
+    .error {
+        background-color: $clr-error;
+        color: $clr-onError;
     }
 }
