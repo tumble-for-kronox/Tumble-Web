@@ -1,4 +1,4 @@
-class Endpoints {
+export default class Endpoints {
     static baseUrl = "tumble.hkr.se";
     static debugBaseUrl = "localhost:7036";
 
@@ -8,7 +8,7 @@ class Endpoints {
      * Requires scheduleId path parameter.
      * Requires schoolId query field. Optional sessionToken & startDate
      * */
-    static getSchedule = "/schedules/";
+    static getSchedule = (scheduleId: string) => `/schedules/${scheduleId}`;
 
 
     /* ----------------------- Search endpoints ----------------------- */
@@ -39,13 +39,13 @@ class Endpoints {
      * Requires eventId path parameter.
      * Requires schoolId & sessionToken query fields.
      * */
-    static registerForUserEvent = "/users/events/register/";
+    static registerForUserEvent = (eventId: string) => `/users/events/register/${eventId}`;
 
     /**[PUT]
      * Requires eventId path parameter.
      * Requires schoolId & sessionToken query fields.
      */
-    static unregisterFromUserEvent = "/users/events/unregister/";
+    static unregisterFromUserEvent = (eventId: string) => `/users/events/unregister/${eventId}`;
 
     /**[PUT]
      * Requires schoolId & sessionToken query fields.
@@ -69,7 +69,7 @@ class Endpoints {
      * Requires resourceId path parameter.
      * Requires schoolId & sessionToken query fields. Optional date
      */
-    static getResourceData = "/resources/";
+    static getResourceData = (resourceId: string) => `/resources/${resourceId}`;
 
     /**[PUT]
      * Requires schoolId & sessionToken query fields.
