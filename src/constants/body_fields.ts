@@ -1,4 +1,4 @@
-import AvailabilitySlot from "../models/booking/availability_slot"
+import AvailabilitySlot from "../app/models/booking/availability_slot"
 
 export default class BodyFields {
     static login = (username: string, password: string) => {

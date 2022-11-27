@@ -1,6 +1,14 @@
 @use 'sass:map';
 @use './light-theme' as *;
 @use './dark-theme' as *;
+@use './color.scss' as *;
+
+@mixin define-color($title, $color) {
+    --#{$title}-h: #{hue($color)};
+    --#{$title}-l: #{lightness($color)};
+    --#{$title}-s: #{saturation($color)};
+    --#{$title}-a: #{alpha($color)};
+}
 
 @mixin light-theme {
     @include theme-styling($light-theme);
@@ -11,40 +19,94 @@
 }
 
 @mixin theme-styling($theme) {
-    $clr-primary: map-get($map: $theme, $key: "primary");
-    $clr-secondary: map-get($map: $theme, $key: "secondary");
-    $clr-background: map-get($map: $theme, $key: "background");
-    $clr-surface: map-get($map: $theme, $key: "surface");
-    $clr-error: map-get($map: $theme, $key: "error");
-    $clr-onPrimary: map-get($map: $theme, $key: "onPrimary");
-    $clr-onSecondary: map-get($map: $theme, $key: "onSecondary");
-    $clr-onBackground: map-get($map: $theme, $key: "onBackground");
-    $clr-onSurface: map-get($map: $theme, $key: "onSurface");
-    $clr-onError: map-get($map: $theme, $key: "onError");
+    // .background {
+    //     background-color: $clr-background;
+    //     color: $clr-onBackground;
+    // }
 
-    .background {
-        background-color: $clr-background;
-        color: $clr-onBackground;
+    // .primary {
+    //     background-color: $clr-primary;
+    //     color: $clr-onPrimary;
+    // }
+
+    // .secondary {
+    //     background-color: $clr-secondary;
+    //     color: $clr-onSecondary;
+    // }
+
+    // .surface {
+    //     background-color: $clr-surface;
+    //     color: $clr-onSurface;
+    // }
+
+    // .error {
+    //     background-color: $clr-error;
+    //     color: $clr-onError;
+    // }
+
+    // .on {
+    //     &-background {
+    //         background-color: $clr-onBackground;
+    //         color: $clr-onBackground;
+    //     }
+
+    //     &-background-light {
+    //         @if $theme==$dark-theme {
+    //             background-color: darken($color: $clr-onBackground, $amount: 62%);
+    //         }
+
+    //         @else {
+    //             background-color: lighten($color: $clr-onBackground, $amount: 62%);
+    //         }
+
+    //         color: $clr-onBackground;
+    //     }
+
+    //     &-primary {
+    //         background-color: $clr-onPrimary;
+    //         color: $clr-onPrimary;
+    //     }
+
+    //     &-secondary {
+    //         background-color: $clr-onSecondary;
+    //         color: $clr-onSecondary;
+    //     }
+
+    //     &-surface {
+    //         background-color: $clr-onSurface;
+    //         color: $clr-onSurface;
+    //     }
+
+    //     &-error {
+    //         background-color: $clr-onError;
+    //         color: $clr-onError;
+    //     }
+
+    // }
+
+    .clr-search-bar {
+        @if $theme==$dark-theme {
+            background-color: clr("onBackground", $lightness: -62%);
+        }
+
+        @else {
+            background-color: clr("onBackground", $lightness: +62%);
+        }
+
+        color: clr("onBackground");
     }
 
+    .elevated {
+        &-low {
+            box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.29);
+        }
 
-    .primary {
-        background-color: $clr-primary;
-        color: $clr-onPrimary;
-    }
+        &-mid {
+            box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.29);
+        }
 
-    .secondary {
-        background-color: $clr-secondary;
-        color: $clr-onSecondary;
-    }
-
-    .surface {
-        background-color: $clr-surface;
-        color: $clr-onSurface;
-    }
-
-    .error {
-        background-color: $clr-error;
-        color: $clr-onError;
+        &-high {
+            box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.29);
+        }
     }
 }

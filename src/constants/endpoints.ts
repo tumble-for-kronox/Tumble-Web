@@ -1,6 +1,6 @@
 export default class Endpoints {
-    static baseUrl = "tumble.hkr.se";
-    static debugBaseUrl = "localhost:7036";
+    static baseUrl = "https://tumble.hkr.se";
+    static debugBaseUrl = "https://localhost:7036";
 
     /* ---------------------- Schedule endpoints ---------------------- */
 

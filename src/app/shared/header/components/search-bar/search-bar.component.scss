@@ -1,0 +1,88 @@
+@use '/src/theme/color.scss' as *;
+
+.container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: top;
+    width: 35rem;
+    height: 3rem;
+    border-radius: 10px;
+    padding: 0.2rem;
+
+    overflow: hidden;
+
+    transition: height 150ms ease-out;
+}
+
+.divider {
+    background-color: clr("onBackground");
+
+    height: 0.05rem;
+    width: 95%;
+}
+
+.input-row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    width: inherit;
+}
+
+.results-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: top;
+    gap: 1rem;
+
+    width: inherit;
+    scrollbar-width: none !important;
+    overflow-y: scroll;
+
+    search-result {
+        width: 92%;
+    }
+
+    ::-webkit-scrollbar {
+        width: none;
+    }
+}
+
+.results-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+
+    h3 {
+        text-align: center;
+    }
+}
+
+input {
+    height: 3rem;
+    flex-grow: 1;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font-size: 18px;
+    font-weight: 400;
+
+    &:focus {
+        outline: none;
+        font-size: 18px;
+        font-weight: 500;
+    }
+}
+
+button {
+    background-color: transparent;
+    color: inherit;
+}
+
+h1 {
+    margin: 0;
+}
