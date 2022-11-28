@@ -1,6 +1,8 @@
 import { Component, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpResponse } from '@angular/common/http';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import BackendStrings from '@constants/backend_strings';
+import { Http2ServerResponse } from 'http2';
 import Programme from 'src/app/models/programme';
 import { SearchService } from '../../services/search/search.service';
 
@@ -85,7 +87,7 @@ export class SearchBarComponent implements OnInit {
 
     this.searchService.submitSearchQuery("0", this.searchInputField.nativeElement.value.trim()).subscribe(
       {
-        next: result => {
+        next: (result: HttpResponse<Object>) => {
           console.log(result);
 
           if (!result.ok) {
@@ -112,7 +114,7 @@ export class SearchBarComponent implements OnInit {
 
           this.loading = false;
         },
-        error: error => {
+        error: (_: any) => {
           this.matSnackBar.open(BackendStrings.timeOutError, 'Dismiss', {
             panelClass: ['snackbar-error']
           });
