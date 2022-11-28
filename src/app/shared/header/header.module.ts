@@ -8,6 +8,8 @@ import { SearchResultComponent } from './components/search-result/search-result.
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   exports: [
@@ -24,7 +26,9 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     MatIconModule,
     MatButtonModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ]
 })
 export class HeaderModule { }

@@ -1,4 +1,6 @@
 import { Component, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import BackendStrings from '@constants/backend_strings';
 import Programme from 'src/app/models/programme';
 import { SearchService } from '../../services/search/search.service';
 
@@ -15,10 +17,12 @@ export class SearchBarComponent implements OnInit {
   private _expanded: boolean = false;
   private _resultCount?: number;
   private _results?: Programme[];
+  loading: boolean = false;
 
   constructor(
     private renderer: Renderer2,
     private searchService: SearchService,
+    private matSnackBar: MatSnackBar
   ) {
     this.renderer.listen('window', 'click', (e: Event) => {
       if (!this.expanded) return;
@@ -30,7 +34,7 @@ export class SearchBarComponent implements OnInit {
 
     this.renderer.listen('window', 'keyup.escape', (e: Event) => {
       this.searchInputField.nativeElement.blur()
-      this.expanded = !this.expanded;
+      this.expanded = false;
     })
   }
 
@@ -44,12 +48,6 @@ export class SearchBarComponent implements OnInit {
 
   public set expanded(v: boolean) {
     this._expanded = v
-
-    setTimeout(() => {
-      if (v === false) {
-        this.clearSearchResults();
-      }
-    }, 200)
   }
 
   public get resultCount() {
@@ -67,15 +65,61 @@ export class SearchBarComponent implements OnInit {
     this.clearSearchResults();
   }
 
+  dynamicSearch() {
+    let inputLength = this.searchInputField.nativeElement.value.trim().length;
+    if (inputLength <= 3) {
+      this.clearSearchResults();
+
+      return;
+    }
+
+    this.search();
+  }
+
   search() {
     if (this.searchInputField.nativeElement.value.trim() == '') {
       return;
     }
 
-    this.searchService.submitSearchQuery("0", this.searchInputField.nativeElement.value.trim()).subscribe(result => {
-      this._resultCount = result.count;
-      this._results = result.items;
-    });
+    this.loading = true;
+
+    this.searchService.submitSearchQuery("0", this.searchInputField.nativeElement.value.trim()).subscribe(
+      {
+        next: result => {
+          console.log(result);
+
+          if (!result.ok) {
+            let body = result.body as { error: string };
+
+            this.matSnackBar.open(body.error, 'Dismiss', {
+              panelClass: ['snackbar-error']
+            });
+
+            this.loading = false;
+            return;
+          }
+
+          let body = result.body as { count: number, items: Programme[] }
+          if (result.status == 204) {
+            body = {
+              count: 0,
+              items: [],
+            }
+          }
+
+          this._resultCount = body.count;
+          this._results = body.items;
+
+          this.loading = false;
+        },
+        error: error => {
+          this.matSnackBar.open(BackendStrings.timeOutError, 'Dismiss', {
+            panelClass: ['snackbar-error']
+          });
+          this.loading = false;
+        }
+      }
+    );
   }
 
   clearSearchResults() {

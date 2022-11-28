@@ -2,13 +2,14 @@
 
 $primary-color: #eb9605;
 $secondary-color: #ffbe29;
+$error-color: rgb(135, 12, 12);
 
 $light-theme: (
     "primary": $primary-color,
     "secondary": $secondary-color,
     "background": white,
     "surface": white,
-    "error": red,
+    "error": $error-color,
     "onPrimary": white,
     "onSecondary": #3b3b3b,
     "onBackground": #4d4d4d,

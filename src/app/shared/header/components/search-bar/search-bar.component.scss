@@ -4,11 +4,9 @@
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    justify-content: top;
-    width: 35rem;
+    width: 100%;
     height: 3rem;
     border-radius: 10px;
-    padding: 0.2rem;
 
     overflow: hidden;
 
@@ -28,7 +26,7 @@
     align-items: center;
     justify-content: center;
     height: 3rem;
-    width: inherit;
+    width: 100%;
 }
 
 .results-container {
@@ -41,6 +39,11 @@
     width: inherit;
     scrollbar-width: none !important;
     overflow-y: scroll;
+
+    h4 {
+        width: 95%;
+        text-align: left;
+    }
 
     search-result {
         width: 92%;
@@ -63,7 +66,7 @@
 }
 
 input {
-    height: 3rem;
+    height: inherit;
     flex-grow: 1;
     background-color: transparent;
     border: none;
@@ -81,6 +84,11 @@ input {
 button {
     background-color: transparent;
     color: inherit;
+}
+
+.search-bar-loading ::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+    stroke: clr("onBackground");
 }
 
 h1 {
