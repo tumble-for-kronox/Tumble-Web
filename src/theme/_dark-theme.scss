@@ -1,0 +1,18 @@
+@use 'sass:map';
+
+$primary-color: #eb9605;
+$secondary-color: #ffbe29;
+$error-color: rgb(135, 12, 12);
+
+$dark-theme: (
+    "primary": $primary-color,
+    "secondary": $secondary-color,
+    "background": #080808,
+    "surface": #181818,
+    "error": $error-color,
+    "onPrimary": white,
+    "onSecondary": #3b3b3b,
+    "onBackground": #d4d4d4,
+    "onSurface": #d4d4d4,
+    "onError": white
+);

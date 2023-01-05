@@ -1,0 +1,103 @@
+@use '/src/theme/color.scss' as *;
+
+.container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    width: 100%;
+    height: 3rem;
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    transition: height 150ms ease-out;
+}
+
+.divider {
+    background-color: clr("onBackground");
+
+    height: 0.05rem;
+    width: 95%;
+}
+
+.input-row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    width: 100%;
+}
+
+.results-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: top;
+    gap: 1rem;
+
+    width: inherit;
+    scrollbar-width: thin;
+    overflow-y: auto;
+
+    h4 {
+        width: 95%;
+        text-align: left;
+    }
+
+    search-result {
+        width: 92%;
+    }
+
+    ::-webkit-scrollbar {
+        width: 1em;
+    }
+}
+
+.results-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+
+    h3 {
+        text-align: center;
+    }
+}
+
+input {
+    height: inherit;
+    flex-grow: 1;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font-size: 18px;
+    font-weight: 400;
+
+    &:focus {
+        outline: none;
+        font-size: 18px;
+        font-weight: 500;
+    }
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+}
+
+button {
+    background-color: transparent;
+    color: inherit;
+}
+
+.search-bar-loading ::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+    stroke: clr("onBackground");
+}
+
+h1 {
+    margin: 0;
+}

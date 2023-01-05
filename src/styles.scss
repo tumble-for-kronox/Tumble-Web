@@ -1,1 +1,121 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+@use './theme/theme-definition' as *;
+@use './theme/light-theme' as *;
+@use './theme/dark-theme' as *;
+@use './theme/color.scss' as *;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+//  The following line adds:
+//    1. Default typography styles for all components
+//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
+//  If you specify typography styles for the components you use elsewhere, you should delete this line.
+//  If you don't need the default component typographies but still want the hierarchy styles,
+//  you can delete this line and instead use:
+//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
+@include mat.all-component-typographies();
+@include mat.core();
+
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$my-theme: mat.define-light-theme((color: (primary: $my-primary,
+        accent: $my-accent,
+      ),
+      density: 0,
+    ));
+@include mat.all-component-themes($my-theme);
+@import "../node_modules/mat-icon-button-sizes/styles/mat-icon-button-sizes";
+
+@include MatIconButtonSize('medium', 48px, 32px);
+
 /* You can add global styles to this file, and also import other style files */
+:root {
+  @include light-theme;
+
+  @each $name,
+  $color in $light-theme {
+    @include define-color($name, $color);
+  }
+
+  .dark-mode {
+    @include dark-theme;
+
+    @each $name,
+    $color in $dark-theme {
+      @include define-color($name, $color);
+    }
+  }
+}
+
+html,
+body {
+  box-sizing: border-box;
+  height: 100%;
+  overflow: overlay;
+
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: clr("onBackground");
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: clr("onBackground");
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 4px solid transparent;
+  }
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+app-root {
+  display: block;
+  height: 100%;
+
+  background-color: clr("background");
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  // @include light-theme;
+}
+
+.snackbar-error {
+  background-color: clr("error");
+  color: clr("onError");
+
+  button {
+    background-color: transparent;
+    color: clr('onError');
+  }
+}
+
+.snackbar-default {
+  background-color: clr("onBackground");
+  color: clr("background");
+}
+
+// .dark-mode {
+//   @include dark-theme;
+// }

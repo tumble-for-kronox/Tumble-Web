@@ -1,0 +1,19 @@
+@use '/src/theme/color.scss' as *;
+
+.container {
+    padding: 1rem;
+    height: 5rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: clr("surface");
+    color: clr("onSurface");
+    width: 100%;
+}
+
+search-bar {
+    align-self: flex-start;
+    width: 25%;
+}

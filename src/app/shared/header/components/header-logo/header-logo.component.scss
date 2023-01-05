@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    img {
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+
+    h1 {
+        font-weight: 500;
+        margin: 0;
+    }
+}

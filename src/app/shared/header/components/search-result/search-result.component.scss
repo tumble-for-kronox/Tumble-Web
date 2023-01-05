@@ -1,0 +1,61 @@
+@use '/src/theme/color.scss' as *;
+
+.container {
+    padding: 0.5rem;
+    border-radius: 10px;
+
+    color: clr("onBackground");
+    background-color: transparent;
+
+
+    transition: background-color 100ms ease-in;
+
+    &:hover {
+        background-color: clr("primary", $alpha: -0.7);
+        cursor: pointer;
+    }
+}
+
+.main-row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.start-icon-and-column-row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.text-column {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: top;
+}
+
+#event-note-icon {
+    justify-self: end;
+    align-self: flex-start;
+
+    font-size: 28px;
+    height: 28px;
+    width: 28px;
+
+    margin-right: 0.5em;
+}
+
+.subtitle {
+    font-weight: 400;
+}
+
+h2 {
+    margin: 0;
+}
+
+h3 {
+    margin: 0;
+}
