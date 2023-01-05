@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderModule } from './header/header.module';
+import { FavouriteModule } from './favourite/favourite.module';
 
 
 
@@ -10,7 +11,8 @@ import { HeaderModule } from './header/header.module';
   ],
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    FavouriteModule
   ]
 })
 export class SharedModule { }

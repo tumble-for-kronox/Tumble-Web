@@ -1,10 +1,9 @@
 import { Component, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import BackendStrings from '@constants/backend_strings';
-import { Http2ServerResponse } from 'http2';
 import Programme from 'src/app/models/programme';
 import { SearchService } from '../../services/search/search.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'search-bar',

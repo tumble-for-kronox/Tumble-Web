@@ -37,8 +37,8 @@
     gap: 1rem;
 
     width: inherit;
-    scrollbar-width: none !important;
-    overflow-y: scroll;
+    scrollbar-width: thin;
+    overflow-y: auto;
 
     h4 {
         width: 95%;
@@ -50,7 +50,7 @@
     }
 
     ::-webkit-scrollbar {
-        width: none;
+        width: 1em;
     }
 }
 
@@ -79,6 +79,13 @@ input {
         font-size: 18px;
         font-weight: 500;
     }
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
 }
 
 button {

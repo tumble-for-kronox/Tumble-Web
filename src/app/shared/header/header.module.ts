@@ -6,10 +6,11 @@ import { HeaderLogoComponent } from './components/header-logo/header-logo.compon
 import { AccountBtnComponent } from './components/account-btn/account-btn.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
-import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
-import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FavouriteModule } from '../favourite/favourite.module';
 
 @NgModule({
   exports: [
@@ -28,7 +29,8 @@ import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@ang
     MatButtonModule,
     FormsModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FavouriteModule
   ]
 })
 export class HeaderModule { }

@@ -12,6 +12,7 @@
 
     &:hover {
         background-color: clr("primary", $alpha: -0.7);
+        cursor: pointer;
     }
 }
 
@@ -45,12 +46,6 @@
     width: 28px;
 
     margin-right: 0.5em;
-}
-
-#bookmark-icon {
-    font-size: 39px;
-    height: 39px;
-    width: 39px;
 }
 
 .subtitle {

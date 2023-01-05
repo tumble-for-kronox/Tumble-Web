@@ -29,6 +29,9 @@ $my-theme: mat.define-light-theme((color: (primary: $my-primary,
       density: 0,
     ));
 @include mat.all-component-themes($my-theme);
+@import "../node_modules/mat-icon-button-sizes/styles/mat-icon-button-sizes";
+
+@include MatIconButtonSize('medium', 48px, 32px);
 
 /* You can add global styles to this file, and also import other style files */
 :root {
@@ -53,6 +56,30 @@ html,
 body {
   box-sizing: border-box;
   height: 100%;
+  overflow: overlay;
+
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: clr("onBackground");
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: clr("onBackground");
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 4px solid transparent;
+  }
 }
 
 *,
