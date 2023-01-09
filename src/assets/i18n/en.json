@@ -1,0 +1,33 @@
+{
+    "snackbar-actions": {
+        "ok": "Ok",
+        "dismiss": "Dismiss",
+        "cancel": "Cancel"
+    },
+    "site-header": {
+        "search-bar": {
+            "placeholder": "Search for schedules",
+            "search-help": "Search using a programme, teacher, or course code. You can even search by classroom!",
+            "results": "{{count}} results"
+        }
+    },
+    "login": {
+        "title": "Login",
+        "button": "Login",
+        "username-placeholder": "Username",
+        "password-placeholder": "Password"
+    },
+    "errors": {
+        "timeout": "Connecting to the server timed out",
+        "500": "Something went wrong, try again later",
+        "search": {
+            "400": "Something went wrong, try again later",
+            "401": "You were not authorized correctly. Logout and back in or try again later"
+        },
+        "login": {
+            "401": "Incorrect username or password",
+            "404": "Incorrect username or password"
+        },
+        "events": {}
+    }
+}

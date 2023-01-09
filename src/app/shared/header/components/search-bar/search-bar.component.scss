@@ -93,9 +93,10 @@ button {
     color: inherit;
 }
 
-.search-bar-loading ::ng-deep .mat-progress-spinner circle,
-.mat-spinner circle {
-    stroke: clr("onBackground");
+
+.search-bar-loading ::ng-deep circle {
+    stroke: clr("onBackground") !important;
+
 }
 
 h1 {

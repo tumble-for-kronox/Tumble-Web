@@ -1,0 +1,14 @@
+{
+    "snackbar-actions": {
+        "ok": "Ok",
+        "dismiss": "Fjern",
+        "cancel": "Annuler"
+    },
+    "site-header": {
+        "search-bar": {
+            "placeholder": "Søg efter skemaer",
+            "search-help": "Søg via program-, lærer- eller kursekode. Du kan endda søge med lokaler!",
+            "results": "{{count}} results"
+        }
+    }
+}

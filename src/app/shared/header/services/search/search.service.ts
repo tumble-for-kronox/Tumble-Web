@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import Endpoints from '@constants/endpoints';
 import QueryFields from '@constants/query_fields';
+import { timeout } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
+import { DEFAULT_TIMEOUT } from 'src/app/app.component';
 import Programme from 'src/app/models/programme';
 
 @Injectable({

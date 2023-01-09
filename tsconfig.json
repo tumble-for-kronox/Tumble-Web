@@ -27,6 +27,9 @@
         "src/constants/*"
       ]
     },
+    "types": [
+      "@angular/localize"
+    ],
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {

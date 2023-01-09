@@ -1,0 +1,27 @@
+<div class="container" *transloco="let t">
+    <h1 class="title">{{t('login.title')}}</h1>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="mat-form">
+        <p>
+            <mat-form-field>
+                <input class="input" type="text" autocomplete="off" matInput
+                    [placeholder]="t('login.username-placeholder')" formControlName="username">
+            </mat-form-field>
+        </p>
+
+        <p>
+            <mat-form-field>
+                <input class="input" type="password" autocomplete="off" matInput
+                    [placeholder]="t('login.password-placeholder')" formControlName="password">
+            </mat-form-field>
+        </p>
+
+        <p *ngIf="error" class="error">
+            {{ error }}
+        </p>
+
+        <div class="button-container">
+            <button type="submit" mat-button>{{t('login.button')}}</button>
+        </div>
+
+    </form>
+</div>

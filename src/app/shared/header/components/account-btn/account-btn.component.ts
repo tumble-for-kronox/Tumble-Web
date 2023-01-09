@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginModalComponent } from '../login-modal/login-modal.component';
 
 @Component({
   selector: 'account-btn',
@@ -8,9 +10,13 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class AccountBtnComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
+  }
+
+  openDialog() {
+    this.dialog.open(LoginModalComponent, { panelClass: 'login-modal-container' })
   }
 
 }

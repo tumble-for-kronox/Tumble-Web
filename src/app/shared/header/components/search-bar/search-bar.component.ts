@@ -1,9 +1,12 @@
 import { Component, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import BackendStrings from '@constants/backend_strings';
 import Programme from 'src/app/models/programme';
 import { SearchService } from '../../services/search/search.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
+import { ProgrammeResponseHandler } from 'src/app/helpers/backend/response-handlers/ProgrammeResponseHandler';
+import { catchError, EMPTY, firstValueFrom, lastValueFrom, Observable, Subscriber, takeUntil } from 'rxjs';
+import { BackendResponseStatus } from 'src/app/helpers/backend/BackendResponse';
 
 @Component({
   selector: 'search-bar',
@@ -18,12 +21,14 @@ export class SearchBarComponent implements OnInit {
   private _expanded: boolean = false;
   private _resultCount?: number;
   private _results?: Programme[];
-  loading: boolean = false;
+  private _searchRequest?: Subscriber<any>;
+  loading: boolean = false
 
   constructor(
     private renderer: Renderer2,
     private searchService: SearchService,
-    private matSnackBar: MatSnackBar
+    private matSnackBar: MatSnackBar,
+    private ts: TranslocoService
   ) {
     this.renderer.listen('window', 'click', (e: Event) => {
       if (!this.expanded) return;
@@ -33,7 +38,7 @@ export class SearchBarComponent implements OnInit {
       }
     })
 
-    this.renderer.listen('window', 'keyup.escape', (e: Event) => {
+    this.renderer.listen('window', 'keyup.escape', (_e: Event) => {
       this.searchInputField.nativeElement.blur()
       this.expanded = false;
     })
@@ -68,62 +73,60 @@ export class SearchBarComponent implements OnInit {
 
   dynamicSearch() {
     let inputLength = this.searchInputField.nativeElement.value.trim().length;
-    if (inputLength <= 3) {
+    if (this.isInputTooShortToTriggerSearch(inputLength)) {
       this.clearSearchResults();
-
+      if (this._searchRequest != undefined) {
+        this._searchRequest.error()
+        this.loading = false;
+      }
       return;
     }
 
     this.search();
   }
 
-  search() {
-    if (this.searchInputField.nativeElement.value.trim() == '') {
+  async search() {
+    if (this.textFieldEmpty()) {
       return;
     }
 
     this.loading = true;
 
-    this.searchService.submitSearchQuery("0", this.searchInputField.nativeElement.value.trim()).subscribe(
-      {
-        next: (result: HttpResponse<Object>) => {
-          console.log(result);
+    const responseHandler = new ProgrammeResponseHandler()
 
-          if (!result.ok) {
-            let body = result.body as { error: string };
+    let o = new Observable(obs => this._searchRequest = obs)
 
-            this.matSnackBar.open(body.error, 'Dismiss', {
-              panelClass: ['snackbar-error']
-            });
-
-            this.loading = false;
-            return;
-          }
-
-          let body = result.body as { count: number, items: Programme[] }
-          if (result.status == 204) {
-            body = {
-              count: 0,
-              items: [],
-            }
-          }
-
-          this._resultCount = body.count;
-          this._results = body.items;
-
-          this.loading = false;
-        },
-        error: (_: any) => {
-          this.matSnackBar.open(BackendStrings.timeOutError, 'Dismiss', {
-            panelClass: ['snackbar-error']
-          });
-          this.loading = false;
-        }
-      }
+    const response$ = this.searchService.submitSearchQuery("0", this.searchInputField.nativeElement.value.trim()).pipe(
+      takeUntil(o),
+      catchError((err, caught) => {
+        this.loading = false;
+        return EMPTY;
+      })
     );
+    const response = responseHandler.parseSearchResults(await firstValueFrom(response$));
+
+    if (response.status == BackendResponseStatus.ERROR) {
+      this.matSnackBar.open(this.ts.translate(response.error!.message), this.ts.translate('snackbar-actions.dismiss'), {
+        panelClass: ['snackbar-error']
+      });
+      this.loading = false;
+      return;
+    }
+
+    this._resultCount = response.data!.count;
+    this._results = response.data!.items;
+    this.loading = false;
   }
 
-  clearSearchResults() {
+  private textFieldEmpty(): Boolean {
+    return this.searchInputField.nativeElement.value.trim() == '';
+  }
+
+  private isInputTooShortToTriggerSearch(inputLength: number): Boolean {
+    return inputLength <= 3
+  }
+
+  private clearSearchResults() {
     this._resultCount = undefined;
     this._results = undefined;
   }

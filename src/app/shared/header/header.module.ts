@@ -7,10 +7,14 @@ import { AccountBtnComponent } from './components/account-btn/account-btn.compon
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FavouriteModule } from '../favourite/favourite.module';
+import { TranslocoModule } from '@ngneat/transloco';
+import { LoginModalComponent } from './components/login-modal/login-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input'
 
 @NgModule({
   exports: [
@@ -22,15 +26,19 @@ import { FavouriteModule } from '../favourite/favourite.module';
     HeaderLogoComponent,
     AccountBtnComponent,
     SearchResultComponent,
+    LoginModalComponent,
   ],
   imports: [
     CommonModule,
     MatIconModule,
     MatButtonModule,
-    FormsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    FavouriteModule
+    FavouriteModule,
+    TranslocoModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatInputModule,
   ]
 })
 export class HeaderModule { }

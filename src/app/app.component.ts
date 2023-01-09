@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, InjectionToken } from '@angular/core';
+
+export const DEFAULT_TIMEOUT = new InjectionToken<number>('defaultTimeout');
 
 @Component({
   selector: 'app-root',
