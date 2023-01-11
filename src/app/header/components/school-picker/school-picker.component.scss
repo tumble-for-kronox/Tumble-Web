@@ -1,0 +1,8 @@
+@use '/src/theme/color.scss' as *;
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+
+}

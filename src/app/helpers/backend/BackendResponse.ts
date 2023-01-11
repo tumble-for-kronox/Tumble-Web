@@ -14,7 +14,7 @@ export class BackendResponse<T> {
         errorMessage: string
     ) => {
         return new BackendResponse<null>(
-            BackendResponseStatus.SUCCESS,
+            BackendResponseStatus.ERROR,
             {
                 error: Error(errorMessage)
             }

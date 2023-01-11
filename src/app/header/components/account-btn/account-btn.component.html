@@ -1,0 +1,8 @@
+<div *ngIf="loggedIn | async" class="user-button" (click)="openUserPage()">
+    <p>{{getCurrentUser().name.split(" ")[0]}}</p>
+    <mat-icon>person</mat-icon>
+</div>
+
+<div *ngIf="!(loggedIn | async)" class="login-button" (click)="openLoginDialog()">
+    <mat-icon>login</mat-icon>
+</div>

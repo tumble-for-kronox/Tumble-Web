@@ -4,8 +4,6 @@ import Endpoints from '@constants/endpoints';
 import QueryFields from '@constants/query_fields';
 import { timeout } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { DEFAULT_TIMEOUT } from 'src/app/app.component';
-import Programme from 'src/app/models/programme';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +18,11 @@ export class SearchService {
       [QueryFields.searchQuery]: searchQuery
     })
 
-    return this.http.get<HttpResponse<Object>>(
+    return this.http.get(
       Endpoints.debugBaseUrl + Endpoints.search,
       {
         params: params,
         observe: 'response',
-        responseType: 'json',
       }
     )
   }

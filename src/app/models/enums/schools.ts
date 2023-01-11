@@ -1,4 +1,5 @@
 export enum SchoolEnum {
+    NONE = -1,
     HKR = 0,
     MAU = 1,
     ORU = 2,

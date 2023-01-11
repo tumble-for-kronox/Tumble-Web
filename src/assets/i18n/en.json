@@ -1,5 +1,5 @@
 {
-    "snackbar-actions": {
+    "general": {
         "ok": "Ok",
         "dismiss": "Dismiss",
         "cancel": "Cancel"
@@ -13,8 +13,11 @@
     },
     "login": {
         "title": "Login",
+        "subtitle": "Login using your kronox account",
         "button": "Login",
-        "username-placeholder": "Username",
+        "username-label": "Username",
+        "password-label": "Password",
+        "username-placeholder": "name@domain.com",
         "password-placeholder": "Password"
     },
     "errors": {
@@ -28,6 +31,7 @@
             "401": "Incorrect username or password",
             "404": "Incorrect username or password"
         },
+        "refresh": "Login failed, you must manually login",
         "events": {}
     }
 }

@@ -106,7 +106,7 @@ export class SearchBarComponent implements OnInit {
     const response = responseHandler.parseSearchResults(await firstValueFrom(response$));
 
     if (response.status == BackendResponseStatus.ERROR) {
-      this.matSnackBar.open(this.ts.translate(response.error!.message), this.ts.translate('snackbar-actions.dismiss'), {
+      this.matSnackBar.open(this.ts.translate(response.error!.message), this.ts.translate('general.dismiss'), {
         panelClass: ['snackbar-error']
       });
       this.loading = false;

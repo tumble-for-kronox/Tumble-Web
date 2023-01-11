@@ -21,11 +21,17 @@ export default class Endpoints {
 
     /* ------------------------ User endpoints ----------------------- */
 
-    /**[GET]
+    /**[POST]
      * Requires schoolId query field.
      * Requires username & password body fields.
      */
     static login = "/users/login";
+
+    /**[GET]
+     * Requires authorization header.
+     * Requires schoolId query field.
+     */
+    static refresh = "/users/refresh"
 
 
     /* --------------------- User Event endpoints --------------------- */

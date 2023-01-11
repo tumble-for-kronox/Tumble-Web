@@ -1,6 +1,6 @@
 import { SchoolEnum } from "./enums/schools";
 
-class School {
+export class School {
     id: SchoolEnum;
     url: string;
     name: string;
@@ -16,7 +16,7 @@ class School {
     }
 }
 
-export default [
+export const schoolList = [
     new School(
         SchoolEnum.HKR,
         "schema.hkr.se",

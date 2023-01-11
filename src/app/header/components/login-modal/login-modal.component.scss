@@ -1,0 +1,88 @@
+@use '/src/theme/color.scss' as *;
+
+.container {
+    width: 20vw;
+    height: 35vh;
+    padding: 1rem;
+    overflow: auto;
+
+    border-radius: 10px;
+
+    background-color: clr("surface");
+    color: clr("onSurface");
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+    font-size: 22pt;
+    margin-top: 2rem;
+}
+
+.subtitle {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 3.5rem;
+}
+
+form {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    gap: 1.5rem;
+}
+
+.error {
+    padding: 16px;
+    width: 300px;
+    color: clr('onError');
+    background-color: clr('error');
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+
+    gap: 1.5rem;
+}
+
+.cancel-button {
+    color: clr('onSurface') !important;
+}
+
+.login-button {
+    background-color: clr('primary') !important;
+    color: clr('onPrimary') !important;
+}
+
+.field-container {
+    width: 100%;
+}
+
+.field-label {
+    margin: 0;
+
+}
+
+input {
+    background-color: clr('background');
+    color: clr('onBackground');
+    width: 100%;
+    min-width: 300px;
+
+    padding: 1rem;
+    border-radius: 5px;
+
+    font-size: 14pt;
+
+    border: none;
+    outline: none;
+
+    &:focus {
+        outline: none;
+    }
+}
