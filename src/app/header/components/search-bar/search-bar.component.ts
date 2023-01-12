@@ -7,6 +7,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { ProgrammeResponseHandler } from 'src/app/helpers/backend/response-handlers/ProgrammeResponseHandler';
 import { catchError, EMPTY, firstValueFrom, lastValueFrom, Observable, Subscriber, takeUntil } from 'rxjs';
 import { BackendResponseStatus } from 'src/app/helpers/backend/BackendResponse';
+import { SchoolService } from 'src/app/shared/services/school/school.service';
 
 @Component({
   selector: 'search-bar',
@@ -27,6 +28,7 @@ export class SearchBarComponent implements OnInit {
   constructor(
     private renderer: Renderer2,
     private searchService: SearchService,
+    private schoolService: SchoolService,
     private matSnackBar: MatSnackBar,
     private ts: TranslocoService
   ) {
@@ -96,7 +98,7 @@ export class SearchBarComponent implements OnInit {
 
     let o = new Observable(obs => this._searchRequest = obs)
 
-    const response$ = this.searchService.submitSearchQuery("0", this.searchInputField.nativeElement.value.trim()).pipe(
+    const response$ = this.searchService.submitSearchQuery(this.schoolService.currentSchoolValue, this.searchInputField.nativeElement.value.trim()).pipe(
       takeUntil(o),
       catchError((err, caught) => {
         this.loading = false;

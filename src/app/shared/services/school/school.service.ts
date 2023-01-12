@@ -21,12 +21,13 @@ export class SchoolService {
     this.currentSchool = this.currentSchoolSubject.asObservable();
     this.schoolChosen = this.currentSchool.pipe(
       map(value => {
+        console.log(`SCHOOL CHOSEN UPDATED TO: ${value != SchoolEnum.NONE}`)
         return value != SchoolEnum.NONE
       })
     )
   }
 
-  public get currentUserValue(): SchoolEnum {
+  public get currentSchoolValue(): SchoolEnum {
     return this.currentSchoolSubject.value;
   }
 

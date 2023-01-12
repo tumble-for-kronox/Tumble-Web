@@ -2,6 +2,7 @@
     "general": {
         "ok": "Ok",
         "dismiss": "Dismiss",
+        "none": "None",
         "cancel": "Cancel"
     },
     "site-header": {

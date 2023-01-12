@@ -18,10 +18,10 @@ export class AuthService {
   public loggedIn: Observable<boolean>
 
   constructor(private http: HttpClient) {
-    let storedUser = localStorage.getItem(StorageKeys.savedUser);
-    this.currentUserSubject = storedUser === "undefined" ?
-      new BehaviorSubject<KronoxUser | null>(null) :
-      new BehaviorSubject<KronoxUser | null>(JSON.parse(storedUser!));
+    let storedRefreshToken = localStorage.getItem(StorageKeys.savedUser);
+
+    this.currentUserSubject = new BehaviorSubject<KronoxUser | null>(null);
+    this.refresh(storedRefreshToken!)
 
     this.currentUser = this.currentUserSubject.asObservable();
     this.loggedIn = this.currentUser.pipe(
@@ -57,24 +57,20 @@ export class AuthService {
 
     const user = response.data!
 
-    localStorage.setItem(StorageKeys.savedUser, JSON.stringify(user));
+    localStorage.setItem(StorageKeys.savedUser, user.refreshToken);
     this.currentUserSubject?.next(user);
     return user;
   }
 
-  async refresh() {
+  async refresh(refreshToken: string) {
     const responseHandler = new UserResponseHandler()
 
-    if (this.currentUserValue == null) {
-      return;
-    }
-
     const response$ = this.http.get(
-      Endpoints.debugBaseUrl + Endpoints.refresh,
+      Endpoints.debugBaseUrl + Endpoints.user,
       {
         observe: "response",
         headers: {
-          "authorization": this.currentUserValue.refreshToken
+          "X-auth-token": refreshToken
         }
       }
     )
@@ -87,7 +83,7 @@ export class AuthService {
 
     const user = response.data!
 
-    localStorage.setItem(StorageKeys.savedUser, JSON.stringify(user));
+    localStorage.setItem(StorageKeys.savedUser, user.refreshToken);
     this.currentUserSubject?.next(user);
   }
 

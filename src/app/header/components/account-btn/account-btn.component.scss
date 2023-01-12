@@ -19,6 +19,7 @@
 
     &:active {
         background-color: clr('onBackground', $alpha: -0.8);
+        cursor: pointer;
     }
 
     p {

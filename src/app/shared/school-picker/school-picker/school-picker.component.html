@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="choice-container clr-search-bar" (click)="toggleExpanded()">
+        <img *ngIf="schoolSelected() | async" src="../../../../assets/school-logos/{{(chosenSchool | async)!.logo}}"
+            alt="school logo">
+        <p>{{(chosenSchool| async)?.shortName ?? 'None'}}</p>
+    </div>
+    <div class="list-container" [style.height]="this.expanded ? 'fit-content' : '0'">
+        <school-option *ngFor="let school of schools" [school]="school"
+            (chosenSchoolEvent)="changeSchool($event)"></school-option>
+    </div>
+</div>

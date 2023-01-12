@@ -8,12 +8,20 @@
     justify-content: space-between;
     align-items: center;
 
+    gap: 1rem;
+
     background-color: clr("surface");
     color: clr("onSurface");
     width: 100%;
 }
 
-search-bar {
+.search-and-school-container {
+    display: flex;
+    flex-flow: row nowrap;
     align-self: flex-start;
-    width: 25%;
+    gap: 1rem;
+}
+
+search-bar {
+    width: 40rem;
 }

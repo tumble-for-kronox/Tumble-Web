@@ -16,8 +16,7 @@ export class AccountBtnComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private authService: AuthService,
-    private changeDetectorRef: ChangeDetectorRef
+    private authService: AuthService
   ) {
     this.loggedIn = authService.loggedIn
   }

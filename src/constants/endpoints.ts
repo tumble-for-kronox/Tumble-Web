@@ -31,7 +31,7 @@ export default class Endpoints {
      * Requires authorization header.
      * Requires schoolId query field.
      */
-    static refresh = "/users/refresh"
+    static user = "/users"
 
 
     /* --------------------- User Event endpoints --------------------- */

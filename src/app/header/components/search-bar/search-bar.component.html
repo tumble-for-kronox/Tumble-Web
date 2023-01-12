@@ -19,7 +19,7 @@
         <h3>{{t('site-header.search-bar.search-help')}}</h3>
     </div>
     <div *ngIf="this.results" class="results-container">
-        <h4>{{t('site-header.search-bar.results', { count: '{{this.resultCount}}' })}}</h4>
+        <h4>{{t('site-header.search-bar.results', { count: this.resultCount })}}</h4>
         <search-result *ngFor="let item of this.results" [title]="item.subtitle" [subtitle]="item.title">
         </search-result>
     </div>
