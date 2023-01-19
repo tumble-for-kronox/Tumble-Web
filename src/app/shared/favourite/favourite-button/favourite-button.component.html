@@ -1,3 +1,4 @@
-<button mat-icon-button class="mat-medium-icon-button">
-    <mat-icon id="bookmark-icon">bookmark_outlined</mat-icon>
+<button mat-icon-button (click)="toggleBookmarked()" class="mat-medium-icon-button">
+    <mat-icon class="material-symbols" *ngIf="isBookmarked | async" id="bookmarked">bookmark</mat-icon>
+    <mat-icon class="material-symbols-outlined" *ngIf="!(isBookmarked | async)">bookmark</mat-icon>
 </button>

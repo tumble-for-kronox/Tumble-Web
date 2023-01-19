@@ -1,4 +1,4 @@
-<div class="container clr-search-bar" (click)="chooseSchool()">
+<div class="container clr-search-bar" mat-ripple (click)="chooseSchool()">
     <img src="../../../../assets/school-logos/{{school.logo}}" alt="school logo">
-    <p>{{school.shortName}}</p>
+    <p>{{wideLayout ? school.name : school.shortName}}</p>
 </div>

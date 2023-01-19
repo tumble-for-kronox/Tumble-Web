@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { map, Observable } from 'rxjs';
 import { SchoolEnum } from 'src/app/models/enums/schools';
@@ -11,13 +11,29 @@ import { SchoolService } from '../../services/school/school.service';
   styleUrls: ['./school-picker.component.scss']
 })
 export class SchoolPickerComponent implements OnInit {
-  schools: School[] = schoolList;
+  @ViewChild('schoolPickerContainer') schoolPickerContainer!: ElementRef
+
   chosenSchool: Observable<School | null>;
+  schools: School[] = schoolList;
+  filteredSchools: School[] = schoolList;
   expanded: boolean = false;
 
   constructor(
+    private renderer: Renderer2,
     private schoolService: SchoolService
   ) {
+    this.renderer.listen('window', 'click', (e: Event) => {
+      if (!this.expanded) return;
+
+      if (e.composedPath().indexOf(this.schoolPickerContainer.nativeElement) === -1) {
+        this.expanded = false;
+      }
+    })
+
+    this.renderer.listen('window', 'keyup.escape', (_e: Event) => {
+      this.expanded = false;
+    })
+
     this.chosenSchool = this.schoolService.currentSchool.pipe(
       map(school => {
         if (school == SchoolEnum.NONE) {
@@ -36,7 +52,13 @@ export class SchoolPickerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.schoolService.currentSchool.subscribe(value => {
+      if (value == null) this.filteredSchools = schoolList;
 
+      this.filteredSchools = schoolList.filter(school => {
+        return school.id !== value
+      })
+    })
   }
 
   changeSchool(school: School | undefined) {

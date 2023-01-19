@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '../shared/shared.module';
 import { SchoolPickerComponent } from '../shared/school-picker/school-picker/school-picker.component';
+import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   exports: [
@@ -41,7 +42,8 @@ import { SchoolPickerComponent } from '../shared/school-picker/school-picker/sch
     ReactiveFormsModule,
     MatInputModule,
     SharedModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRippleModule
   ]
 })
 export class HeaderModule { }

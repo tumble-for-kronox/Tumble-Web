@@ -1,3 +1,5 @@
+import { AvailabilityEnum } from "../enums/availability"
+
 export default class AvailabilitySlot {
     availability: AvailabilityEnum
     locationId?: string

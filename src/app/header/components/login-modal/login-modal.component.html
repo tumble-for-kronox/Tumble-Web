@@ -4,6 +4,11 @@
     <form [formGroup]="form" (ngSubmit)="submit()" class="mat-form">
 
         <div class="field-container">
+            <p class="field-label">{{t('login.school-label')}}</p>
+            <school-picker></school-picker>
+        </div>
+
+        <div class="field-container">
             <p class="field-label">{{t('login.username-label')}}</p>
             <input class="input" type="text" autocomplete="off" matInput [placeholder]="t('login.username-placeholder')"
                 formControlName="username">

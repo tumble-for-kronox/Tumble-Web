@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import {
   TRANSLOCO_LOADER,
   Translation,
@@ -12,7 +12,11 @@ import { Injectable, isDevMode, NgModule } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class TranslocoHttpLoader implements TranslocoLoader {
-  constructor(private http: HttpClient) { }
+  private http: HttpClient;
+
+  constructor(private httpBackend: HttpBackend) {
+    this.http = new HttpClient(httpBackend)
+  }
 
   getTranslation(lang: string) {
     return this.http.get<Translation>(`/assets/i18n/${lang}.json`);

@@ -1,0 +1,48 @@
+@use '/src/theme/color.scss' as *;
+
+.container {
+    background-color: clr("background");
+    color: clr("onBackground");
+
+    padding: 1rem 1rem;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+
+    height: 100%;
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: calc(50% - calc(0.5 * (100% - 4rem)));
+
+        height: calc(100% - 4rem);
+        width: 1px;
+        border-right: clr("onBackground", $alpha: -0.5) solid 1px;
+    }
+
+    &.collapsed {
+        justify-content: flex-end;
+    }
+}
+
+.collapse-button-container {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+
+    &.collapsed {
+        justify-content: center;
+    }
+}
+
+.side-bar-content {
+    width: 100%;
+}

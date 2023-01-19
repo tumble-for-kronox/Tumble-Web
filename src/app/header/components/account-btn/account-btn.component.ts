@@ -18,7 +18,7 @@ export class AccountBtnComponent implements OnInit {
     public dialog: MatDialog,
     private authService: AuthService
   ) {
-    this.loggedIn = authService.loggedIn
+    this.loggedIn = authService.loggedInObserve
   }
 
   ngOnInit(): void {

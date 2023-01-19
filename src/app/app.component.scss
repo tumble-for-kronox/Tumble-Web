@@ -1,20 +1,10 @@
-.outer-container {
+.side-bar-body-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 7fr;
     width: 100%;
-    height: 100%;
-}
+    height: calc(100% - 5rem);
 
-.lower-div {
-    width: 100%;
-    height: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.upper-div {
-    width: 100%;
-    height: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    &.collapsed {
+        grid-template-columns: 4rem 1fr;
+    }
 }

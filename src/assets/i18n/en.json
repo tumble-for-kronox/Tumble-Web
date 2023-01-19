@@ -12,10 +12,17 @@
             "results": "{{count}} results"
         }
     },
+    "site-side-bar": {
+        "bookmarks": {
+            "title": "Bookmarks",
+            "no-bookmarks": "You have no bookmarked schedules"
+        }
+    },
     "login": {
         "title": "Login",
         "subtitle": "Login using your kronox account",
         "button": "Login",
+        "school-label": "Choose your school",
         "username-label": "Username",
         "password-label": "Password",
         "username-placeholder": "name@domain.com",
@@ -29,6 +36,8 @@
             "401": "You were not authorized correctly. Logout and back in or try again later"
         },
         "login": {
+            "empty-fields": "Username and password must be filled",
+            "no-school": "You must choose a school to login to",
             "401": "Incorrect username or password",
             "404": "Incorrect username or password"
         },

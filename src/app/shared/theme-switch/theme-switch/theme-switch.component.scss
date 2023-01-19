@@ -1,0 +1,9 @@
+@use "/src/theme/color.scss" as *;
+
+mat-icon {
+    color: clr('onBackground');
+}
+
+button {
+    color: clr('onBackground');
+}

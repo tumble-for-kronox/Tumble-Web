@@ -1,8 +1,12 @@
-<header>
+<header style="position: relative; z-index: 1;">
     <app-header-container></app-header-container>
 </header>
 
-<router-outlet id="site-body"></router-outlet>
+<div class="side-bar-body-grid-container" [ngClass]="expandedSideBar ? '' : 'collapsed'">
+    <app-side-bar-container (expandedEvent)="toggleExpandedSideBar()" [expanded]="expandedSideBar"
+        id="side-bar"></app-side-bar-container>
+    <router-outlet id="site-body"></router-outlet>
+</div>
 
 <footer>
 

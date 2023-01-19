@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FavouriteModule } from './favourite/favourite.module';
 import { SchoolPickerModule } from './school-picker/school-picker.module';
+import { ThemeSwitchModule } from './theme-switch/theme-switch.module';
 
 
 
@@ -9,12 +10,13 @@ import { SchoolPickerModule } from './school-picker/school-picker.module';
   exports: [
     FavouriteModule,
     SchoolPickerModule,
+    ThemeSwitchModule
   ],
-  declarations: [],
   imports: [
     CommonModule,
     FavouriteModule,
-    SchoolPickerModule
+    SchoolPickerModule,
+    ThemeSwitchModule
   ]
 })
 export class SharedModule { }

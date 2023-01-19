@@ -8,4 +8,8 @@ export default class KronoxUser {
         this.username = username
         this.refreshToken = refreshToken
     }
+
+    public static fromJson(json: any): KronoxUser {
+        return new KronoxUser(json['name'], json['username'], json['refreshToken']);
+    }
 }

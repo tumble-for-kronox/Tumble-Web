@@ -1,13 +1,11 @@
 <div class="container">
-    <div class="main-row">
-        <div class="start-icon-and-column-row">
-            <mat-icon fontSet="material-icons-outlined" id="event-note-icon">calendar_today</mat-icon>
-            <div class="text-column">
-                <h2>{{this.title}}</h2>
-                <div [style.height]="'0.4rem'"></div>
-                <h2 class="subtitle">{{this.subtitle}}</h2>
-            </div>
+    <div class="start-icon-and-column-row">
+        <mat-icon fontSet="material-symbols-outlined" id="event-note-icon">calendar_today</mat-icon>
+        <div class="text-column">
+            <h2>{{this.programme.title}}</h2>
+            <div [style.height]="'0.4rem'"></div>
+            <h2 class="subtitle">{{this.programme.subtitle}}</h2>
         </div>
-        <app-favourite-button [size]="39"></app-favourite-button>
+        <app-favourite-button [programme]="programme"></app-favourite-button>
     </div>
 </div>

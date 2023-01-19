@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, Self, OnInit } from '@angular/core';
 import { School } from 'src/app/models/school';
 
 @Component({
@@ -6,9 +6,16 @@ import { School } from 'src/app/models/school';
   templateUrl: './school-option.component.html',
   styleUrls: ['./school-option.component.scss']
 })
-export class SchoolOptionComponent {
+export class SchoolOptionComponent implements OnInit {
   @Input() school!: School;
   @Output() chosenSchoolEvent = new EventEmitter<School>();
+  wideLayout!: boolean;
+
+  constructor(@Self() private element: ElementRef) { }
+
+  ngOnInit(): void {
+    this.wideLayout = this.element.nativeElement.offsetWidth > 300;
+  }
 
   chooseSchool() {
     this.chosenSchoolEvent.emit(this.school);

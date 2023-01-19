@@ -1,3 +1,9 @@
+@use "/src/theme/color.scss" as *;
+
 button {
     padding: 0;
+}
+
+#bookmarked {
+    color: clr("primary");
 }

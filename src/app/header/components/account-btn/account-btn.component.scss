@@ -13,12 +13,7 @@
     transition: background-color 0.1s;
 
     &:hover {
-        background-color: clr('onBackground', $alpha: -0.5);
-        cursor: pointer;
-    }
-
-    &:active {
-        background-color: clr('onBackground', $alpha: -0.8);
+        background-color: clr('onBackground', $alpha: -0.7);
         cursor: pointer;
     }
 

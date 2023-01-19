@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import Programme from 'src/app/models/programme';
 
 @Component({
   selector: 'search-result',
@@ -7,9 +8,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchResultComponent implements OnInit {
-
-  @Input() title!: string;
-  @Input() subtitle!: string;
+  @Input() programme!: Programme;
 
   constructor() { }
 

@@ -34,6 +34,7 @@ $my-theme: mat.define-light-theme((color: (primary: $my-primary,
 @import "../node_modules/mat-icon-button-sizes/styles/mat-icon-button-sizes";
 
 @include MatIconButtonSize('medium', 48px, 32px);
+@include MatIconButtonSize('small-ratio', 28px, 24px);
 
 /* You can add global styles to this file, and also import other style files */
 :root {

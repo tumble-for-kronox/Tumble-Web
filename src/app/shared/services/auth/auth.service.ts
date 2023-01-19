@@ -1,13 +1,17 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
+import BodyFields from '@constants/body_fields';
 import Endpoints from '@constants/endpoints';
+import QueryFields from '@constants/query_fields';
 import StorageKeys from '@constants/storage_keys';
-import { lastValueFrom, map } from 'rxjs';
+import { catchError, EMPTY, lastValueFrom, map } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
 import { BackendResponse, BackendResponseStatus } from 'src/app/helpers/backend/BackendResponse';
 import { UserResponseHandler } from 'src/app/helpers/backend/response-handlers/UserResponseHandler';
+import { SchoolEnum } from 'src/app/models/enums/schools';
 import KronoxUser from 'src/app/models/user/kronox_user';
+import { SchoolService } from '../school/school.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,16 +19,34 @@ import KronoxUser from 'src/app/models/user/kronox_user';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<KronoxUser | null>;
   public currentUser: Observable<KronoxUser | null>;
-  public loggedIn: Observable<boolean>
+  public loggedInObserve: Observable<boolean>;
+  private http: HttpClient;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    httpBackend: HttpBackend,
+    private schoolService: SchoolService
+  ) {
+    this.http = new HttpClient(httpBackend);
+
     let storedRefreshToken = localStorage.getItem(StorageKeys.savedUser);
 
     this.currentUserSubject = new BehaviorSubject<KronoxUser | null>(null);
-    this.refresh(storedRefreshToken!)
+    if (storedRefreshToken != null && storedRefreshToken != "undefined") {
+      this.refresh(this.schoolService.currentSchoolValue, storedRefreshToken).subscribe({
+        error: (err) => {
+          console.log(err);
+          this.logout();
+        },
+        next: (value) => {
+          const user = KronoxUser.fromJson(value.body);
+          localStorage.setItem(StorageKeys.savedUser, user.refreshToken);
+          this.currentUserSubject.next(user)
+        }
+      })
+    }
 
     this.currentUser = this.currentUserSubject.asObservable();
-    this.loggedIn = this.currentUser.pipe(
+    this.loggedInObserve = this.currentUserSubject.pipe(
       map((value) => {
         return value != null
       })
@@ -35,56 +57,47 @@ export class AuthService {
     return this.currentUserSubject.value
   }
 
-  async login(username: string, password: string): Promise<KronoxUser | BackendResponse<null>> {
-    const responseHandler = new UserResponseHandler()
-
-    const response$ = this.http.post(
-      Endpoints.debugBaseUrl + Endpoints.login,
-      {
-        username: username,
-        password: password
-      },
-      {
-        observe: "response"
-      }
-    )
-
-    const response = responseHandler.parseLogin(await lastValueFrom(response$))
-
-    if (response.status == BackendResponseStatus.ERROR) {
-      return response as BackendResponse<null>;
-    }
-
-    const user = response.data!
-
-    localStorage.setItem(StorageKeys.savedUser, user.refreshToken);
-    this.currentUserSubject?.next(user);
-    return user;
+  public get loggedIn(): boolean {
+    return this.currentUserSubject.value != null;
   }
 
-  async refresh(refreshToken: string) {
+  login(schoolId: SchoolEnum, username: string, password: string): Observable<HttpResponse<Object>> {
     const responseHandler = new UserResponseHandler()
 
-    const response$ = this.http.get(
+    return this.http.post(
+      Endpoints.debugBaseUrl + Endpoints.login,
+      BodyFields.login(username, password),
+      {
+        observe: "response",
+        params: {
+          [QueryFields.schoolId]: schoolId
+        }
+      }
+    ).pipe(
+      map(value => {
+        if (!value.ok) return value;
+
+        const user = KronoxUser.fromJson(value.body);
+        localStorage.setItem(StorageKeys.savedUser, user.refreshToken);
+        this.currentUserSubject.next(user);
+        return value;
+      })
+    )
+  }
+
+  refresh(schoolId: SchoolEnum, refreshToken: string): Observable<HttpResponse<Object>> {
+    return this.http.get(
       Endpoints.debugBaseUrl + Endpoints.user,
       {
         observe: "response",
         headers: {
           "X-auth-token": refreshToken
+        },
+        params: {
+          [QueryFields.schoolId]: schoolId
         }
       }
     )
-
-    const response = responseHandler.parseLogin(await lastValueFrom(response$))
-
-    if (response.status == BackendResponseStatus.ERROR) {
-      this.logout()
-    }
-
-    const user = response.data!
-
-    localStorage.setItem(StorageKeys.savedUser, user.refreshToken);
-    this.currentUserSubject?.next(user);
   }
 
   logout() {

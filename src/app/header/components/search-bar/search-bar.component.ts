@@ -5,7 +5,7 @@ import { SearchService } from '../../services/search/search.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { ProgrammeResponseHandler } from 'src/app/helpers/backend/response-handlers/ProgrammeResponseHandler';
-import { catchError, EMPTY, firstValueFrom, lastValueFrom, Observable, Subscriber, takeUntil } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, EMPTY, firstValueFrom, lastValueFrom, Observable, Subscriber, takeUntil } from 'rxjs';
 import { BackendResponseStatus } from 'src/app/helpers/backend/BackendResponse';
 import { SchoolService } from 'src/app/shared/services/school/school.service';
 
@@ -22,7 +22,6 @@ export class SearchBarComponent implements OnInit {
   private _expanded: boolean = false;
   private _resultCount?: number;
   private _results?: Programme[];
-  private _searchRequest?: Subscriber<any>;
   loading: boolean = false
 
   constructor(
@@ -77,10 +76,7 @@ export class SearchBarComponent implements OnInit {
     let inputLength = this.searchInputField.nativeElement.value.trim().length;
     if (this.isInputTooShortToTriggerSearch(inputLength)) {
       this.clearSearchResults();
-      if (this._searchRequest != undefined) {
-        this._searchRequest.error()
-        this.loading = false;
-      }
+      this.loading = false;
       return;
     }
 
@@ -94,30 +90,32 @@ export class SearchBarComponent implements OnInit {
 
     this.loading = true;
 
-    const responseHandler = new ProgrammeResponseHandler()
 
-    let o = new Observable(obs => this._searchRequest = obs)
+    const response$ = this.searchService.submitSearchQuery(this.schoolService.currentSchoolValue, this.searchInputField.nativeElement.value.trim())
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+      )
+      .subscribe({
+        error: (err) => {
+          const responseHandler = new ProgrammeResponseHandler();
 
-    const response$ = this.searchService.submitSearchQuery(this.schoolService.currentSchoolValue, this.searchInputField.nativeElement.value.trim()).pipe(
-      takeUntil(o),
-      catchError((err, caught) => {
-        this.loading = false;
-        return EMPTY;
-      })
-    );
-    const response = responseHandler.parseSearchResults(await firstValueFrom(response$));
+          const errResponse = responseHandler.parseSearchError(err);
 
-    if (response.status == BackendResponseStatus.ERROR) {
-      this.matSnackBar.open(this.ts.translate(response.error!.message), this.ts.translate('general.dismiss'), {
-        panelClass: ['snackbar-error']
+          this.matSnackBar.open(this.ts.translate(errResponse.error!.message), this.ts.translate('general.dismiss'), {
+            panelClass: ['snackbar-error']
+          });
+          this.loading = false;
+          return;
+        },
+        next: (value) => {
+          const result = value.body as { count: number, items: Programme[] };
+
+          this._resultCount = result.count;
+          this._results = result.items;
+          this.loading = false;
+        }
       });
-      this.loading = false;
-      return;
-    }
-
-    this._resultCount = response.data!.count;
-    this._results = response.data!.items;
-    this.loading = false;
   }
 
   private textFieldEmpty(): Boolean {

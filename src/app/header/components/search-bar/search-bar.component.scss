@@ -16,8 +16,8 @@
 .divider {
     background-color: clr("onBackground");
 
-    height: 0.05rem;
-    width: 95%;
+    height: 1px;
+    width: calc(100% - 2rem);
 }
 
 .input-row {
@@ -34,20 +34,23 @@
     flex-flow: column nowrap;
     align-items: center;
     justify-content: top;
-    gap: 1rem;
+    padding: 0 1rem;
+
+    gap: 20px;
     width: 100%;
+    max-width: 40rem;
 
     // width: inherit;
     scrollbar-width: thin;
     overflow-y: auto;
 
     h4 {
-        width: 95%;
+        width: 100%;
         text-align: left;
     }
 
     search-result {
-        width: 92%;
+        width: 100%;
     }
 
     ::-webkit-scrollbar {

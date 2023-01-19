@@ -1,0 +1,28 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h4 {
+    margin: 0;
+}
+
+.text-container {
+    flex-grow: 1;
+    padding-right: 0.5rem;
+}
+
+.button-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    width: 28px;
+    height: 28px;
+}

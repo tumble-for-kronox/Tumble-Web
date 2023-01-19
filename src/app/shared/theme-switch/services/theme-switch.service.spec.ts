@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FavouriteService } from './favourite.service';
+import { ThemeSwitchService } from './theme-switch.service';
 
-describe('FavouriteService', () => {
-  let service: FavouriteService;
+describe('ThemeSwitchService', () => {
+  let service: ThemeSwitchService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FavouriteService);
+    service = TestBed.inject(ThemeSwitchService);
   });
 
   it('should be created', () => {

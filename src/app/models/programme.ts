@@ -8,4 +8,8 @@ export default class Programme {
         this.title = title
         this.subtitle = subtitle
     }
+
+    public static fromJson(json: any): Programme {
+        return new Programme(json['id'], json['title'], json['subtitle']);
+    }
 }

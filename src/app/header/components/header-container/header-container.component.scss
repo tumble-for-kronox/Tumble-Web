@@ -20,8 +20,19 @@
     flex-flow: row nowrap;
     align-self: flex-start;
     gap: 1rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.account-and-theme-container {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
 }
 
 search-bar {
-    width: 40rem;
+    width: 100%;
+    max-width: 40rem;
 }

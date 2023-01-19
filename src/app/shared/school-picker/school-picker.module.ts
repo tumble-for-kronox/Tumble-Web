@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SchoolPickerComponent } from './school-picker/school-picker.component';
 import { SchoolOptionComponent } from './school-option/school-option.component';
+import { MatRippleModule } from '@angular/material/core';
 
 
 
@@ -14,7 +15,8 @@ import { SchoolOptionComponent } from './school-option/school-option.component';
     SchoolPickerComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatRippleModule
   ]
 })
 export class SchoolPickerModule { }

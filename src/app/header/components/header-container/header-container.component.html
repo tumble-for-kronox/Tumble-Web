@@ -1,8 +1,13 @@
 <div class="elevated-mid container">
     <header-logo></header-logo>
     <div class="search-and-school-container">
-        <school-picker></school-picker>
+        <div [style.width]="'7rem'">
+            <school-picker></school-picker>
+        </div>
         <search-bar></search-bar>
     </div>
-    <account-btn></account-btn>
+    <div class="account-and-theme-container">
+        <app-theme-switch></app-theme-switch>
+        <account-btn></account-btn>
+    </div>
 </div>

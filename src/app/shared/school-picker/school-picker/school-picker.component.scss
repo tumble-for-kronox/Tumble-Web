@@ -1,10 +1,13 @@
 @use '/src/theme/color.scss' as *;
 
 .container {
-    width: 7rem;
+    width: 100%;
     display: flex;
     flex-flow: column nowrap;
     gap: 1rem;
+
+    position: relative;
+    z-index: 10;
 }
 
 .choice-container {
@@ -22,12 +25,7 @@
     padding: 0.5rem;
 
     &:hover {
-        background-color: clr('onBackground', $alpha: -0.5);
-        cursor: pointer;
-    }
-
-    &:active {
-        background-color: clr('onBackground', $alpha: -0.8);
+        background-color: clr('onBackground', $alpha: -0.7);
         cursor: pointer;
     }
 
@@ -52,5 +50,7 @@
     color: clr('onBackground');
 
     overflow: hidden;
+    max-height: fit-content;
+
     transition: height 150ms ease-out;
 }
