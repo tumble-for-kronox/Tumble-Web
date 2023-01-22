@@ -1,0 +1,11 @@
+import { Component, Input } from '@angular/core';
+import { Week } from 'src/app/models/web/week';
+
+@Component({
+  selector: 'list-week-item',
+  templateUrl: './week-item.component.html',
+  styleUrls: ['./week-item.component.scss']
+})
+export class WeekItemComponent {
+  @Input() week!: Week
+}

@@ -8,7 +8,7 @@ export default class Endpoints {
      * Requires scheduleId path parameter.
      * Requires schoolId query field. Optional sessionToken & startDate
      * */
-    static getSchedule = (scheduleId: string) => `/schedules/${scheduleId}`;
+    static getSchedule = `/schedules/multi`;
 
 
     /* ----------------------- Search endpoints ----------------------- */

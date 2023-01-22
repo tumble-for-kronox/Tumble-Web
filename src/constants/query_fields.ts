@@ -6,4 +6,6 @@ export default class QueryFields {
     static startDate = 'startDate'
 
     static searchQuery = 'searchQuery'
+
+    static scheduleIds = 'scheduleIds'
 }

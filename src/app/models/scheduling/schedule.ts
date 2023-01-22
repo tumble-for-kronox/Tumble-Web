@@ -2,16 +2,16 @@ import Day from "./day"
 
 export default class Schedule {
     cachedAt: Date
-    id: string
+    ids: string[]
     days: Day[]
 
     constructor(
         cachedAt: Date,
-        id: string,
+        ids: string[],
         days: Day[],
     ) {
         this.cachedAt = cachedAt
-        this.id = id
+        this.ids = ids
         this.days = days
     }
 }

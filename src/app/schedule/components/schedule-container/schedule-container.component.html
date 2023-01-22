@@ -1,0 +1,37 @@
+<div class="container">
+    <schedule-temp-reset *ngIf="isTempMode | async"></schedule-temp-reset>
+    <div class="loading-container" *ngIf="isLoading">
+        <div class="text">
+            <h1>Hang on!</h1>
+            <h2>We're working as fast as we can</h2>
+        </div>
+        <div class="cardList">
+            <div class="card">
+                <div class="image"></div>
+            </div>
+
+            <div class="card">
+                <div class="image"></div>
+            </div>
+            <div class="card">
+                <div class="image"></div>
+            </div>
+            <div class="card">
+                <div class="image"></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="nothing-chosen-container" *ngIf="loadedSchedule.value == null">
+        <h1>Seems empty...</h1>
+        <h2>Give searching a try at the top of the page or maybe you just need to un-hide some of your bookmarks over
+            on the left</h2>
+    </div>
+    <div class="nothing-chosen-container" *ngIf="isEmptySchedule">
+        <h1>Oh no!</h1>
+        <h2>Seems you found an empty schedule, some of those hang around in KronoX's system</h2>
+    </div>
+    <div class="schedule-view" *ngIf="loadedSchedule.value != null && !isLoading">
+        <schedule-list-view-container [currentSchedule]="loadedSchedule.asObservable()"></schedule-list-view-container>
+    </div>
+</div>

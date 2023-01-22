@@ -1,3 +1,5 @@
+import Event from "./event"
+
 export default class Day {
     name: string
     date: string

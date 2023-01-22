@@ -10,8 +10,9 @@ import { MAT_LEGACY_SNACK_BAR_DEFAULT_OPTIONS as MAT_SNACK_BAR_DEFAULT_OPTIONS }
 import { TranslocoRootModule } from './transloco-root.module';
 import { HeaderModule } from './header/header.module';
 import { AuthHeaderInterceptor } from './helpers/interceptors/auth-header-interceptor/auth-header.interceptor';
-import { SideBarModule } from './side-bar/side-bar.module';
 import { ScheduleModule } from './schedule/schedule.module';
+import { BodyModule } from './body/body.module';
+import { SideBarModule } from './body/side-bar/side-bar.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ScheduleModule } from './schedule/schedule.module';
     TranslocoRootModule,
     HeaderModule,
     SideBarModule,
-    ScheduleModule
+    ScheduleModule,
+    BodyModule
   ],
   providers: [
     {

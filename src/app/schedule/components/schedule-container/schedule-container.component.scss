@@ -1,0 +1,112 @@
+@use '/src/theme/color.scss' as *;
+
+.container {
+    width: 100%;
+    height: 100%;
+
+    padding: 2rem;
+    padding-right: 0;
+
+    color: clr('onBackground');
+}
+
+.schedule-view {
+    height: 100%;
+    width: 100%;
+}
+
+.loading-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    gap: 1rem;
+
+    .text {
+        max-width: 40rem;
+        width: 100%;
+    }
+
+    h1 {
+        width: 100%;
+        font-size: 54px;
+        line-height: normal;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    h2 {
+        width: 100%;
+        font-size: 42;
+        line-height: normal;
+        margin: 0;
+    }
+
+    &::ng-deep circle {
+        stroke: clr("onBackground") !important;
+    }
+
+    .cardList {
+        max-width: 40rem;
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 1rem;
+    }
+
+    .card {
+        .image {
+            background: clr('onBackground', $alpha: -0.9);
+            background: linear-gradient(110deg, clr('onBackground', $alpha: -0.9) 8%, clr('onBackground', $alpha: -0.85) 18%, clr('onBackground', $alpha: -0.9) 33%);
+            border-radius: 10px;
+            background-size: 200% 100%;
+            animation: 1.5s loading linear infinite;
+        }
+
+        .image {
+            height: 200px;
+        }
+
+        p {
+            height: 70px;
+        }
+    }
+
+    @keyframes loading {
+        to {
+            background-position-x: -200%;
+        }
+    }
+}
+
+.nothing-chosen-container {
+
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    h1 {
+        max-width: 40rem;
+        width: 100%;
+        font-size: 54px;
+        line-height: normal;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    h2 {
+        max-width: 40rem;
+        width: 100%;
+        font-size: 42;
+        line-height: normal;
+        margin: 0;
+    }
+}

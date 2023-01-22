@@ -72,6 +72,13 @@ export class SearchBarComponent implements OnInit {
     this.clearSearchResults();
   }
 
+  onScheduleSelected() {
+    this.searchInputField.nativeElement.blur()
+    this.searchInputField.nativeElement.value = ''
+    this._expanded = false;
+    this.clearSearchResults()
+  }
+
   dynamicSearch() {
     let inputLength = this.searchInputField.nativeElement.value.trim().length;
     if (this.isInputTooShortToTriggerSearch(inputLength)) {
@@ -90,8 +97,7 @@ export class SearchBarComponent implements OnInit {
 
     this.loading = true;
 
-
-    const response$ = this.searchService.submitSearchQuery(this.schoolService.currentSchoolValue, this.searchInputField.nativeElement.value.trim())
+    this.searchService.submitSearchQuery(this.schoolService.currentSchoolValue, this.searchInputField.nativeElement.value.trim())
       .pipe(
         debounceTime(1000),
         distinctUntilChanged(),
@@ -106,7 +112,6 @@ export class SearchBarComponent implements OnInit {
             panelClass: ['snackbar-error']
           });
           this.loading = false;
-          return;
         },
         next: (value) => {
           const result = value.body as { count: number, items: Programme[] };

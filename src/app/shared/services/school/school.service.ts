@@ -19,7 +19,7 @@ export class SchoolService {
       new BehaviorSubject<SchoolEnum>(parseInt(storedSchool!) as SchoolEnum)
 
     this.currentSchool = this.currentSchoolSubject.asObservable();
-    this.schoolChosen = this.currentSchool.pipe(
+    this.schoolChosen = this.currentSchoolSubject.pipe(
       map(value => {
         console.log(`SCHOOL CHOSEN UPDATED TO: ${value != SchoolEnum.NONE}`)
         return value != SchoolEnum.NONE

@@ -20,6 +20,7 @@
     </div>
     <div *ngIf="this.results" class="results-container">
         <h4>{{t('site-header.search-bar.results', { count: this.resultCount })}}</h4>
-        <search-result *ngFor="let item of this.results" [programme]="item"></search-result>
+        <search-result *ngFor="let item of this.results" [programme]="item"
+            (selectedScheduleEvent)="onScheduleSelected()"></search-result>
     </div>
 </div>

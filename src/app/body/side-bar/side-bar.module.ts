@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SideBarContainerComponent } from './components/side-bar-container/side-bar-container.component';
 import { BookmarksContainerComponent } from './components/bookmarks-container/bookmarks-container.component';
-import { SharedModule } from '../shared/shared.module';
 import { TranslocoModule } from '@ngneat/transloco';
 import { BookmarkItemComponent } from './components/bookmark-item/bookmark-item.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatIconButtonSizesModule } from 'mat-icon-button-sizes';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -23,7 +23,8 @@ import { MatIconButtonSizesModule } from 'mat-icon-button-sizes';
     TranslocoModule,
     MatButtonModule,
     MatIconModule,
-    MatIconButtonSizesModule
+    MatIconButtonSizesModule,
+
   ],
   exports: [
     SideBarContainerComponent

@@ -2,11 +2,7 @@
     <app-header-container></app-header-container>
 </header>
 
-<div class="side-bar-body-grid-container" [ngClass]="expandedSideBar ? '' : 'collapsed'">
-    <app-side-bar-container (expandedEvent)="toggleExpandedSideBar()" [expanded]="expandedSideBar"
-        id="side-bar"></app-side-bar-container>
-    <router-outlet id="site-body"></router-outlet>
-</div>
+<router-outlet></router-outlet>
 
 <footer>
 

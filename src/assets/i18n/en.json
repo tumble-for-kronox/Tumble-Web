@@ -28,18 +28,26 @@
         "username-placeholder": "name@domain.com",
         "password-placeholder": "Password"
     },
+    "schedule": {
+        "reset-btn": "Reset schedule"
+    },
     "errors": {
         "timeout": "Connecting to the server timed out",
         "500": "Something went wrong, try again later",
         "search": {
             "400": "Something went wrong, try again later",
-            "401": "You were not authorized correctly. Logout and back in or try again later"
+            "401": "Something went wrong when authorizing you"
         },
         "login": {
             "empty-fields": "Username and password must be filled",
             "no-school": "You must choose a school to login to",
             "401": "Incorrect username or password",
             "404": "Incorrect username or password"
+        },
+        "schedules": {
+            "400": "Something went wrong, try again later",
+            "401": "Something went wrong when authorizing you",
+            "404": "Schedule could not be found"
         },
         "refresh": "Login failed, you must manually login",
         "events": {}
