@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import Day from 'src/app/models/scheduling/day';
 
@@ -7,5 +8,7 @@ import Day from 'src/app/models/scheduling/day';
   styleUrls: ['./day-item.component.scss']
 })
 export class DayItemComponent {
+  datepipe: DatePipe = new DatePipe('en-US')
+
   @Input() day!: Day
 }

@@ -1,0 +1,6 @@
+<div class="container">
+    <div class="relative-wrapper">
+        <h1>Week {{week.weeknumber}}</h1>
+    </div>
+    <list-day-item *ngFor="let day of week.days" [day]="day"></list-day-item>
+</div>

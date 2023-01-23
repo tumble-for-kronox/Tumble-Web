@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, Observable, Subscription } from 'rxjs';
 import { ScheduleResponseHandler } from 'src/app/helpers/backend/response-handlers/ScheduleResponseHandler';
 import Schedule from 'src/app/models/scheduling/schedule';
 import { SchoolService } from 'src/app/shared/services/school/school.service';
+import { EventDetailsContainerComponent } from '../../event-details/event-details-container/event-details-container.component';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 
 @Component({
@@ -12,6 +13,8 @@ import { ScheduleService } from '../../services/schedule/schedule.service';
   styleUrls: ['./schedule-container.component.scss']
 })
 export class ScheduleContainerComponent {
+  @ViewChild(EventDetailsContainerComponent) eventDetails!: EventDetailsContainerComponent
+
   isTempMode: Observable<boolean>
   isLoading: boolean = false
   error?: string
@@ -47,6 +50,11 @@ export class ScheduleContainerComponent {
     })
 
     // this.loadSchedules(this.scheduleService.currentSchedulesValue)
+  }
+
+  @HostListener('showEventDetails', ['$event'])
+  showEventDetails(event: any) {
+    this.eventDetails.showEventDetails(event)
   }
 
   loadSchedules(scheduleIds: string[]) {

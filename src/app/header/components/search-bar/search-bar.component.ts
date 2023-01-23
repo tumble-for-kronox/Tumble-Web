@@ -1,12 +1,10 @@
-import { Component, ElementRef, Inject, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import Programme from 'src/app/models/programme';
 import { SearchService } from '../../services/search/search.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { ProgrammeResponseHandler } from 'src/app/helpers/backend/response-handlers/ProgrammeResponseHandler';
-import { catchError, debounceTime, distinctUntilChanged, EMPTY, firstValueFrom, lastValueFrom, Observable, Subscriber, takeUntil } from 'rxjs';
-import { BackendResponseStatus } from 'src/app/helpers/backend/BackendResponse';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { SchoolService } from 'src/app/shared/services/school/school.service';
 
 @Component({

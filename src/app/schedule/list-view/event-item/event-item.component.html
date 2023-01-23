@@ -1,0 +1,8 @@
+<div class="container">
+    <h1 class="time-stamp">{{datepipe.transform(event.from, 'HH:mm') + " - " + datepipe.transform(event.to,
+        'HH:mm')}}</h1>
+    <div (click)="showEventDetails($event)" class="event-info elevated-low">
+        <h1 [innerHTML]="event.title"></h1>
+        <h1 class="course-name">{{event.course.englishName}}</h1>
+    </div>
+</div>

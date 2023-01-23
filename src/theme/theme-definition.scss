@@ -90,7 +90,7 @@
         }
 
         @else {
-            background-color: clr("background", $lightness: -15%);
+            background-color: clr("onBackground", $lightness: 62%);
         }
 
         color: clr("onBackground");

@@ -1,0 +1,39 @@
+@use '/src/theme/color.scss' as *;
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+
+    width: 100%;
+}
+
+.time-stamp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-info {
+    display: flex;
+    flex-flow: column nowrap;
+
+    height: 7rem;
+    flex-grow: 1;
+
+    border-radius: 10px;
+
+    background-color: clr('surface');
+    color: clr('onSurface');
+
+    justify-content: space-between;
+
+    padding: 1rem;
+}
+
+h1 {
+    margin: 0;
+}
+
+.course-name {
+    font-weight: 300;
+}

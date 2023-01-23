@@ -4,24 +4,24 @@ import { TempResetComponent } from './components/temp-reset/temp-reset.component
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatIconModule } from '@angular/material/icon';
 import { ScheduleContainerComponent } from './components/schedule-container/schedule-container.component';
-import { WeekViewComponent } from './components/week-view/week-view.component';
-import { ListViewModule } from './components/list-view/list-view.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ListViewModule } from './list-view/list-view.module';
+import { EventDetailsModule } from './event-details/event-details.module';
 
 
 
 @NgModule({
   declarations: [
     TempResetComponent,
-    ScheduleContainerComponent,
-    WeekViewComponent
+    ScheduleContainerComponent
   ],
   imports: [
     CommonModule,
     TranslocoModule,
     MatIconModule,
     ListViewModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    EventDetailsModule
   ],
   exports: [
     ScheduleContainerComponent

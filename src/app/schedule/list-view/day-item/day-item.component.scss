@@ -1,0 +1,20 @@
+@use '/src/theme/color.scss' as *;
+
+.container {
+    margin-bottom: 3rem;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1rem;
+
+    color: clr('onBackground');
+}
+
+h1 {
+    position: relative;
+    margin: 0;
+}
+
+.date-offset {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+}

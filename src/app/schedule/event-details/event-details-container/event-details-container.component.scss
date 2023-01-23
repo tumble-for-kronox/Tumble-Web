@@ -1,0 +1,24 @@
+@use '/src/theme/color.scss' as *;
+
+.container {
+    position: absolute;
+    z-index: 200;
+
+    max-width: 30rem;
+    max-height: 50rem;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+
+    border: 1px solid clr('onBackground', $alpha: -0.6);
+
+    display: flex;
+    flex-flow: column nowrap;
+
+    border-radius: 20px;
+
+    overflow-y: auto;
+
+    background-color: clr('background');
+    color: clr('onSurface');
+}

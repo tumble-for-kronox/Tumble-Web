@@ -4,6 +4,8 @@ import { ListViewContainerComponent } from './list-view-container/list-view-cont
 import { WeekItemComponent } from './week-item/week-item.component';
 import { DayItemComponent } from './day-item/day-item.component';
 import { EventItemComponent } from './event-item/event-item.component';
+import { MatRippleModule } from '@angular/material/core';
+import { EventDetailsModule } from '../event-details/event-details.module';
 
 
 
@@ -15,7 +17,9 @@ import { EventItemComponent } from './event-item/event-item.component';
     EventItemComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatRippleModule,
+    EventDetailsModule
   ],
   exports: [
     ListViewContainerComponent

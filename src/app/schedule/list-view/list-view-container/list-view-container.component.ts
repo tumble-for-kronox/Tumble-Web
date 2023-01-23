@@ -25,6 +25,8 @@ export class ListViewContainerComponent {
     const weekMappedDays = new Map<number, Day[]>()
 
     for (const day of schedule.days) {
+      if (day.events.length <= 0) continue;
+
       if (weekMappedDays.has(day.weekNumber)) {
         weekMappedDays.set(day.weekNumber, [...weekMappedDays.get(day.weekNumber)!, day])
         continue
