@@ -73,6 +73,7 @@ export class ScheduleContainerComponent {
       },
       next: (value) => {
         const scheduleResult = value.body as Schedule
+        console.log(scheduleResult)
 
         this.loadedSchedule.next(scheduleResult)
 

@@ -6,6 +6,7 @@ import { DayItemComponent } from './day-item/day-item.component';
 import { EventItemComponent } from './event-item/event-item.component';
 import { MatRippleModule } from '@angular/material/core';
 import { EventDetailsModule } from '../event-details/event-details.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -19,7 +20,8 @@ import { EventDetailsModule } from '../event-details/event-details.module';
   imports: [
     CommonModule,
     MatRippleModule,
-    EventDetailsModule
+    EventDetailsModule,
+    SharedModule
   ],
   exports: [
     ListViewContainerComponent

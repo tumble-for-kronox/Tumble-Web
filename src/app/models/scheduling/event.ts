@@ -1,4 +1,4 @@
-import { Course, Teacher } from "./misc"
+import { Course, Teacher, Location } from "./misc"
 
 export default class Event {
     id: string

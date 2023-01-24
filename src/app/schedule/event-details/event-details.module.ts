@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventDetailsContainerComponent } from './event-details-container/event-details-container.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -9,7 +12,10 @@ import { EventDetailsContainerComponent } from './event-details-container/event-
     EventDetailsContainerComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    SharedModule
   ],
   exports: [
     EventDetailsContainerComponent

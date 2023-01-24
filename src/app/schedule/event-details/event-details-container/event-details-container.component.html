@@ -1,4 +1,21 @@
-<div #detailsContainer [ngStyle]="{'display': isShown ? 'inherit' : 'none', 'top.px': currentY, 'left.px': currentX}"
-    class="container">
-    <h1>Details</h1>
+<div #detailsContainer *ngIf="isShown" [ngStyle]="{'top.px': currentY, 'left.px': currentX}" class="container">
+    <div class="header-row">
+        <h1>Details</h1>
+        <button (click)="closeEventDetails()" mat-icon-button>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <div class="details-body">
+        <h1 id="event-title" [innerHTML]="event!.title"></h1>
+        <h2>Date</h2>
+        <h3>{{datepipe.transform(event!.from, 'dd MMMM yyyy')}}</h3>
+        <h2>Time</h2>
+        <h3>{{datepipe.transform(event!.from, 'HH:mm') + " - " + datepipe.transform(event!.to, "HH:mm")}}</h3>
+        <h2>Location</h2>
+        <h3>{{locationStrings!|join:', '}}</h3>
+        <h2>Course</h2>
+        <h3>{{event!.course.swedishName}}</h3>
+        <h2>Teachers</h2>
+        <h3>{{teacherStrings!|join:', '}}</h3>
+    </div>
 </div>

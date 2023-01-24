@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FavouriteModule } from './favourite/favourite.module';
 import { SchoolPickerModule } from './school-picker/school-picker.module';
 import { ThemeSwitchModule } from './theme-switch/theme-switch.module';
+import { JoinPipe } from './pipes/join.pipe';
 
 
 
@@ -10,7 +11,11 @@ import { ThemeSwitchModule } from './theme-switch/theme-switch.module';
   exports: [
     FavouriteModule,
     SchoolPickerModule,
-    ThemeSwitchModule
+    ThemeSwitchModule,
+    JoinPipe
+  ],
+  declarations: [
+    JoinPipe
   ],
   imports: [
     CommonModule,

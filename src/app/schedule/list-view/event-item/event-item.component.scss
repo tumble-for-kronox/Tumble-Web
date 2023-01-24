@@ -15,7 +15,8 @@
 
 .event-info {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
+    min-width: 0;
 
     height: 7rem;
     flex-grow: 1;
@@ -28,6 +29,28 @@
     justify-content: space-between;
 
     padding: 1rem;
+}
+
+.title-course {
+    width: 70%;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+
+    h1 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+.locations {
+    max-width: 30%;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
 }
 
 h1 {
