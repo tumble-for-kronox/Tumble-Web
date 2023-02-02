@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import StorageKeys from '@constants/storage_keys';
+import StorageKeys from 'src/app/config/constants/storage_keys';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Theme } from 'src/app/models/web/themes';
 

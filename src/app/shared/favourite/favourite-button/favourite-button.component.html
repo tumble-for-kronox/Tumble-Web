@@ -1,4 +1,4 @@
-<button mat-icon-button (click)="toggleBookmarked()" class="mat-medium-icon-button">
+<button mat-icon-button (click)="toggleBookmarked(); $event.stopPropagation()" class="mat-medium-icon-button">
     <mat-icon class="material-symbols" *ngIf="isBookmarked | async" id="bookmarked">bookmark</mat-icon>
     <mat-icon class="material-symbols-outlined" *ngIf="!(isBookmarked | async)">bookmark</mat-icon>
 </button>

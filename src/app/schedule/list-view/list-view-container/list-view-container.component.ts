@@ -11,7 +11,8 @@ import { Week } from 'src/app/models/web/week';
 })
 export class ListViewContainerComponent {
   // This should never be null because of an ngIf check
-  @Input() currentSchedule!: Observable<Schedule | null>
+  @Input() currentSchedule!: Observable<Schedule | null>;
+
   parsedSchedule: Week[] = []
 
   ngOnInit(): void {

@@ -16,7 +16,11 @@
     <div class="divider"></div>
     <div [style.height]="'0.5rem'"></div>
     <div *ngIf="!this.results" class="results-placeholder">
-        <h3>{{t('site-header.search-bar.search-help')}}</h3>
+        <div class="no-school-help" *ngIf="!isSchoolSelected">
+            <h1>{{t('site-header.search-bar.no-school-search-help-title')}}</h1>
+            <h3>{{t('site-header.search-bar.no-school-search-help-body')}}</h3>
+        </div>
+        <h3 *ngIf="isSchoolSelected">{{t('site-header.search-bar.search-help')}}</h3>
     </div>
     <div *ngIf="this.results" class="results-container">
         <h4>{{t('site-header.search-bar.results', { count: this.resultCount })}}</h4>

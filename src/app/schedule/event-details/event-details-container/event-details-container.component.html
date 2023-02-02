@@ -11,8 +11,10 @@
         <h3>{{datepipe.transform(event!.from, 'dd MMMM yyyy')}}</h3>
         <h2>Time</h2>
         <h3>{{datepipe.transform(event!.from, 'HH:mm') + " - " + datepipe.transform(event!.to, "HH:mm")}}</h3>
-        <h2>Location</h2>
-        <h3>{{locationStrings!|join:', '}}</h3>
+        <div *ngIf="locationStrings!.length > 0">
+            <h2>Location</h2>
+            <h3>{{locationStrings!|join:', '}}</h3>
+        </div>
         <h2>Course</h2>
         <h3>{{event!.course.swedishName}}</h3>
         <h2>Teachers</h2>

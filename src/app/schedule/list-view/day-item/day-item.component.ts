@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 import Day from 'src/app/models/scheduling/day';
 
 @Component({

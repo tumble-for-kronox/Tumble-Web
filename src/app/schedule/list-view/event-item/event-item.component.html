@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [style.backgroundColor]="(getEventColor() | async) ?? '#ffffff'">
     <h1 class="time-stamp">{{datepipe.transform(event.from, 'HH:mm') + " - " + datepipe.transform(event.to,
         'HH:mm')}}</h1>
     <div (click)="showEventDetails($event)" class="event-info elevated-low">

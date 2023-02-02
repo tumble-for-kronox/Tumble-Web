@@ -1,18 +1,19 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild, OnDestroy } from '@angular/core';
 import Programme from 'src/app/models/programme';
 import { SearchService } from '../../services/search/search.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { ProgrammeResponseHandler } from 'src/app/helpers/backend/response-handlers/ProgrammeResponseHandler';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { SchoolService } from 'src/app/shared/services/school/school.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, OnDestroy {
 
 
   @ViewChild('inputField') searchInputField!: ElementRef<HTMLInputElement>;
@@ -20,7 +21,9 @@ export class SearchBarComponent implements OnInit {
   private _expanded: boolean = false;
   private _resultCount?: number;
   private _results?: Programme[];
-  loading: boolean = false
+  private _$isSchoolSelected: Subscription
+  loading: boolean = false;
+  isSchoolSelected: boolean = false;
 
   constructor(
     private renderer: Renderer2,
@@ -41,9 +44,17 @@ export class SearchBarComponent implements OnInit {
       this.searchInputField.nativeElement.blur()
       this.expanded = false;
     })
+
+    this._$isSchoolSelected = schoolService.schoolChosen.subscribe(value => {
+      this.isSchoolSelected = value;
+    })
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this._$isSchoolSelected.unsubscribe();
   }
 
   public get expanded(): boolean {
@@ -90,6 +101,10 @@ export class SearchBarComponent implements OnInit {
 
   async search() {
     if (this.textFieldEmpty()) {
+      return;
+    }
+
+    if (!this.isSchoolSelected) {
       return;
     }
 

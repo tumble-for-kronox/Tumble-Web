@@ -5,6 +5,7 @@ import { ScheduleResponseHandler } from 'src/app/helpers/backend/response-handle
 import Schedule from 'src/app/models/scheduling/schedule';
 import { SchoolService } from 'src/app/shared/services/school/school.service';
 import { EventDetailsContainerComponent } from '../../event-details/event-details-container/event-details-container.component';
+import { ColorService } from '../../services/color/color.service';
 import { ScheduleService } from '../../services/schedule/schedule.service';
 
 @Component({
@@ -20,12 +21,15 @@ export class ScheduleContainerComponent {
   error?: string
   loadedSchedule: BehaviorSubject<Schedule | null> = new BehaviorSubject<Schedule | null>(null)
   isEmptySchedule: boolean = false
+  scheduleColors: Observable<Map<string, Map<string, string>>>;
+
   private currentScheduleUpdate?: Subscription
 
   constructor(
     private scheduleService: ScheduleService,
     private ts: TranslocoService,
-    private schoolService: SchoolService
+    private schoolService: SchoolService,
+    private colorService: ColorService
   ) {
     this.isTempMode = this.scheduleService.tempMode
 
@@ -49,7 +53,7 @@ export class ScheduleContainerComponent {
       this.isEmptySchedule = this.scheduleIsEmpty(schedule)
     })
 
-    // this.loadSchedules(this.scheduleService.currentSchedulesValue)
+    this.scheduleColors = this.colorService.currentColors;
   }
 
   @HostListener('showEventDetails', ['$event'])

@@ -59,13 +59,30 @@
 }
 
 .results-placeholder {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 2rem;
 
     h3 {
+        width: 100%;
+        margin-top: 1rem;
         text-align: center;
+    }
+
+    .no-school-help {
+        width: 100%;
+        margin-top: 2rem;
+
+        h1 {
+            width: 100%;
+            text-align: center;
+        }
+
+        h3 {
+            margin-top: 0;
+        }
     }
 }
 

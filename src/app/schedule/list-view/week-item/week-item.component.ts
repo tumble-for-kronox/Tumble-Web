@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Week } from 'src/app/models/web/week';
 
 @Component({

@@ -2,6 +2,7 @@ import { Course, Teacher, Location } from "./misc"
 
 export default class Event {
     id: string
+    scheduleIds: string[]
     title: string
     course: Course
     from: Date
@@ -13,6 +14,7 @@ export default class Event {
 
     constructor(
         id: string,
+        scheduleIds: string[],
         title: string,
         course: Course,
         from: Date,
@@ -23,6 +25,7 @@ export default class Event {
         lastModified: Date,
     ) {
         this.id = id
+        this.scheduleIds = scheduleIds
         this.title = title
         this.course = course
         this.from = from

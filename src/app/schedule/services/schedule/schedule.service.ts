@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import Endpoints from '@constants/endpoints';
-import QueryFields from '@constants/query_fields';
+import Endpoints from 'src/app/config/constants/endpoints';
+import QueryFields from 'src/app/config/constants/query_fields';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { SchoolEnum } from 'src/app/models/enums/schools';
 import Schedule from 'src/app/models/scheduling/schedule';
@@ -60,7 +60,7 @@ export class ScheduleService {
     }
 
     return this.http.get(
-      Endpoints.debugBaseUrl + Endpoints.getSchedule,
+      Endpoints.baseUrl + Endpoints.getSchedule,
       {
         params: params,
         observe: "response",

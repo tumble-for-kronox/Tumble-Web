@@ -1,6 +1,7 @@
+import { environment } from './../../../environments/environment';
+
 export default class Endpoints {
-    static baseUrl = "https://tumble.hkr.se";
-    static debugBaseUrl = "https://localhost:7036";
+    static baseUrl = environment.apiUrl;
 
     /* ---------------------- Schedule endpoints ---------------------- */
 

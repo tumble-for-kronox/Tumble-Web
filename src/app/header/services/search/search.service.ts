@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import Endpoints from '@constants/endpoints';
-import QueryFields from '@constants/query_fields';
+import Endpoints from 'src/app/config/constants/endpoints';
+import QueryFields from 'src/app/config/constants/query_fields';
 import { timeout } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { SchoolEnum } from 'src/app/models/enums/schools';
@@ -20,7 +20,7 @@ export class SearchService {
     })
 
     return this.http.get(
-      Endpoints.debugBaseUrl + Endpoints.search,
+      Endpoints.baseUrl + Endpoints.search,
       {
         params: params,
         observe: 'response',

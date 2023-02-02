@@ -1,9 +1,9 @@
 import { HttpBackend, HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
-import BodyFields from '@constants/body_fields';
-import Endpoints from '@constants/endpoints';
-import QueryFields from '@constants/query_fields';
-import StorageKeys from '@constants/storage_keys';
+import BodyFields from 'src/app/config/constants/body_fields';
+import Endpoints from 'src/app/config/constants/endpoints';
+import QueryFields from 'src/app/config/constants/query_fields';
+import StorageKeys from 'src/app/config/constants/storage_keys';
 import { catchError, EMPTY, lastValueFrom, map } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
@@ -65,7 +65,7 @@ export class AuthService {
     const responseHandler = new UserResponseHandler()
 
     return this.http.post(
-      Endpoints.debugBaseUrl + Endpoints.login,
+      Endpoints.baseUrl + Endpoints.login,
       BodyFields.login(username, password),
       {
         observe: "response",
@@ -87,7 +87,7 @@ export class AuthService {
 
   refresh(schoolId: SchoolEnum, refreshToken: string): Observable<HttpResponse<Object>> {
     return this.http.get(
-      Endpoints.debugBaseUrl + Endpoints.user,
+      Endpoints.baseUrl + Endpoints.user,
       {
         observe: "response",
         headers: {

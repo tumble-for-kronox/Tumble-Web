@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import Programme from 'src/app/models/programme';
+import { ColorService } from 'src/app/schedule/services/color/color.service';
 import { BookmarkService } from '../../services/bookmark/bookmark.service';
 import { SchoolService } from '../../services/school/school.service';
 
@@ -9,12 +10,12 @@ import { SchoolService } from '../../services/school/school.service';
   templateUrl: './favourite-button.component.html',
   styleUrls: ['./favourite-button.component.scss']
 })
-export class FavouriteButtonComponent implements OnInit {
+export class FavouriteButtonComponent implements OnInit, OnDestroy {
   @Input() programme!: Programme;
   isBookmarked$!: Subscription;
   isBookmarked: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private bookmarkService: BookmarkService, private schoolService: SchoolService) { }
+  constructor(private bookmarkService: BookmarkService, private schoolService: SchoolService, private colorService: ColorService) { }
 
   ngOnInit(): void {
     this.isBookmarked$ = this.bookmarkService.isBookmark(this.programme.id).subscribe(value => {
@@ -22,9 +23,14 @@ export class FavouriteButtonComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.isBookmarked$.unsubscribe();
+  }
+
   toggleBookmarked() {
     if (this.isBookmarked.value) {
       this.bookmarkService.deleteBookmark(this.programme.id);
+      this.colorService.removeColors(this.programme.id);
       console.log("Should be false: " + this.isBookmarked.value);
       return;
     }
