@@ -22,10 +22,14 @@
 
         </div>
     </div>
-    <div class="nothing-chosen-container" *ngIf="loadedSchedule.value == null">
+    <div class="nothing-chosen-container" *ngIf="!error && loadedSchedule.value == null">
         <h1>Seems empty...</h1>
         <h2>Give searching a try at the top of the page or maybe you just need to un-hide some of your bookmarks over
             on the left</h2>
+    </div>
+    <div class="nothing-chosen-container" *ngIf="error && loadedSchedule.value == null">
+        <h1>Oh no!</h1>
+        <h2>{{error}}</h2>
     </div>
     <div class="nothing-chosen-container" *ngIf="isEmptySchedule">
         <h1>Oh no!</h1>

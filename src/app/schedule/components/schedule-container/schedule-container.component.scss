@@ -13,12 +13,14 @@
 }
 
 .loading-container {
+    margin-top: 2rem;
+
     height: 100%;
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     overflow: hidden;
 
     gap: 1rem;

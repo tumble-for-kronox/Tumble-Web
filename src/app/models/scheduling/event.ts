@@ -35,4 +35,19 @@ export default class Event {
         this.isSpecial = isSpecial
         this.lastModified = lastModified
     }
+
+    static fromJson(json: any): Event {
+        return new Event(
+            json['id'],
+            json['scheduleIds'],
+            json['title'],
+            Course.fromJson(json['course']),
+            new Date(json['from']),
+            new Date(json['to']),
+            json['locations'].map((value: any) => Location.fromJson(value)),
+            json['teachers'].map((value: any) => Teacher.fromJson(value)),
+            json['isSpecial'],
+            new Date(json['lastModified'])
+        )
+    }
 }

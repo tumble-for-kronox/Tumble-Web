@@ -20,4 +20,14 @@ export default class Day {
         this.weekNumber = weekNumber
         this.events = events
     }
+
+    static fromJson(json: any): Day {
+        return new Day(
+            json['name'],
+            json['date'],
+            new Date(json['isoString']),
+            json['weekNummber'],
+            json['events'].map((value: any) => Event.fromJson(value))
+        )
+    }
 }

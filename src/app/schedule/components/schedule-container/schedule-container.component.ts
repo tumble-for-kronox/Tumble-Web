@@ -21,15 +21,13 @@ export class ScheduleContainerComponent {
   error?: string
   loadedSchedule: BehaviorSubject<Schedule | null> = new BehaviorSubject<Schedule | null>(null)
   isEmptySchedule: boolean = false
-  scheduleColors: Observable<Map<string, Map<string, string>>>;
 
   private currentScheduleUpdate?: Subscription
 
   constructor(
     private scheduleService: ScheduleService,
     private ts: TranslocoService,
-    private schoolService: SchoolService,
-    private colorService: ColorService
+    private schoolService: SchoolService
   ) {
     this.isTempMode = this.scheduleService.tempMode
 
@@ -52,8 +50,6 @@ export class ScheduleContainerComponent {
 
       this.isEmptySchedule = this.scheduleIsEmpty(schedule)
     })
-
-    this.scheduleColors = this.colorService.currentColors;
   }
 
   @HostListener('showEventDetails', ['$event'])
@@ -72,11 +68,11 @@ export class ScheduleContainerComponent {
 
         this.loadedSchedule.next(null)
         this.error = this.ts.translate(errResponse.error!.message)
-
+        console.log(this.error);
         this.isLoading = false
       },
       next: (value) => {
-        const scheduleResult = value.body as Schedule
+        const scheduleResult = Schedule.fromJson(value.body)
         console.log(scheduleResult)
 
         this.loadedSchedule.next(scheduleResult)

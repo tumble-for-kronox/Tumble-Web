@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, ElementRef, EventEmitter, Input, Output, Self, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import Event from 'src/app/models/scheduling/event';
+import { BookmarkService } from 'src/app/shared/services/bookmark/bookmark.service';
 import { EventDetailsContainerComponent } from '../../event-details/event-details-container/event-details-container.component';
 import { ColorService } from '../../services/color/color.service';
 
@@ -36,34 +37,18 @@ export class EventItemComponent implements OnInit {
   }
 
   getEventColor(): Observable<string | undefined> {
-    
-
-
     return this.colorService.currentColors.pipe(
       map(value => {
-        let color = undefined;
-        let foundScheduleId = undefined;
-
-        for (const eventScheduleId of this.event.scheduleIds) {
-          if (!value.has(eventScheduleId)) continue;
-
-          if (!value.get(eventScheduleId)!.has(this.event.course.id)) continue;
-
-          color = value.get(eventScheduleId)?.get(this.event.course.id);
-          foundScheduleId = eventScheduleId;
-          break;
-        }
-
-        if (!foundScheduleId) {
-          foundScheduleId = this.event.scheduleIds[0]
-        }
+        let color = value.get(this.event.course.id);
 
         if (!color) {
           color = this.colorService.randomColor();
-          this.colorService.updateSingleColor(foundScheduleId, this.event.course.id, color);
+          this.colorService.updateSingleColor(this.event.course.id, color);
         }
 
-        console.log(color)
+        if (this.event.isSpecial) {
+          color = this.colorService.specialEventColor;
+        }
 
         return color;
       })

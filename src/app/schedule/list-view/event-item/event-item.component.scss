@@ -28,6 +28,8 @@
 
     justify-content: space-between;
 
+    border-left: 10px solid #fff;
+
     padding: 1rem;
 }
 
@@ -45,12 +47,19 @@
     }
 }
 
-.locations {
+.special-locations {
     max-width: 30%;
     height: 100%;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    h1 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 }
 
 h1 {

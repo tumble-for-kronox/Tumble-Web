@@ -1,9 +1,18 @@
-<div #detailsContainer *ngIf="isShown" [ngStyle]="{'top.px': currentY, 'left.px': currentX}" class="container">
-    <div class="header-row">
+<div #detailsContainer *ngIf="isShown"
+    [ngStyle]="{'top.px': currentY, 'left.px': currentX, visibility: inVisibilityTransition ? 'hidden' : 'visible'}"
+    class="container">
+    <div class="header-row" [style.borderTopColor]="getEventColor() ?? '#ffffff'">
         <h1>Details</h1>
         <button (click)="closeEventDetails()" mat-icon-button>
             <mat-icon>close</mat-icon>
         </button>
+    </div>
+    <div class="pill-row-container">
+        <div class="options-pill" [colorPicker]="getCourseColor() ?? '#ffffff'" cpAlphaChannel="disabled"
+            cpOutputFormat="hex" (colorPickerChange)="updateEventColor($event)">
+            <mat-icon class="material-symbols-outlined">palette</mat-icon>
+            <p>Color</p>
+        </div>
     </div>
     <div class="details-body">
         <h1 id="event-title" [innerHTML]="event!.title"></h1>
@@ -19,5 +28,7 @@
         <h3>{{event!.course.swedishName}}</h3>
         <h2>Teachers</h2>
         <h3>{{teacherStrings!|join:', '}}</h3>
+        <h2>From schedule</h2>
+        <h3>{{fromSchedules!|join:', '}}</h3>
     </div>
 </div>

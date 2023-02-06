@@ -28,6 +28,9 @@ export class ListViewContainerComponent {
     for (const day of schedule.days) {
       if (day.events.length <= 0) continue;
 
+      const today = new Date()
+      if (!this._isDateDaySameOrAfter(day.isoString, today)) continue;
+
       if (weekMappedDays.has(day.weekNumber)) {
         weekMappedDays.set(day.weekNumber, [...weekMappedDays.get(day.weekNumber)!, day])
         continue
@@ -39,5 +42,9 @@ export class ListViewContainerComponent {
     return [...weekMappedDays.entries()].map(entry => {
       return new Week(entry[0], entry[1])
     })
+  }
+
+  private _isDateDaySameOrAfter(date1: Date, date2: Date): boolean {
+    return date1 >= date2
   }
 }

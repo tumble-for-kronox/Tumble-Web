@@ -7,6 +7,7 @@ import { EventItemComponent } from './event-item/event-item.component';
 import { MatRippleModule } from '@angular/material/core';
 import { EventDetailsModule } from '../event-details/event-details.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -21,7 +22,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     MatRippleModule,
     EventDetailsModule,
-    SharedModule
+    SharedModule,
+    MatIconModule
   ],
   exports: [
     ListViewContainerComponent

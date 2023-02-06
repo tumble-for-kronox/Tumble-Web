@@ -4,6 +4,7 @@ import { EventDetailsContainerComponent } from './event-details-container/event-
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 
 
@@ -15,7 +16,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    SharedModule
+    SharedModule,
+    ColorPickerModule
   ],
   exports: [
     EventDetailsContainerComponent
