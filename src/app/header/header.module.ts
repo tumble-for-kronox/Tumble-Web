@@ -16,8 +16,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '../shared/shared.module';
-import { SchoolPickerComponent } from '../shared/school-picker/school-picker/school-picker.component';
 import { MatRippleModule } from '@angular/material/core';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   exports: [
@@ -43,7 +43,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatInputModule,
     SharedModule,
     MatSelectModule,
-    MatRippleModule
+    MatRippleModule,
+    LayoutModule
   ]
 })
 export class HeaderModule { }

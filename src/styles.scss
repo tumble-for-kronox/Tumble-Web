@@ -32,6 +32,7 @@ $my-theme: mat.define-light-theme((color: (primary: $my-primary,
 
 
 @import "../node_modules/mat-icon-button-sizes/styles/mat-icon-button-sizes";
+@import "../node_modules/hamburgers/dist/hamburgers.css";
 
 @include MatIconButtonSize('medium', 48px, 32px);
 @include MatIconButtonSize('small-ratio', 28px, 24px);

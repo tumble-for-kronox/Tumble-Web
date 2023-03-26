@@ -28,7 +28,7 @@ import { SideBarModule } from './body/side-bar/side-bar.module';
     HeaderModule,
     SideBarModule,
     ScheduleModule,
-    BodyModule
+    BodyModule,
   ],
   providers: [
     {

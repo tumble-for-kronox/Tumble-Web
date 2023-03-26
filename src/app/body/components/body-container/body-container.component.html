@@ -1,5 +1,6 @@
 <div class="side-bar-body-grid-container" [ngClass]="expandedSideBar ? '' : 'collapsed'">
-    <app-side-bar-container (expandedEvent)="toggleExpandedSideBar()" [expanded]="expandedSideBar"
-        id="side-bar"></app-side-bar-container>
-    <app-schedule-container></app-schedule-container>
+    <app-side-bar-container *ngIf="expandedSideBar" id="side-bar"></app-side-bar-container>
+    <div id="main-body">
+        <router-outlet></router-outlet>
+    </div>
 </div>

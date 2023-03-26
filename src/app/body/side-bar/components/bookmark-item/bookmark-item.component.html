@@ -1,6 +1,6 @@
 <div class="container">
     <div class="text-container">
-        <h4>{{bookmark.programme.title}}</h4>
+        <h4 [title]="bookmark.programme.title">{{bookmark.programme.title}}</h4>
     </div>
     <div class="button-container">
         <button (click)="toggleVisible()" mat-icon-button class="mat-small-ratio-icon-button">

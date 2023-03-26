@@ -1,12 +1,19 @@
 <div class="elevated-mid container">
-    <header-logo></header-logo>
-    <div class="search-and-school-container">
+    <header-logo *ngIf="showLargeSearch"></header-logo>
+    <div *ngIf="showLargeSearch" class="search-and-school-container">
         <div [style.width]="'7rem'">
             <school-picker></school-picker>
         </div>
-        <search-bar></search-bar>
+        <search-bar id="large-search-bar"></search-bar>
     </div>
+    <button (click)="toggleExpandedSidebar()" *ngIf="showSmallSearch" [ngClass]="expandedSideBar ? 'is-active' : ''"
+        class="hamburger hamburger--squeeze" type="button">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
     <div class="account-and-theme-container">
+        <search-bar *ngIf="showSmallSearch" id="small-search-bar" [minimized]="true"></search-bar>
         <app-theme-switch></app-theme-switch>
         <account-btn></account-btn>
     </div>

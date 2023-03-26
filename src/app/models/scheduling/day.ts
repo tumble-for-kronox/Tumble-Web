@@ -26,7 +26,7 @@ export default class Day {
             json['name'],
             json['date'],
             new Date(json['isoString']),
-            json['weekNummber'],
+            json['weekNumber'],
             json['events'].map((value: any) => Event.fromJson(value))
         )
     }

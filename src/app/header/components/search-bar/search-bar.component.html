@@ -1,30 +1,68 @@
-<div *transloco="let t" class="clr-search-bar container" [style.height]="this.expanded ? '25rem' : '3rem'"
-    #searchContainer>
-    <div class="input-row">
-        <button mat-icon-button (click)="this.search()" [disabled]="this.loading">
-            <mat-icon *ngIf="!this.loading">search</mat-icon>
-            <mat-icon class="search-bar-loading" *ngIf="this.loading">
-                <mat-spinner diameter="22"></mat-spinner>
-            </mat-icon>
-        </button>
-        <input #inputField (input)="this.dynamicSearch()" (keyup.enter)="this.search()" type="search"
-            [placeholder]="t('site-header.search-bar.placeholder')" (focus)="this.expanded = true">
-        <button mat-icon-button *ngIf="this.expanded" (click)="this.clearSearchInput()">
-            <mat-icon>cancel</mat-icon>
-        </button>
-    </div>
-    <div class="divider"></div>
-    <div [style.height]="'0.5rem'"></div>
-    <div *ngIf="!this.results" class="results-placeholder">
-        <div class="no-school-help" *ngIf="!isSchoolSelected">
-            <h1>{{t('site-header.search-bar.no-school-search-help-title')}}</h1>
-            <h3>{{t('site-header.search-bar.no-school-search-help-body')}}</h3>
+<div *ngIf="!minimized">
+    <div *transloco="let t" class="clr-search-bar container" [style.height]="this.expanded ? '25rem' : '3rem'"
+        #searchContainer>
+        <div class="input-row">
+            <button mat-icon-button (click)="this.search()" [disabled]="this.loading">
+                <mat-icon *ngIf="!this.loading">search</mat-icon>
+                <mat-icon class="search-bar-loading" *ngIf="this.loading">
+                    <mat-spinner diameter="22"></mat-spinner>
+                </mat-icon>
+            </button>
+            <input #inputField (input)="this.dynamicSearch()" (keyup.enter)="this.search()" type="search"
+                [placeholder]="t('site-header.search-bar.placeholder')" (focus)="this.expanded = true">
+            <button mat-icon-button *ngIf="this.expanded" (click)="this.clearSearchInput()">
+                <mat-icon>cancel</mat-icon>
+            </button>
         </div>
-        <h3 *ngIf="isSchoolSelected">{{t('site-header.search-bar.search-help')}}</h3>
+        <div class="divider"></div>
+        <div [style.height]="'0.5rem'"></div>
+        <div *ngIf="!this.results" class="results-placeholder">
+            <div class="no-school-help" *ngIf="!isSchoolSelected">
+                <h1>{{t('site-header.search-bar.no-school-search-help-title')}}</h1>
+                <h3>{{t('site-header.search-bar.no-school-search-help-body')}}</h3>
+            </div>
+            <h3 *ngIf="isSchoolSelected">{{t('site-header.search-bar.search-help')}}</h3>
+        </div>
+        <div *ngIf="this.results" class="results-container">
+            <h4>{{t('site-header.search-bar.results', { count: this.resultCount })}}</h4>
+            <search-result *ngFor="let item of this.results" [programme]="item"
+                (selectedScheduleEvent)="onScheduleSelected()"></search-result>
+        </div>
     </div>
-    <div *ngIf="this.results" class="results-container">
-        <h4>{{t('site-header.search-bar.results', { count: this.resultCount })}}</h4>
-        <search-result *ngFor="let item of this.results" [programme]="item"
-            (selectedScheduleEvent)="onScheduleSelected()"></search-result>
+</div>
+<div *ngIf="minimized">
+    <button mat-icon-button (click)="openMinimizedSearch()">
+        <mat-icon>search</mat-icon>
+    </button>
+    <div *ngIf="this.expanded" class="search-overlay">
+        <div *transloco="let t" class="clr-search-bar container" #searchContainer>
+            <div class="input-row">
+                <button mat-icon-button (click)="this.search()" [disabled]="this.loading">
+                    <mat-icon *ngIf="!this.loading">search</mat-icon>
+                    <mat-icon class="search-bar-loading" *ngIf="this.loading">
+                        <mat-spinner diameter="22"></mat-spinner>
+                    </mat-icon>
+                </button>
+                <input #inputField (input)="this.dynamicSearch()" type="search"
+                    [placeholder]="t('site-header.search-bar.placeholder')">
+                <button mat-icon-button (click)="this.clearSearchInput()">
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </div>
+            <div class="divider"></div>
+            <div [style.height]="'0.5rem'"></div>
+            <div *ngIf="!this.results" class="results-placeholder">
+                <div class="no-school-help" *ngIf="!isSchoolSelected">
+                    <h1>{{t('site-header.search-bar.no-school-search-help-title')}}</h1>
+                    <h3>{{t('site-header.search-bar.no-school-search-help-body')}}</h3>
+                </div>
+                <h3 *ngIf="isSchoolSelected">{{t('site-header.search-bar.search-help')}}</h3>
+            </div>
+            <div *ngIf="this.results" class="results-container">
+                <h4>{{t('site-header.search-bar.results', { count: this.resultCount })}}</h4>
+                <search-result *ngFor="let item of this.results" [programme]="item"
+                    (selectedScheduleEvent)="onScheduleSelected()"></search-result>
+            </div>
+        </div>
     </div>
 </div>

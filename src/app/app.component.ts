@@ -1,3 +1,4 @@
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, InjectionToken, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Theme } from './models/web/themes';
@@ -8,18 +9,30 @@ import { ThemeSwitchService } from './shared/theme-switch/services/theme-switch.
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'tumbleWeb';
-  expandedSideBar: boolean = true;
+  expandedSideBar!: boolean;
   private theme$: Subscription
 
   constructor(
-    private themeService: ThemeSwitchService
+    private themeService: ThemeSwitchService,
+    private breakpointObserver: BreakpointObserver
   ) {
     this.theme$ = this.themeService.currentTheme.subscribe(theme => {
       this.changeBodyTheme(theme);
     });
   }
+
+  ngOnInit(): void {
+    this.breakpointObserver.observe(['(max-width: 800px)']).subscribe((state: BreakpointState) => {
+      if (state.matches) {
+        this.expandedSideBar = false
+      } else {
+        this.expandedSideBar = true
+      }
+    })
+  }
+
   ngOnDestroy(): void {
     this.theme$.unsubscribe();
   }

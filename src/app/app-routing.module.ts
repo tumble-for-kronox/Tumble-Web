@@ -4,7 +4,7 @@ import { BodyContainerComponent } from './body/components/body-container/body-co
 import { ScheduleContainerComponent } from './schedule/components/schedule-container/schedule-container.component';
 
 const routes: Routes = [
-  { path: "", component: BodyContainerComponent }
+  { path: "", component: ScheduleContainerComponent }
 ];
 
 @NgModule({

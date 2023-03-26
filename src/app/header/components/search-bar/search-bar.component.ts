@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild, OnDestroy, Input } from '@angular/core';
 import Programme from 'src/app/models/programme';
 import { SearchService } from '../../services/search/search.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -6,7 +6,6 @@ import { TranslocoService } from '@ngneat/transloco';
 import { ProgrammeResponseHandler } from 'src/app/helpers/backend/response-handlers/ProgrammeResponseHandler';
 import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { SchoolService } from 'src/app/shared/services/school/school.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'search-bar',
@@ -14,11 +13,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
-
-
   @ViewChild('inputField') searchInputField!: ElementRef<HTMLInputElement>;
   @ViewChild('searchContainer') searchContainer!: ElementRef;
-  private _expanded: boolean = false;
+
+  @Input() minimized: boolean = false;
+
+  expanded: boolean = false;
   private _resultCount?: number;
   private _results?: Programme[];
   private _$isSchoolSelected: Subscription
@@ -33,6 +33,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     private ts: TranslocoService
   ) {
     this.renderer.listen('window', 'click', (e: Event) => {
+      if (this.minimized) return;
+
       if (!this.expanded) return;
 
       if (e.composedPath().indexOf(this.searchContainer.nativeElement) === -1) {
@@ -51,19 +53,11 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log(this.minimized)
   }
 
   ngOnDestroy(): void {
     this._$isSchoolSelected.unsubscribe();
-  }
-
-  public get expanded(): boolean {
-    return this._expanded;
-  }
-
-
-  public set expanded(v: boolean) {
-    this._expanded = v
   }
 
   public get resultCount() {
@@ -74,8 +68,21 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     return this._results;
   }
 
+  openMinimizedSearch() {
+    this.expanded = true
+  }
+
+  closeMinimizedSearch() {
+    this.expanded = false
+  }
+
   clearSearchInput(): void {
     const inputField = this.searchInputField.nativeElement;
+    if (this.minimized && inputField.value == '') {
+      this.closeMinimizedSearch()
+    }
+
+    // this.expanded = false
     inputField.value = '';
     inputField.focus();
     this.clearSearchResults();
@@ -84,7 +91,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   onScheduleSelected() {
     this.searchInputField.nativeElement.blur()
     this.searchInputField.nativeElement.value = ''
-    this._expanded = false;
+    this.expanded = false;
     this.clearSearchResults()
   }
 

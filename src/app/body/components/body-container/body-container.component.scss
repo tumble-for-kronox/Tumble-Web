@@ -1,15 +1,32 @@
+@use '/src/theme/color.scss' as *;
+
 .side-bar-body-grid-container {
-    display: grid;
-    grid-template-columns: 1fr 6fr;
+    display: flex;
+    flex-flow: row nowrap;
     width: 100%;
     height: calc(100% - 5rem);
+}
 
-    &.collapsed {
-        grid-template-columns: 4rem 1fr;
+app-side-bar-container {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 5rem);
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    overflow: hidden;
+}
+
+@media screen and (min-width: 801px) {
+    app-side-bar-container {
+        position: relative;
+
+        width: 15%;
+        z-index: 0;
     }
 }
 
-app-schedule-container {
+#main-body {
     width: 100%;
     height: 100%;
     overflow: hidden;

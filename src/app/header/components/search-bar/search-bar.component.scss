@@ -123,3 +123,39 @@ button {
 h1 {
     margin: 0;
 }
+
+.search-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    width: 100vw;
+    height: 100vh;
+
+    .container {
+        width: 100%;
+        height: 100%;
+
+        border-radius: 0;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .large-search-bar {
+        display: none;
+    }
+
+    .small-search-bar {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 801px) {
+    .large-search-bar {
+        display: block;
+    }
+
+    .small-search-bar {
+        display: none;
+    }
+}

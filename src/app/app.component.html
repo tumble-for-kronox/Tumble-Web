@@ -1,8 +1,9 @@
 <header style="position: relative; z-index: 1;">
-    <app-header-container></app-header-container>
+    <app-header-container (expandedEvent)="toggleExpandedSideBar()"
+        [expandedSideBar]="expandedSideBar"></app-header-container>
 </header>
 
-<router-outlet></router-outlet>
+<app-body-container [expandedSideBar]="expandedSideBar"></app-body-container>
 
 <footer>
 
