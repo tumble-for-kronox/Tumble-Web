@@ -1,5 +1,11 @@
 .container {
     width: 100%;
+
+    &.small-layout {
+        h1 {
+            font-size: 14pt;
+        }
+    }
 }
 
 .relative-wrapper {

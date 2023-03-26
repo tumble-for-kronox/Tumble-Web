@@ -21,7 +21,9 @@ app-side-bar-container {
     app-side-bar-container {
         position: relative;
 
-        width: 15%;
+        max-width: 22rem;
+        width: 100%;
+        height: 100%;
         z-index: 0;
     }
 }

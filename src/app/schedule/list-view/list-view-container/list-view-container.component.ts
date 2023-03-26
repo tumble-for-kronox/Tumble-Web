@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, Self } from '@angular/core';
 import { Observable } from 'rxjs';
 import Day from 'src/app/models/scheduling/day';
 import Schedule from 'src/app/models/scheduling/schedule';
@@ -11,8 +11,8 @@ import { Week } from 'src/app/models/web/week';
 })
 export class ListViewContainerComponent {
   // This should never be null because of an ngIf check
-  @Input() currentSchedule!: Observable<Schedule | null>;
-
+  @Input() currentSchedule!: Observable<Schedule | null>
+  @Input() smallLayout!: boolean;
   parsedSchedule: Week[] = []
 
   ngOnInit(): void {

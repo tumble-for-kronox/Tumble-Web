@@ -7,6 +7,18 @@
     gap: 1rem;
 
     color: clr('onBackground');
+
+    &.small-layout {
+        margin-bottom: 2rem;
+
+        .date-offset {
+            display: block;
+        }
+
+        h1 {
+            font-size: 14pt;
+        }
+    }
 }
 
 h1 {

@@ -1,3 +1,4 @@
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, Renderer2, ViewChild, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -15,6 +16,7 @@ export class EventDetailsContainerComponent implements OnInit {
 
   inVisibilityTransition: boolean = false
   private windowEdgeMargin: number = 20
+  private noPosition: boolean = true
 
   isShown: boolean = false
   currentX: number = 0
@@ -28,7 +30,8 @@ export class EventDetailsContainerComponent implements OnInit {
   constructor(
     private renderer: Renderer2,
     private bookmarkService: BookmarkService,
-    private colorService: ColorService
+    private colorService: ColorService,
+    private breakpointObserver: BreakpointObserver
   ) {
     this.renderer.listen('window', 'click', (e: Event) => {
       if (!this.isShown || this.inVisibilityTransition) return;
@@ -40,6 +43,16 @@ export class EventDetailsContainerComponent implements OnInit {
 
     this.renderer.listen('window', 'keyup.escape', (_e: Event) => {
       this.isShown = false;
+    })
+
+    this.breakpointObserver.observe(['(max-width: 800px)']).subscribe((state: BreakpointState) => {
+      if (state.matches) {
+        this.windowEdgeMargin = 0
+        this.noPosition = true
+      } else {
+        this.windowEdgeMargin = 20
+        this.noPosition = false
+      }
     })
   }
 
@@ -92,6 +105,10 @@ export class EventDetailsContainerComponent implements OnInit {
   }
 
   private getScreenSafeX(x: number) {
+    if (this.noPosition) {
+      x = 0;
+    }
+
     const maxX: number = window.innerWidth
     const width = this.detailsContainer.nativeElement.offsetWidth
 
@@ -103,6 +120,10 @@ export class EventDetailsContainerComponent implements OnInit {
   }
 
   private getScreenSafeY(y: number) {
+    if (this.noPosition) {
+      y = 0;
+    }
+
     const maxY = window.innerHeight
     const height = this.detailsContainer.nativeElement.offsetHeight
 

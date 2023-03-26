@@ -1,5 +1,6 @@
 <div *transloco="let t" class="container">
     <div class="side-bar-content">
+        <school-picker *ngIf="smallLayout"></school-picker>
         <h1>{{t("site-side-bar.bookmarks.title")}}</h1>
         <bookmarks-container></bookmarks-container>
     </div>

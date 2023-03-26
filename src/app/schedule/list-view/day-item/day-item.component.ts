@@ -12,4 +12,5 @@ export class DayItemComponent {
   datepipe: DatePipe = new DatePipe('en-US')
 
   @Input() day!: Day
+  @Input() smallLayout!: boolean
 }

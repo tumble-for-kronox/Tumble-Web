@@ -9,4 +9,5 @@ import { Week } from 'src/app/models/web/week';
 })
 export class WeekItemComponent {
   @Input() week!: Week
+  @Input() smallLayout!: boolean
 }

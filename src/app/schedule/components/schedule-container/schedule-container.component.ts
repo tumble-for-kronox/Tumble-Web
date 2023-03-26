@@ -1,4 +1,4 @@
-import { Component, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Self, ViewChild } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, Observable, Subscription } from 'rxjs';
 import { ScheduleResponseHandler } from 'src/app/helpers/backend/response-handlers/ScheduleResponseHandler';
@@ -21,16 +21,17 @@ export class ScheduleContainerComponent {
   error?: string
   loadedSchedule: BehaviorSubject<Schedule | null> = new BehaviorSubject<Schedule | null>(null)
   isEmptySchedule: boolean = false
+  smallLayout: boolean;
 
   private currentScheduleUpdate?: Subscription
 
   constructor(
     private scheduleService: ScheduleService,
     private ts: TranslocoService,
-    private schoolService: SchoolService
+    private schoolService: SchoolService,
+    @Self() element: ElementRef
   ) {
     this.isTempMode = this.scheduleService.tempMode
-
 
     this.scheduleService.currentSelectedScheduleIds.subscribe(scheduleIds => {
       if (this.currentScheduleUpdate) {
@@ -50,6 +51,12 @@ export class ScheduleContainerComponent {
 
       this.isEmptySchedule = this.scheduleIsEmpty(schedule)
     })
+
+    if (element.nativeElement.offsetWidth <= 800) {
+      this.smallLayout = true
+    } else {
+      this.smallLayout = false
+    }
   }
 
   @HostListener('showEventDetails', ['$event'])

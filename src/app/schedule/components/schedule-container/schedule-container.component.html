@@ -36,7 +36,8 @@
         <h2>Seems you found an empty schedule, some of those hang around in KronoX's system</h2>
     </div>
     <div class="schedule-view" *ngIf="loadedSchedule.value != null && !isLoading">
-        <schedule-list-view-container [currentSchedule]="loadedSchedule.asObservable()"></schedule-list-view-container>
+        <schedule-list-view-container [currentSchedule]="loadedSchedule.asObservable()"
+            [smallLayout]="smallLayout"></schedule-list-view-container>
     </div>
 </div>
 <app-event-details-container></app-event-details-container>

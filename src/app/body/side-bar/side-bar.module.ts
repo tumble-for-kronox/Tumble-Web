@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatIconButtonSizesModule } from 'mat-icon-button-sizes';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { SchoolPickerModule } from 'src/app/shared/school-picker/school-picker.module';
 
 
 
@@ -24,7 +25,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatButtonModule,
     MatIconModule,
     MatIconButtonSizesModule,
-
+    SchoolPickerModule
   ],
   exports: [
     SideBarContainerComponent

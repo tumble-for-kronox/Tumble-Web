@@ -13,6 +13,7 @@ import { ColorService } from '../../services/color/color.service';
 })
 export class EventItemComponent implements OnInit {
   @Input() event!: Event
+  @Input() smallLayout!: boolean
   @Output() eventSelected = new EventEmitter<{ event: Event, x: number, y: number }>()
   datepipe: DatePipe = new DatePipe('en-US')
   locationTitles?: string[]
