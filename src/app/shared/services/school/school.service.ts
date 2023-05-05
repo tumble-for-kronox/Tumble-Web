@@ -21,7 +21,6 @@ export class SchoolService {
     this.currentSchool = this.currentSchoolSubject.asObservable();
     this.schoolChosen = this.currentSchoolSubject.pipe(
       map(value => {
-        console.log(`SCHOOL CHOSEN UPDATED TO: ${value != SchoolEnum.NONE}`)
         return value != SchoolEnum.NONE
       })
     )

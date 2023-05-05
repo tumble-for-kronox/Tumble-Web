@@ -53,7 +53,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log(this.minimized)
   }
 
   ngOnDestroy(): void {
@@ -134,11 +133,17 @@ export class SearchBarComponent implements OnInit, OnDestroy {
           this.loading = false;
         },
         next: (value) => {
-          const result = value.body as { count: number, items: Programme[] };
+          if (value.status == 204) {
+            this._resultCount = 0;
+            this._results = [];
+            this.loading = false;
+          } else {
+            const result = value.body as { count: number, items: Programme[] };
 
-          this._resultCount = result.count;
-          this._results = result.items;
-          this.loading = false;
+            this._resultCount = result.count;
+            this._results = result.items;
+            this.loading = false;
+          }
         }
       });
   }

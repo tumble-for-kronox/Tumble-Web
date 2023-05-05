@@ -39,8 +39,4 @@
         background-color: clr('onBackground', $alpha: -0.5);
         cursor: pointer;
     }
-
-    &:active {
-        background-color: clr('onBackground', $alpha: -0.8);
-    }
 }

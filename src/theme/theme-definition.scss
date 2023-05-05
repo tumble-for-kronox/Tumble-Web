@@ -86,7 +86,7 @@
 
     .clr-search-bar {
         @if $theme==$dark-theme {
-            background-color: clr("onBackground", $lightness: -62%);
+            background-color: clr("background");
         }
 
         @else {

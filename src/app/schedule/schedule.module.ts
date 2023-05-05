@@ -7,13 +7,14 @@ import { ScheduleContainerComponent } from './components/schedule-container/sche
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ListViewModule } from './list-view/list-view.module';
 import { EventDetailsModule } from './event-details/event-details.module';
+import { RouterModule } from '@angular/router';
 
 
 
 @NgModule({
   declarations: [
     TempResetComponent,
-    ScheduleContainerComponent
+    ScheduleContainerComponent,
   ],
   imports: [
     CommonModule,
@@ -21,10 +22,12 @@ import { EventDetailsModule } from './event-details/event-details.module';
     MatIconModule,
     ListViewModule,
     MatProgressSpinnerModule,
-    EventDetailsModule
+    EventDetailsModule,
+    RouterModule
   ],
   exports: [
-    ScheduleContainerComponent
+    ScheduleContainerComponent,
+    TempResetComponent
   ]
 })
 export class ScheduleModule { }

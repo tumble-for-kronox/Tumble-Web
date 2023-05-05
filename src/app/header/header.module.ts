@@ -18,6 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { SharedModule } from '../shared/shared.module';
 import { MatRippleModule } from '@angular/material/core';
 import { LayoutModule } from '@angular/cdk/layout';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   exports: [
@@ -44,7 +45,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     SharedModule,
     MatSelectModule,
     MatRippleModule,
-    LayoutModule
+    LayoutModule,
+    RouterModule
   ]
 })
 export class HeaderModule { }

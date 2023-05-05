@@ -19,7 +19,6 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     if (this.authService.loggedIn) {
-      console.log("Claims to be logged in");
       request = request.clone({
         setHeaders: {
           "X-auth-header": this.authService.currentUserValue!.refreshToken

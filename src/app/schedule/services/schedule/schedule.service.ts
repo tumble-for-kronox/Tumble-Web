@@ -1,34 +1,35 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import Endpoints from 'src/app/config/constants/endpoints';
 import QueryFields from 'src/app/config/constants/query_fields';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { SchoolEnum } from 'src/app/models/enums/schools';
-import Schedule from 'src/app/models/scheduling/schedule';
 import { BookmarkService } from 'src/app/shared/services/bookmark/bookmark.service';
+import Programme from 'src/app/models/programme';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScheduleService {
-  private _currentSelectedScheduleIdsSubject: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
+  private _currentSelectedScheduleIdsSubject: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  private _currentSelectedProgrammesSubject: BehaviorSubject<Programme[]> = new BehaviorSubject<Programme[]>([]);
   private _tempMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public currentSelectedScheduleIds: Observable<string[]>
+  public currentSelectedScheduleIds: Observable<string[]>;
+  public currentSelectedProgrammes: Observable<Programme[]>;
 
   constructor(private bookmarkService: BookmarkService, private http: HttpClient) {
     this.currentSelectedScheduleIds = this._currentSelectedScheduleIdsSubject.asObservable()
+    this.currentSelectedProgrammes = this._currentSelectedProgrammesSubject.asObservable()
 
     this.bookmarkService.visibleBookmarks.subscribe(value => {
       if (!this._tempMode.value) {
-        this._currentSelectedScheduleIdsSubject.next(value.map(bookmark => bookmark.programme.id))
+        this._currentSelectedScheduleIdsSubject.next(value.map(bookmark => bookmark.scheduleId))
       }
     })
 
     this._tempMode.subscribe(isTempMode => {
-      if (isTempMode) {
-        this._currentSelectedScheduleIdsSubject.next([])
-      } else {
-        this._currentSelectedScheduleIdsSubject.next(this.bookmarkService.currentBookmarksValue.map(bookmark => bookmark.programme.id))
+      if (!isTempMode) {
+        this._currentSelectedScheduleIdsSubject.next(this.bookmarkService.currentBookmarksValue.map(bookmark => bookmark.scheduleId))
       }
     })
   }
@@ -45,12 +46,13 @@ export class ScheduleService {
     return this._tempMode.value
   }
 
-  toggleTempMode() {
-    this._tempMode.next(!this._tempMode.value)
+  setTempMode(val: boolean) {
+    NgZone
+    this._tempMode.next(val)
   }
 
-  addTempSchedule(scheduleId: string) {
-    this._currentSelectedScheduleIdsSubject.next([...this.currentSchedulesValue, scheduleId])
+  setTempSchedules(scheduleIds: string[]) {
+    this._currentSelectedScheduleIdsSubject.next(scheduleIds)
   }
 
   fetchSchedules(scheduleIds: string[], schoolId: SchoolEnum): Observable<HttpResponse<Object>> {

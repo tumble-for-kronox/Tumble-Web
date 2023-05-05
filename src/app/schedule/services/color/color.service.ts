@@ -17,8 +17,6 @@ export class ColorService {
     let storedColors = localStorage.getItem(StorageKeys.savedColors);
     let currentColors: Map<string, string> = new Map()
 
-    console.log(storedColors);
-
     if (storedColors !== "undefined" && storedColors !== null) {
       currentColors = JSON.parse(storedColors, this._mapReviver);
     }

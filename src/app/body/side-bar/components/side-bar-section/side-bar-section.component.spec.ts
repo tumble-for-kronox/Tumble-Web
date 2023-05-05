@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BookmarkItemComponent } from './bookmark-item.component';
+import { SideBarSectionComponent } from './side-bar-section.component';
 
-describe('BookmarkItemComponent', () => {
-  let component: BookmarkItemComponent;
-  let fixture: ComponentFixture<BookmarkItemComponent>;
+describe('SideBarSectionComponent', () => {
+  let component: SideBarSectionComponent;
+  let fixture: ComponentFixture<SideBarSectionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BookmarkItemComponent ]
+      declarations: [ SideBarSectionComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(BookmarkItemComponent);
+    fixture = TestBed.createComponent(SideBarSectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

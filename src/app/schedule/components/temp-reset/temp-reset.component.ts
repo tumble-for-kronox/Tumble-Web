@@ -11,10 +11,5 @@ import { ScheduleService } from '../../services/schedule/schedule.service';
   styleUrls: ['./temp-reset.component.scss']
 })
 export class TempResetComponent {
-
-  constructor(private scheduleService: ScheduleService) { }
-
-  toggleTempMode() {
-    this.scheduleService.toggleTempMode()
-  }
+  constructor() { }
 }

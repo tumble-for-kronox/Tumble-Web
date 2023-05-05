@@ -8,8 +8,9 @@
 
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 2rem;
 
 
     height: 100%;
@@ -30,6 +31,10 @@
     &.collapsed {
         justify-content: flex-end;
     }
+
+    &>* {
+        width: 100%;
+    }
 }
 
 .collapse-button-container {
@@ -44,6 +49,7 @@
     }
 }
 
-.side-bar-content {
-    width: 100%;
+
+#bookmarked {
+    color: clr("primary");
 }

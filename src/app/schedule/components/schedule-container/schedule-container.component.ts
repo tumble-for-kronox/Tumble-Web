@@ -1,4 +1,5 @@
-import { Component, ElementRef, HostListener, Self, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, Self, ViewChild } from '@angular/core';
+import { ActivatedRoute, UrlSegment } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, Observable, Subscription } from 'rxjs';
 import { ScheduleResponseHandler } from 'src/app/helpers/backend/response-handlers/ScheduleResponseHandler';
@@ -13,7 +14,7 @@ import { ScheduleService } from '../../services/schedule/schedule.service';
   templateUrl: './schedule-container.component.html',
   styleUrls: ['./schedule-container.component.scss']
 })
-export class ScheduleContainerComponent {
+export class ScheduleContainerComponent implements OnInit {
   @ViewChild(EventDetailsContainerComponent) eventDetails!: EventDetailsContainerComponent
 
   isTempMode: Observable<boolean>
@@ -29,6 +30,7 @@ export class ScheduleContainerComponent {
     private scheduleService: ScheduleService,
     private ts: TranslocoService,
     private schoolService: SchoolService,
+    private route: ActivatedRoute,
     @Self() element: ElementRef
   ) {
     this.isTempMode = this.scheduleService.tempMode
@@ -59,6 +61,23 @@ export class ScheduleContainerComponent {
     }
   }
 
+  ngOnInit(): void {
+    this.route.url.subscribe((url) => {
+      console.log(`LISTENED: ${url[0].path}`)
+      if (url[0].path == "search") {
+        this.scheduleService.setTempMode(true)
+      } else {
+        this.scheduleService.setTempMode(false)
+      }
+    });
+
+    this.route.queryParamMap.subscribe(map => {
+      if (this.route.snapshot.url[0].path == "search") {
+        this.scheduleService.setTempSchedules(map.get('scheduleIds')!.split(','))
+      }
+    })
+  }
+
   @HostListener('showEventDetails', ['$event'])
   showEventDetails(event: any) {
     this.eventDetails.showEventDetails(event)
@@ -70,20 +89,17 @@ export class ScheduleContainerComponent {
       distinctUntilChanged()
     ).subscribe({
       error: (err) => {
+        console.log(err)
         const responseHandler = new ScheduleResponseHandler();
         const errResponse = responseHandler.parseScheduleFetchError(err);
 
         this.loadedSchedule.next(null)
         this.error = this.ts.translate(errResponse.error!.message)
-        console.log(this.error);
         this.isLoading = false
       },
       next: (value) => {
         const scheduleResult = Schedule.fromJson(value.body)
-        console.log(scheduleResult)
-
         this.loadedSchedule.next(scheduleResult)
-
         this.isLoading = false
       }
     })

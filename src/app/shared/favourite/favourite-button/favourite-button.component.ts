@@ -31,11 +31,9 @@ export class FavouriteButtonComponent implements OnInit, OnDestroy {
     if (this.isBookmarked.value) {
       this.bookmarkService.deleteBookmark(this.programme.id);
       this.colorService.removeColors(this.programme.id);
-      console.log("Should be false: " + this.isBookmarked.value);
       return;
     }
 
-    this.bookmarkService.addBookmark(this.programme, this.schoolService.currentSchoolValue);
-    console.log("Should be true: " + this.isBookmarked.value);
+    this.bookmarkService.addBookmark(this.programme.id, this.schoolService.currentSchoolValue);
   }
 }

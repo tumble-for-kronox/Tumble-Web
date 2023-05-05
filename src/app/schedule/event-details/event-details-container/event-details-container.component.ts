@@ -96,8 +96,8 @@ export class EventDetailsContainerComponent implements OnInit {
     this.teacherStrings = event.teachers.map(value => value.firstName + " " + value.lastName)
     this.fromSchedules = event.scheduleIds.reduce<string[]>((array, element) => {
       for (const bookmark of this.bookmarkService.currentBookmarksValue) {
-        if (bookmark.programme.id.includes(element)) {
-          array.push(bookmark.programme.title)
+        if (bookmark.scheduleId.includes(element)) {
+          array.push(bookmark.scheduleId)
         }
       }
       return array;

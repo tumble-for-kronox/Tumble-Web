@@ -8,7 +8,7 @@
         </button>
     </div>
     <div class="pill-row-container">
-        <div class="options-pill" [colorPicker]="getCourseColor() ?? '#ffffff'" cpAlphaChannel="disabled"
+        <div mat-ripple class="options-pill" [colorPicker]="getCourseColor() ?? '#ffffff'" cpAlphaChannel="disabled"
             cpOutputFormat="hex" (colorPickerChange)="updateEventColor($event)">
             <mat-icon class="material-symbols-outlined">palette</mat-icon>
             <p>Color</p>

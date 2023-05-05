@@ -11,7 +11,7 @@
     transition: background-color 100ms ease-in;
 
     &:hover {
-        background-color: clr("primary", $alpha: -0.7);
+        background-color: clr("secondary");
         cursor: pointer;
     }
 }

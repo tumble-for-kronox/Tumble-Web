@@ -1,12 +1,34 @@
 <div *transloco="let t" class="container">
-    <div class="side-bar-content">
-        <school-picker *ngIf="smallLayout"></school-picker>
-        <h1>{{t("site-side-bar.bookmarks.title")}}</h1>
-        <bookmarks-container></bookmarks-container>
-    </div>
-    <!-- <div class="collapse-button-container" [ngClass]="expanded ? '' : 'collapsed'">
-        <button (click)="toggleExpanded()" mat-icon-button class="mat-small-ratio-icon-button">
-            <mat-icon>{{expanded ? "arrow_back" : "arrow_forward"}} arrow_back</mat-icon>
-        </button>
-    </div> -->
+    <school-picker *ngIf="smallLayout"></school-picker>
+    <side-bar-section *ngIf="tempMode | async" [title]="t('site-side-bar.temp.title')">
+
+        <side-bar-dual-action-item *ngFor="let scheduleId of scheduleIds | async"
+            [title]="(scheduleId | scheduleIdFormatter : (currentSchool | async)!)"
+            (primaryAction)="addBookmark(scheduleId)" (secondaryAction)="removeTempScheduleId(scheduleId)">
+
+            <mat-icon primaryIcon class="material-symbols" *ngIf="isBookmarked(scheduleId)"
+                id="bookmarked">bookmark</mat-icon>
+            <mat-icon primaryIcon class="material-symbols-outlined"
+                *ngIf="!isBookmarked(scheduleId)">bookmark</mat-icon>
+
+            <mat-icon secondaryIcon class="material-symbols-outlined">close</mat-icon>
+        </side-bar-dual-action-item>
+        <schedule-temp-reset></schedule-temp-reset>
+    </side-bar-section>
+
+    <side-bar-section [title]="t('site-side-bar.bookmarks.title')">
+
+        <div *ngIf="(bookmarks | async)!.length <= 0">
+            <h4>{{t('site-side-bar.bookmarks.no-bookmarks')}}</h4>
+        </div>
+
+        <side-bar-dual-action-item *ngFor="let bookmark of (bookmarks | async)"
+            [title]="(bookmark.scheduleId | scheduleIdFormatter : (currentSchool | async)!)"
+            (primaryAction)="toggleVisible(bookmark)" (secondaryAction)="deleteBookmark(bookmark)">
+            <mat-icon primaryIcon class="material-symbols-outlined">{{bookmark.visible ? "visibility" :
+                "visibility_off"}}</mat-icon>
+            <mat-icon secondaryIcon class="material-symbols-outlined">close</mat-icon>
+        </side-bar-dual-action-item>
+
+    </side-bar-section>
 </div>

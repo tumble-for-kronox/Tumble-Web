@@ -1,8 +1,0 @@
-<div *transloco="let t" class="container">
-    <div *ngIf="(bookmarks | async)!.length <= 0">
-        <h4>{{t('site-side-bar.bookmarks.no-bookmarks')}}</h4>
-    </div>
-    <div class="bookmarks-list">
-        <bookmark-item *ngFor="let bookmark of (bookmarks | async)" [bookmark]="bookmark"></bookmark-item>
-    </div>
-</div>

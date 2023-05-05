@@ -62,7 +62,6 @@ export class SchoolPickerComponent implements OnInit {
   }
 
   changeSchool(school: School | undefined) {
-    console.log(`change shool to: ${school?.shortName}`)
     this.expanded = false;
     if (school === undefined) {
       this.schoolService.changeSchool(SchoolEnum.NONE);

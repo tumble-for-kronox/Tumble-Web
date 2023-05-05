@@ -37,21 +37,27 @@ export class BookmarkService {
   public isBookmark(scheduleId: string): Observable<boolean> {
     return this.currentBookmarksSubject.pipe(
       map(value => {
-        return value.some(bookmark => bookmark.programme.id == scheduleId);
+        return value.some(bookmark => bookmark.scheduleId == scheduleId);
       })
     );
   }
 
-  public addBookmark(programme: Programme, schoolId: SchoolEnum) {
+  public isBookmarkValue(scheduleId: string): boolean {
+    return this.currentBookmarksValue.some(bookmark => {
+      return bookmark.scheduleId == scheduleId;
+    });
+  }
+
+  public addBookmark(scheduleId: string, schoolId: SchoolEnum) {
     let currentBookmarks = this.currentBookmarksValue;
-    currentBookmarks.push(new Bookmark(programme, true, schoolId));
+    currentBookmarks.push(new Bookmark(scheduleId, true, schoolId));
 
     this.updateBookmarksValue(currentBookmarks);
   }
 
   public deleteBookmark(scheduleId: string) {
     let currentBookmarks = this.currentBookmarksValue;
-    const itemIndex = currentBookmarks.findIndex(bookmark => bookmark.programme.id == scheduleId);
+    const itemIndex = currentBookmarks.findIndex(bookmark => bookmark.scheduleId == scheduleId);
     if (itemIndex <= -1) return;
 
     currentBookmarks.splice(itemIndex, 1);
@@ -65,7 +71,7 @@ export class BookmarkService {
 
   public toggleBookmarkVisibility(scheduleId: string) {
     let currentBookmarks = this.currentBookmarksValue;
-    const itemIndex = currentBookmarks.findIndex(bookmark => bookmark.programme.id == scheduleId);
+    const itemIndex = currentBookmarks.findIndex(bookmark => bookmark.scheduleId == scheduleId);
     if (itemIndex <= -1) return;
 
     (currentBookmarks[itemIndex] as Bookmark).toggleVisible();

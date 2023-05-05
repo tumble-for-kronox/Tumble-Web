@@ -13,6 +13,7 @@ import { AuthHeaderInterceptor } from './helpers/interceptors/auth-header-interc
 import { ScheduleModule } from './schedule/schedule.module';
 import { BodyModule } from './body/body.module';
 import { SideBarModule } from './body/side-bar/side-bar.module';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SideBarModule } from './body/side-bar/side-bar.module';
     SideBarModule,
     ScheduleModule,
     BodyModule,
+    AccountModule,
   ],
   providers: [
     {

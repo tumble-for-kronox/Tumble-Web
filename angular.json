@@ -101,5 +101,8 @@
       }
     }
   },
-  "defaultProject": "tumbleWeb"
+  "defaultProject": "tumbleWeb",
+  "cli": {
+    "analytics": false
+  }
 }

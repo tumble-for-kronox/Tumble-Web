@@ -18,6 +18,10 @@
         "bookmarks": {
             "title": "Bookmarks",
             "no-bookmarks": "You have no bookmarked schedules"
+        },
+        "temp": {
+            "title": "Open Schedules",
+            "reset-btn": "Close all"
         }
     },
     "login": {
@@ -30,9 +34,7 @@
         "username-placeholder": "name@domain.com",
         "password-placeholder": "Password"
     },
-    "schedule": {
-        "reset-btn": "Reset schedule"
-    },
+    "schedule": {},
     "errors": {
         "timeout": "Connecting to the server timed out",
         "500": "Something went wrong, try again later",

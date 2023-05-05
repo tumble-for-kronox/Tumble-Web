@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FavouriteModule } from './favourite/favourite.module';
 import { SchoolPickerModule } from './school-picker/school-picker.module';
 import { ThemeSwitchModule } from './theme-switch/theme-switch.module';
-import { JoinPipe } from './pipes/join.pipe';
+import { ScheduleIdFormatterPipe } from './pipes/schedule-id-formatter/schedule-id-formatter.pipe';
+import { JoinPipe } from './pipes/join/join.pipe';
 
 
 
@@ -12,10 +13,12 @@ import { JoinPipe } from './pipes/join.pipe';
     FavouriteModule,
     SchoolPickerModule,
     ThemeSwitchModule,
-    JoinPipe
+    JoinPipe,
+    ScheduleIdFormatterPipe
   ],
   declarations: [
-    JoinPipe
+    JoinPipe,
+    ScheduleIdFormatterPipe
   ],
   imports: [
     CommonModule,
