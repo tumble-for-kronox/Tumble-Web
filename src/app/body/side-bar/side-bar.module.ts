@@ -10,8 +10,6 @@ import { SchoolPickerModule } from 'src/app/shared/school-picker/school-picker.m
 import { SideBarSectionComponent } from './components/side-bar-section/side-bar-section.component';
 import { SideBarItemComponent } from './components/side-bar-item/side-bar-item.component';
 import { DualActionItemComponent } from './components/dual-action-item/dual-action-item.component';
-import { ScheduleIdFormatterPipe } from 'src/app/shared/pipes/schedule-id-formatter/schedule-id-formatter.pipe';
-import { TempResetComponent } from 'src/app/schedule/components/temp-reset/temp-reset.component';
 import { ScheduleModule } from 'src/app/schedule/schedule.module';
 
 

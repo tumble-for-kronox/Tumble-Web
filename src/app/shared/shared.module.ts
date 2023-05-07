@@ -5,6 +5,7 @@ import { SchoolPickerModule } from './school-picker/school-picker.module';
 import { ThemeSwitchModule } from './theme-switch/theme-switch.module';
 import { ScheduleIdFormatterPipe } from './pipes/schedule-id-formatter/schedule-id-formatter.pipe';
 import { JoinPipe } from './pipes/join/join.pipe';
+import { HexOpacityPipe } from './pipes/hex-opacity/hex-opacity.pipe';
 
 
 
@@ -14,11 +15,13 @@ import { JoinPipe } from './pipes/join/join.pipe';
     SchoolPickerModule,
     ThemeSwitchModule,
     JoinPipe,
-    ScheduleIdFormatterPipe
+    ScheduleIdFormatterPipe,
+    HexOpacityPipe
   ],
   declarations: [
     JoinPipe,
-    ScheduleIdFormatterPipe
+    ScheduleIdFormatterPipe,
+    HexOpacityPipe
   ],
   imports: [
     CommonModule,

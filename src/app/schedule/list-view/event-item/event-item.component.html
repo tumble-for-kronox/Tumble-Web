@@ -1,43 +1,24 @@
-<div class="container" *ngIf="!smallLayout; else smallEventCard">
-    <h1 class="time-stamp">{{datepipe.transform(event.from, 'HH:mm') + " - " + datepipe.transform(event.to,
-        'HH:mm')}}</h1>
-    <div (click)="showEventDetails($event)" [style.borderColor]="(getEventColor() | async) ?? '#ffffff'"
-        class="event-info elevated-low">
-        <div class="title-course">
-            <h1 [innerHTML]="event.title"></h1>
-            <h1 class="course-name">{{event.course.englishName}}</h1>
+<!-- The '19' being added is the hex opacity equivalent of 10%. Check https://stackoverflow.com/a/8254129/18690430 for details, could use better implementation. -->
+<!-- <div class="event-info" [ngStyle]="{'background-color': (getEventColor() | async) + '19'}" -->
+<div class="event-info" [ngStyle]="{'background-color': getEventColor() | async | hexOpacity: 0.05}"
+    (click)="showEventDetails($event)">
+    <div class="time-row">
+        <div class="time-circle-container">
+            <div class="circle" [style.backgroundColor]="(getEventColor() | async) ?? '#ffffff'"></div>
+            <h3>
+                {{datepipe.transform(event.from, 'HH:mm') + " - " + datepipe.transform(event.to,
+                'HH:mm')}}
+            </h3>
         </div>
-        <div class="special-locations">
-            <div>
-                <mat-icon *ngIf="event.isSpecial">priority_high</mat-icon>
-            </div>
-            <h1 class="course-name">{{locationTitles!|join:', '}}</h1>
+        <div>
+            <mat-icon *ngIf="event.isSpecial">priority_high</mat-icon>
         </div>
+    </div>
+    <div class="title-course">
+        <h3 [innerHTML]="event.title"></h3>
+        <h3 class="course-name">{{event.course.englishName}}</h3>
+    </div>
+    <div class="special-locations">
+        <h3 class="course-name">{{locationTitles!|join:', '}}</h3>
     </div>
 </div>
-
-<ng-template #smallEventCard>
-    <div id="smallContainer">
-        <div class="event-info elevated-low" (click)="showEventDetails($event)">
-            <div class="time-row">
-                <div class="time-circle-container">
-                    <div class="circle" [style.backgroundColor]="(getEventColor() | async) ?? '#ffffff'"></div>
-                    <h3>
-                        {{datepipe.transform(event.from, 'HH:mm') + " - " + datepipe.transform(event.to,
-                        'HH:mm')}}
-                    </h3>
-                </div>
-                <div>
-                    <mat-icon *ngIf="event.isSpecial">priority_high</mat-icon>
-                </div>
-            </div>
-            <div class="title-course">
-                <h3 [innerHTML]="event.title"></h3>
-                <h3 class="course-name">{{event.course.englishName}}</h3>
-            </div>
-            <div class="special-locations">
-                <h3 class="course-name">{{locationTitles!|join:', '}}</h3>
-            </div>
-        </div>
-    </div>
-</ng-template>
