@@ -25,6 +25,7 @@
     "mat-icon-button-sizes": "^1.0.4",
     "ngx-color-picker": "^13.0.0",
     "rxjs": "~7.4.0",
+    "smartbanner.js": "^1.19.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
