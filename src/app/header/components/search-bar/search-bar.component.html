@@ -1,6 +1,5 @@
 <div *ngIf="!minimized; else minimizedSearch">
-    <div *transloco="let t" class="clr-search-bar container" [style.height]="this.expanded ? '25rem' : '3rem'"
-        #searchContainer>
+    <div *transloco="let t" class="container" [style.height]="this.expanded ? '25rem' : '3rem'" #searchContainer>
         <div class="input-row">
             <button mat-icon-button (click)="this.search()" [disabled]="this.loading">
                 <mat-icon *ngIf="!this.loading">search</mat-icon>
@@ -36,7 +35,7 @@
         <mat-icon>search</mat-icon>
     </button>
     <div *ngIf="this.expanded" class="search-overlay">
-        <div *transloco="let t" class="clr-search-bar container" #searchContainer>
+        <div *transloco="let t" class="container" #searchContainer>
             <div class="input-row">
                 <button mat-icon-button (click)="this.search()" [disabled]="this.loading">
                     <mat-icon *ngIf="!this.loading">search</mat-icon>

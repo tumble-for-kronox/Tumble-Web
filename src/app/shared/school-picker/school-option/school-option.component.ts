@@ -7,7 +7,7 @@ import { School } from 'src/app/models/school';
   styleUrls: ['./school-option.component.scss']
 })
 export class SchoolOptionComponent implements OnInit {
-  @Input() school!: School;
+  @Input() school: School | undefined;
   @Output() chosenSchoolEvent = new EventEmitter<School>();
   wideLayout!: boolean;
 

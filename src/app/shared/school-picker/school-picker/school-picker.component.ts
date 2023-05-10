@@ -17,7 +17,6 @@ export class SchoolPickerComponent implements OnInit {
   @Output() change: EventEmitter<SchoolEnum> = new EventEmitter<SchoolEnum>();
 
   schools: School[] = schoolList;
-  filteredSchools: School[] = schoolList;
   expanded: boolean = false;
 
   constructor(
@@ -37,6 +36,14 @@ export class SchoolPickerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  public get filteredSchools(): School[] {
+    if (this.schoolValue == undefined) {
+      return this.schools;
+    }
+
+    return this.schools.filter(school => school.id != this.schoolValue!.id);
   }
 
 

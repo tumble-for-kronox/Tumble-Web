@@ -1,4 +1,9 @@
-<div class="container clr-search-bar" mat-ripple (click)="chooseSchool()">
-    <img src="../../../../assets/school-logos/{{school.logo}}" alt="school logo">
-    <p>{{wideLayout ? school.name : school.shortName}}</p>
+<div class="container" mat-ripple (click)="chooseSchool()">
+    <div class="content-wrapper" *ngIf="school != undefined; else noneSchool">
+        <img src="../../../../assets/school-logos/{{school.logo}}" alt="school logo">
+        <p>{{wideLayout ? school.name : school.shortName}}</p>
+    </div>
+    <ng-template #noneSchool>
+        <p>None</p>
+    </ng-template>
 </div>

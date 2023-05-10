@@ -60,7 +60,6 @@ export class ScheduleService {
         scheduleIds,
       ));
 
-    console.log(output)
     return output
   }
 
