@@ -1,9 +1,13 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, Input, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { SearchService } from 'src/app/header/services/search/search.service';
+import { searchQueryParams } from 'src/app/helpers/routing/paramFormatters';
+import RoutePaths from 'src/app/helpers/routing/paths';
 import { SchoolEnum } from 'src/app/models/enums/schools';
-import { Bookmark } from 'src/app/models/web/bookmark';
+import Bookmark from 'src/app/models/web/bookmark';
+import MultiSchoolSchedules from 'src/app/models/web/schoolSchedules';
 import { ScheduleService } from 'src/app/schedule/services/schedule/schedule.service';
 import { BookmarkService } from 'src/app/shared/services/bookmark/bookmark.service';
 import { SchoolService } from 'src/app/shared/services/school/school.service';
@@ -17,7 +21,7 @@ export class SideBarContainerComponent {
   @Input() expanded!: boolean;
   smallLayout!: boolean;
   bookmarks: Observable<Bookmark[]>;
-  scheduleIds: Observable<string[]>;
+  multiSchoolSchedules: Observable<MultiSchoolSchedules[]>;
   currentSchool: Observable<SchoolEnum>;
   tempMode: Observable<boolean>;
 
@@ -26,17 +30,24 @@ export class SideBarContainerComponent {
     private bookmarkService: BookmarkService,
     private scheduleService: ScheduleService,
     private schoolService: SchoolService,
+    private searchService: SearchService,
     private router: Router,
-    private ngZone: NgZone,
   ) {
     this.breakpointObserver.observe(['(max-width: 800px)']).subscribe((state: BreakpointState) => {
       this.smallLayout = state.matches;
     })
 
     this.bookmarks = this.bookmarkService.currentBookmarks;
-    this.scheduleIds = this.scheduleService.currentSelectedScheduleIds;
+    this.multiSchoolSchedules = this.scheduleService.currentSelectedScheduleIds;
     this.currentSchool = this.schoolService.currentSchool;
     this.tempMode = this.scheduleService.tempMode;
+  }
+
+  private _removeScheduleId(scheduleId: string, schoolSchedules: MultiSchoolSchedules[]): MultiSchoolSchedules[] {
+    return schoolSchedules.map(item => {
+      const updatedScheduleIds = item.scheduleIds.filter(id => id !== scheduleId);
+      return new MultiSchoolSchedules(item.schoolId, updatedScheduleIds);
+    }).filter(item => item.scheduleIds.length > 0);
   }
 
   deleteBookmark(bookmark: Bookmark) {
@@ -53,20 +64,19 @@ export class SideBarContainerComponent {
       return
     }
 
-    this.bookmarkService.addBookmark(scheduleId, this.schoolService.currentSchoolValue)
+    this.bookmarkService.addBookmark(scheduleId, this.searchService.currentSchoolValue)
   }
 
   removeTempScheduleId(scheduleId: string) {
     const scheduleIds = this.scheduleService.currentSchedulesValue;
-    console.log(scheduleIds.length)
+
     if (scheduleIds.length <= 1) {
-      this.router.navigate(['home']);
+      this.router.navigate([RoutePaths.home]);
       return;
     }
 
-    const scheduleIdx = scheduleIds.indexOf(scheduleId);
-    this.scheduleService.currentSchedulesValue.splice(scheduleIdx, 1);
-    this.router.navigate(['search'], { queryParams: { scheduleIds: scheduleIds.join(',') } });
+    const updatedScheduleIds = this._removeScheduleId(scheduleId, scheduleIds);
+    this.router.navigate([RoutePaths.search], { queryParams: { scheduleIds: searchQueryParams(updatedScheduleIds) } });
   }
 
   isBookmarked(scheduleId: string): boolean {

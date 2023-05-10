@@ -8,6 +8,9 @@ import { SchoolService } from 'src/app/shared/services/school/school.service';
 import { EventDetailsContainerComponent } from '../../event-details/event-details-container/event-details-container.component';
 import { ColorService } from '../../services/color/color.service';
 import { ScheduleService } from '../../services/schedule/schedule.service';
+import MultiSchoolSchedules from 'src/app/models/web/schoolSchedules';
+import { SchoolEnum } from 'src/app/models/enums/schools';
+import RoutePaths from 'src/app/helpers/routing/paths';
 
 @Component({
   selector: 'app-schedule-container',
@@ -29,7 +32,6 @@ export class ScheduleContainerComponent implements OnInit {
   constructor(
     private scheduleService: ScheduleService,
     private ts: TranslocoService,
-    private schoolService: SchoolService,
     private route: ActivatedRoute,
     @Self() element: ElementRef
   ) {
@@ -63,8 +65,7 @@ export class ScheduleContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.url.subscribe((url) => {
-      console.log(`LISTENED: ${url[0].path}`)
-      if (url[0].path == "search") {
+      if (url[0].path == RoutePaths.search) {
         this.scheduleService.setTempMode(true)
       } else {
         this.scheduleService.setTempMode(false)
@@ -72,10 +73,17 @@ export class ScheduleContainerComponent implements OnInit {
     });
 
     this.route.queryParamMap.subscribe(map => {
-      if (this.route.snapshot.url[0].path == "search") {
-        this.scheduleService.setTempSchedules(map.get('scheduleIds')!.split(','))
+      if (this.route.snapshot.url[0].path == RoutePaths.search) {
+        this.scheduleService.setTempSchedules(this._schoolSchedulesFromPath(map.getAll('scheduleIds')));
       }
     })
+  }
+
+  private _schoolSchedulesFromPath(scheduleIdParams: string[]): MultiSchoolSchedules[] {
+    return scheduleIdParams.map(entry => {
+      const entryValues = entry.split(',');
+      return new MultiSchoolSchedules(parseInt(entryValues[0]) as SchoolEnum, entryValues.slice(1));
+    });
   }
 
   @HostListener('showEventDetails', ['$event'])
@@ -83,9 +91,9 @@ export class ScheduleContainerComponent implements OnInit {
     this.eventDetails.showEventDetails(event)
   }
 
-  loadSchedules(scheduleIds: string[]) {
+  loadSchedules(schoolSchedules: MultiSchoolSchedules[]) {
     this.isLoading = true
-    this.currentScheduleUpdate = this.scheduleService.fetchSchedules(scheduleIds, this.schoolService.currentSchoolValue).pipe(
+    this.currentScheduleUpdate = this.scheduleService.fetchSchedules(schoolSchedules).pipe(
       distinctUntilChanged()
     ).subscribe({
       error: (err) => {

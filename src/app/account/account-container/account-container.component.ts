@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import RoutePaths from 'src/app/helpers/routing/paths';
 import KronoxUser from 'src/app/models/user/kronox_user';
 import { ScheduleService } from 'src/app/schedule/services/schedule/schedule.service';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
@@ -16,7 +17,7 @@ export class AccountContainerComponent {
 
   ngOnInit(): void {
     this.route.url.subscribe((url) => {
-      if (url[0].path == "search") {
+      if (url[0].path == RoutePaths.search) {
         this.scheduleService.setTempMode(true)
       } else {
         this.scheduleService.setTempMode(false)

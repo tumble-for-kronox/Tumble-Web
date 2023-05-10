@@ -1,4 +1,4 @@
-<div *ngIf="!minimized">
+<div *ngIf="!minimized; else minimizedSearch">
     <div *transloco="let t" class="clr-search-bar container" [style.height]="this.expanded ? '25rem' : '3rem'"
         #searchContainer>
         <div class="input-row">
@@ -10,6 +10,7 @@
             </button>
             <input #inputField (input)="this.dynamicSearch()" (keyup.enter)="this.search()" type="search"
                 [placeholder]="t('site-header.search-bar.placeholder')" (focus)="this.expanded = true">
+
             <button mat-icon-button *ngIf="this.expanded" (click)="this.clearSearchInput()">
                 <mat-icon>cancel</mat-icon>
             </button>
@@ -25,12 +26,12 @@
         </div>
         <div *ngIf="this.results" class="results-container">
             <h4>{{t('site-header.search-bar.results', { count: this.resultCount })}}</h4>
-            <search-result *ngFor="let item of this.results" [programme]="item"
+            <search-result *ngFor="let item of this.results" [schoolId]="currSchoolValue" [programme]="item"
                 (selectedScheduleEvent)="onScheduleSelected()"></search-result>
         </div>
     </div>
 </div>
-<div *ngIf="minimized">
+<ng-template #minimizedSearch>
     <button mat-icon-button (click)="openMinimizedSearch()">
         <mat-icon>search</mat-icon>
     </button>
@@ -60,9 +61,9 @@
             </div>
             <div *ngIf="this.results" class="results-container">
                 <h4>{{t('site-header.search-bar.results', { count: this.resultCount })}}</h4>
-                <search-result *ngFor="let item of this.results" [programme]="item"
+                <search-result *ngFor="let item of this.results" [schoolId]="currSchoolValue" [programme]="item"
                     (selectedScheduleEvent)="onScheduleSelected()"></search-result>
             </div>
         </div>
     </div>
-</div>
+</ng-template>

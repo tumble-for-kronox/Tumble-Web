@@ -4,12 +4,13 @@ import { AccountContainerComponent } from './account/account-container/account-c
 import { BodyContainerComponent } from './body/components/body-container/body-container.component';
 import { ScheduleContainerComponent } from './schedule/components/schedule-container/schedule-container.component';
 import { AccountGuard } from './shared/guards/account.guard';
+import RoutePaths from './helpers/routing/paths';
 
 const routes: Routes = [
-  { path: "home", component: ScheduleContainerComponent, title: "Home" },
-  { path: "search", component: ScheduleContainerComponent, title: "Search Schedules" },
-  { path: "account", component: AccountContainerComponent, title: "Account", canActivate: [AccountGuard] },
-  { path: "**", redirectTo: "home" }
+  { path: RoutePaths.home, component: ScheduleContainerComponent, title: "Home" },
+  { path: RoutePaths.search, component: ScheduleContainerComponent, title: "Search Schedules" },
+  { path: RoutePaths.account, component: AccountContainerComponent, title: "Account", canActivate: [AccountGuard] },
+  { path: "**", redirectTo: RoutePaths.home }
 ];
 
 @NgModule({

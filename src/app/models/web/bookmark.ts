@@ -1,7 +1,6 @@
 import { SchoolEnum } from "../enums/schools";
-import Programme from "../programme";
 
-export class Bookmark {
+export default class Bookmark {
     scheduleId: string;
     visible: boolean;
     schoolId: SchoolEnum;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import StorageKeys from '@constants/storage_keys';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Bookmark } from 'src/app/models/web/bookmark';
+import Bookmark from 'src/app/models/web/bookmark';
 import { BookmarkService } from 'src/app/shared/services/bookmark/bookmark.service';
 
 @Injectable({
