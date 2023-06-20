@@ -6,6 +6,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { ProgrammeResponseHandler } from 'src/app/helpers/backend/response-handlers/ProgrammeResponseHandler';
 import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { SchoolService } from 'src/app/shared/services/school/school.service';
+import { SchoolEnum } from 'src/app/models/enums/schools';
 
 @Component({
   selector: 'search-bar',
@@ -22,13 +23,14 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   private _resultCount?: number;
   private _results?: Programme[];
   private _$isSchoolSelected: Subscription
+  private _$currSchoolValue: Subscription
   loading: boolean = false;
   isSchoolSelected: boolean = false;
+  currSchoolValue!: SchoolEnum;
 
   constructor(
     private renderer: Renderer2,
     private searchService: SearchService,
-    private schoolService: SchoolService,
     private matSnackBar: MatSnackBar,
     private ts: TranslocoService
   ) {
@@ -47,8 +49,12 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       this.expanded = false;
     })
 
-    this._$isSchoolSelected = schoolService.schoolChosen.subscribe(value => {
+    this._$isSchoolSelected = searchService.schoolChosen.subscribe(value => {
       this.isSchoolSelected = value;
+    })
+
+    this._$currSchoolValue = searchService.currentSchool.subscribe(value => {
+      this.currSchoolValue = value;
     })
   }
 
@@ -57,6 +63,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._$isSchoolSelected.unsubscribe();
+    this._$currSchoolValue.unsubscribe();
   }
 
   public get resultCount() {
@@ -65,6 +72,10 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   public get results() {
     return this._results;
+  }
+
+  changeSchool(school: SchoolEnum) {
+    this.searchService.changeSchool(school);
   }
 
   openMinimizedSearch() {
@@ -116,7 +127,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     this.loading = true;
 
-    this.searchService.submitSearchQuery(this.schoolService.currentSchoolValue, this.searchInputField.nativeElement.value.trim())
+    this.searchService.submitSearchQuery(this.searchService.currentSchoolValue, this.searchInputField.nativeElement.value.trim())
       .pipe(
         debounceTime(1000),
         distinctUntilChanged(),

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { map, Observable } from 'rxjs';
 import { SchoolEnum } from 'src/app/models/enums/schools';
@@ -13,14 +13,14 @@ import { SchoolService } from '../../services/school/school.service';
 export class SchoolPickerComponent implements OnInit {
   @ViewChild('schoolPickerContainer') schoolPickerContainer!: ElementRef
 
-  chosenSchool: Observable<School | null>;
+  @Input() chosenSchool!: SchoolEnum
+  @Output() change: EventEmitter<SchoolEnum> = new EventEmitter<SchoolEnum>();
+
   schools: School[] = schoolList;
-  filteredSchools: School[] = schoolList;
   expanded: boolean = false;
 
   constructor(
-    private renderer: Renderer2,
-    private schoolService: SchoolService
+    private renderer: Renderer2
   ) {
     this.renderer.listen('window', 'click', (e: Event) => {
       if (!this.expanded) return;
@@ -33,46 +33,37 @@ export class SchoolPickerComponent implements OnInit {
     this.renderer.listen('window', 'keyup.escape', (_e: Event) => {
       this.expanded = false;
     })
-
-    this.chosenSchool = this.schoolService.currentSchool.pipe(
-      map(school => {
-        if (school == SchoolEnum.NONE) {
-          return null
-        }
-
-        for (const entry of this.schools) {
-          if (entry.id == school) {
-            return entry;
-          }
-        }
-
-        return null;
-      })
-    )
   }
 
   ngOnInit(): void {
-    this.schoolService.currentSchool.subscribe(value => {
-      if (value == null) this.filteredSchools = schoolList;
-
-      this.filteredSchools = schoolList.filter(school => {
-        return school.id !== value
-      })
-    })
   }
+
+  public get filteredSchools(): School[] {
+    if (this.schoolValue == undefined) {
+      return this.schools;
+    }
+
+    return this.schools.filter(school => school.id != this.schoolValue!.id);
+  }
+
+
+  public get schoolValue(): School | undefined {
+    return this.schools.find(school => school.id == this.chosenSchool);
+  }
+
 
   changeSchool(school: School | undefined) {
     this.expanded = false;
     if (school === undefined) {
-      this.schoolService.changeSchool(SchoolEnum.NONE);
+      this.change.emit(SchoolEnum.NONE);
       return;
     }
 
-    this.schoolService.changeSchool(school.id);
+    this.change.emit(school.id);
   }
 
-  schoolSelected() {
-    return this.schoolService.schoolChosen;
+  schoolSelected(): boolean {
+    return this.chosenSchool != SchoolEnum.NONE
   }
 
   toggleExpanded() {

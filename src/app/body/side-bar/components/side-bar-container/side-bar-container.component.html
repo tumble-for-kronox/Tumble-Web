@@ -1,18 +1,19 @@
 <div *transloco="let t" class="container">
     <school-picker *ngIf="smallLayout"></school-picker>
     <side-bar-section *ngIf="tempMode | async" [title]="t('site-side-bar.temp.title')">
+        <div *ngFor="let multiSchoolSchedule of multiSchoolSchedules | async">
+            <side-bar-dual-action-item *ngFor="let scheduleId of multiSchoolSchedule.scheduleIds"
+                [title]="(scheduleId | scheduleIdFormatter : (currentSchool | async)!)"
+                (primaryAction)="addBookmark(scheduleId)" (secondaryAction)="removeTempScheduleId(scheduleId)">
 
-        <side-bar-dual-action-item *ngFor="let scheduleId of scheduleIds | async"
-            [title]="(scheduleId | scheduleIdFormatter : (currentSchool | async)!)"
-            (primaryAction)="addBookmark(scheduleId)" (secondaryAction)="removeTempScheduleId(scheduleId)">
+                <mat-icon primaryIcon class="material-symbols" *ngIf="isBookmarked(scheduleId)"
+                    id="bookmarked">bookmark</mat-icon>
+                <mat-icon primaryIcon class="material-symbols-outlined"
+                    *ngIf="!isBookmarked(scheduleId)">bookmark</mat-icon>
 
-            <mat-icon primaryIcon class="material-symbols" *ngIf="isBookmarked(scheduleId)"
-                id="bookmarked">bookmark</mat-icon>
-            <mat-icon primaryIcon class="material-symbols-outlined"
-                *ngIf="!isBookmarked(scheduleId)">bookmark</mat-icon>
-
-            <mat-icon secondaryIcon class="material-symbols-outlined">close</mat-icon>
-        </side-bar-dual-action-item>
+                <mat-icon secondaryIcon class="material-symbols-outlined">close</mat-icon>
+            </side-bar-dual-action-item>
+        </div>
         <schedule-temp-reset></schedule-temp-reset>
     </side-bar-section>
 

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { Inject, Injectable } from '@angular/core';
 import Endpoints from 'src/app/config/constants/endpoints';
 import QueryFields from 'src/app/config/constants/query_fields';
-import { timeout } from 'rxjs';
+import { BehaviorSubject, map, timeout } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { SchoolEnum } from 'src/app/models/enums/schools';
 
@@ -11,7 +11,26 @@ import { SchoolEnum } from 'src/app/models/enums/schools';
 })
 export class SearchService {
 
-  constructor(private http: HttpClient) { }
+  private currentSchoolSubject: BehaviorSubject<SchoolEnum> = new BehaviorSubject<SchoolEnum>(SchoolEnum.NONE);
+  public currentSchool: Observable<SchoolEnum>;
+  public schoolChosen: Observable<boolean>;
+
+  constructor(private http: HttpClient) {
+    this.currentSchool = this.currentSchoolSubject.asObservable();
+    this.schoolChosen = this.currentSchoolSubject.pipe(
+      map(value => {
+        return value != SchoolEnum.NONE
+      })
+    )
+  }
+
+  public get currentSchoolValue(): SchoolEnum {
+    return this.currentSchoolSubject.value;
+  }
+
+  public changeSchool(chosenSchool: SchoolEnum) {
+    this.currentSchoolSubject.next(chosenSchool);
+  }
 
   submitSearchQuery(schoolId: SchoolEnum, searchQuery: string): Observable<HttpResponse<Object>> {
     const params = new HttpParams().appendAll({

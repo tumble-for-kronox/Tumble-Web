@@ -1,11 +1,6 @@
 <div #schoolPickerContainer class="container">
     <div (click)="toggleExpanded()">
-        <div class="clr-search-bar choice-container" *ngIf="!(schoolSelected() | async)">
-            <!-- <img *ngIf="schoolSelected() | async" src="../../../../assets/school-logos/{{(chosenSchool | async)!.logo}}"
-                alt="school logo"> -->
-            <p>{{'None'}}</p>
-        </div>
-        <school-option *ngIf="schoolSelected() | async" [school]="(chosenSchool | async)!"></school-option>
+        <school-option [school]="schoolValue"></school-option>
     </div>
     <div class="list-container" [style.height]="this.expanded ? '28rem' : '0'">
         <school-option *ngFor="let school of filteredSchools" [school]="school"

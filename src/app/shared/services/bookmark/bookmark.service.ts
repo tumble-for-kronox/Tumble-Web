@@ -3,7 +3,7 @@ import StorageKeys from 'src/app/config/constants/storage_keys';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { SchoolEnum } from 'src/app/models/enums/schools';
 import Programme from 'src/app/models/programme';
-import { Bookmark } from 'src/app/models/web/bookmark';
+import Bookmark from 'src/app/models/web/bookmark';
 
 @Injectable({
   providedIn: 'root'
