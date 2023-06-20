@@ -13,14 +13,14 @@ import { SchoolService } from 'src/app/shared/services/school/school.service';
   styleUrls: ['./login-modal.component.scss'],
 })
 export class LoginModalComponent {
+  selectedSchool: SchoolEnum = SchoolEnum.NONE;
   error?: string;
 
   constructor(
     public dialog: MatDialog,
     private ts: TranslocoService,
-    private schoolService: SchoolService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   form: FormGroup = new FormGroup({
     username: new FormControl(''),
@@ -36,14 +36,14 @@ export class LoginModalComponent {
       return;
     }
 
-    if (this.schoolService.currentSchoolValue == SchoolEnum.NONE) {
+    if (this.selectedSchool == SchoolEnum.NONE) {
       this.error = this.ts.translate('errors.login.no-school');
       return;
     }
 
     this.authService
       .login(
-        this.schoolService.currentSchoolValue,
+        this.selectedSchool,
         this.form.value['username'],
         this.form.value['password']
       )
@@ -63,5 +63,10 @@ export class LoginModalComponent {
 
   closeDialog() {
     this.dialog.closeAll();
+  }
+
+  updateSchoolVal(value: SchoolEnum) {
+    console.log(`CHANGE SCHOOL VAL: ${this.selectedSchool}`)
+    this.selectedSchool = value;
   }
 }

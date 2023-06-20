@@ -5,7 +5,7 @@
 
         <div class="field-container">
             <p class="field-label">{{t('login.school-label')}}</p>
-            <school-picker></school-picker>
+            <school-picker [chosenSchool]="selectedSchool" (change)="updateSchoolVal($event)"></school-picker>
         </div>
 
         <div class="field-container">

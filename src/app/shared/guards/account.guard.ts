@@ -13,11 +13,7 @@ export class AccountGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (route.url[0].path == "account") {
-      return this.authService.currentUserValue != null;
-    }
-
-    return true;
+    return this.authService.currentUserValue != null;
   }
 
 }

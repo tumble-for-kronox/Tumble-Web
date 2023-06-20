@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://tumble.hkr.se:443/api',
+  apiUrl: 'https://localhost:7036/api',
 };
 
 /*
