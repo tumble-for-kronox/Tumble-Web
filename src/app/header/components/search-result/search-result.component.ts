@@ -24,11 +24,11 @@ export class SearchResultComponent implements OnInit {
   }
 
   private _addScheduleId(schoolId: SchoolEnum, scheduleId: string, schoolSchedules: MultiSchoolSchedules[]): MultiSchoolSchedules[] {
-    const existingEntry = schoolSchedules.find(entry => entry.schoolId === schoolId);
+    const entryWithSameSchool = schoolSchedules.find(entry => entry.schoolId === schoolId);
 
-    if (existingEntry) {
-      const updatedScheduleIds = [...existingEntry.scheduleIds, scheduleId];
-      const updatedEntry = new MultiSchoolSchedules(schoolId, updatedScheduleIds);
+    if (entryWithSameSchool) {
+      const updatedScheduleIds = new Set([...entryWithSameSchool.scheduleIds, scheduleId]);
+      const updatedEntry = new MultiSchoolSchedules(schoolId, [...updatedScheduleIds]);
       return schoolSchedules.map(entry => (entry.schoolId === schoolId ? updatedEntry : entry));
     }
 

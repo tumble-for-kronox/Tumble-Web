@@ -1,9 +1,9 @@
 <div *transloco="let t" class="container">
     <school-picker *ngIf="smallLayout"></school-picker>
     <side-bar-section *ngIf="tempMode | async" [title]="t('site-side-bar.temp.title')">
-        <div *ngFor="let multiSchoolSchedule of multiSchoolSchedules | async">
+        <div class="items-list" *ngFor="let multiSchoolSchedule of multiSchoolSchedules | async">
             <side-bar-dual-action-item *ngFor="let scheduleId of multiSchoolSchedule.scheduleIds"
-                [title]="(scheduleId | scheduleIdFormatter : (currentSchool | async)!)"
+                [title]="(scheduleId | scheduleIdFormatter : multiSchoolSchedule.schoolId)"
                 (primaryAction)="addBookmark(scheduleId)" (secondaryAction)="removeTempScheduleId(scheduleId)">
 
                 <mat-icon primaryIcon class="material-symbols" *ngIf="isBookmarked(scheduleId)"
@@ -24,7 +24,7 @@
         </div>
 
         <side-bar-dual-action-item *ngFor="let bookmark of (bookmarks | async)"
-            [title]="(bookmark.scheduleId | scheduleIdFormatter : (currentSchool | async)!)"
+            [title]="(bookmark.scheduleId | scheduleIdFormatter : bookmark.schoolId)"
             (primaryAction)="toggleVisible(bookmark)" (secondaryAction)="deleteBookmark(bookmark)">
             <mat-icon primaryIcon class="material-symbols-outlined">{{bookmark.visible ? "visibility" :
                 "visibility_off"}}</mat-icon>

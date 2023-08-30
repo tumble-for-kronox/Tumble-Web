@@ -17,7 +17,7 @@ import RoutePaths from 'src/app/helpers/routing/paths';
   templateUrl: './schedule-container.component.html',
   styleUrls: ['./schedule-container.component.scss']
 })
-export class ScheduleContainerComponent implements OnInit {
+export class ScheduleContainerComponent {
   @ViewChild(EventDetailsContainerComponent) eventDetails!: EventDetailsContainerComponent
 
   isTempMode: Observable<boolean>
@@ -56,6 +56,15 @@ export class ScheduleContainerComponent implements OnInit {
       this.isEmptySchedule = this.scheduleIsEmpty(schedule)
     })
 
+    this.route.queryParamMap.subscribe((paramMap) => {
+      if (this.route.snapshot.url[0].path == RoutePaths.search) {
+        this.scheduleService.setTempMode(true);
+        this.scheduleService.setTempSchedules(this._schoolSchedulesFromPath(paramMap.getAll('scheduleIds')));
+      } else {
+        this.scheduleService.setTempMode(false);
+      }
+    });
+
     if (element.nativeElement.offsetWidth <= 800) {
       this.smallLayout = true
     } else {
@@ -63,21 +72,16 @@ export class ScheduleContainerComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.route.url.subscribe((url) => {
-      if (url[0].path == RoutePaths.search) {
-        this.scheduleService.setTempMode(true)
-      } else {
-        this.scheduleService.setTempMode(false)
-      }
-    });
-
-    this.route.queryParamMap.subscribe(map => {
-      if (this.route.snapshot.url[0].path == RoutePaths.search) {
-        this.scheduleService.setTempSchedules(this._schoolSchedulesFromPath(map.getAll('scheduleIds')));
-      }
-    })
-  }
+  // ngOnInit(): void {
+  //   this.route.queryParamMap.subscribe((paramMap) => {
+  //     if (this.route.snapshot.url[0].path == RoutePaths.search) {
+  //       this.scheduleService.setTempMode(true);
+  //       this.scheduleService.setTempSchedules(this._schoolSchedulesFromPath(paramMap.getAll('scheduleIds')));
+  //     } else {
+  //       this.scheduleService.setTempMode(false);
+  //     }
+  //   });
+  // }
 
   private _schoolSchedulesFromPath(scheduleIdParams: string[]): MultiSchoolSchedules[] {
     return scheduleIdParams.map(entry => {

@@ -2,7 +2,6 @@
     [ngStyle]="{'top.px': currentY, 'left.px': currentX, visibility: inVisibilityTransition ? 'hidden' : 'visible'}"
     class="container">
     <div class="header-row" [style.borderTopColor]="getEventColor() ?? '#ffffff'">
-        <h1>Details</h1>
         <button (click)="closeEventDetails()" mat-icon-button>
             <mat-icon>close</mat-icon>
         </button>
@@ -15,7 +14,7 @@
         </div>
     </div>
     <div class="details-body">
-        <h1 id="event-title" [innerHTML]="event!.title"></h1>
+        <h1>{{event!.title}}</h1>
         <h2>Date</h2>
         <h3>{{datepipe.transform(event!.from, 'dd MMMM yyyy')}}</h3>
         <h2>Time</h2>
