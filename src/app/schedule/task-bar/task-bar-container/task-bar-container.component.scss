@@ -1,0 +1,14 @@
+.container {
+    width: 100%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 0.2rem;
+
+    p {
+        margin: 0;
+    }
+}

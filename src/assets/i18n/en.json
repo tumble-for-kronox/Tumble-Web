@@ -34,7 +34,12 @@
         "username-placeholder": "name@domain.com",
         "password-placeholder": "Password"
     },
-    "schedule": {},
+    "schedule": {
+        "task-bar": {
+            "schedules-count": "{count, plural, =1 {# • Schedule} other {# • Schedules}}",
+            "reset-search": "Reset search"
+        }
+    },
     "errors": {
         "timeout": "Connecting to the server timed out",
         "500": "Something went wrong, try again later",

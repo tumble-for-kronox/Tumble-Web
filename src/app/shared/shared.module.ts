@@ -6,6 +6,10 @@ import { ThemeSwitchModule } from './theme-switch/theme-switch.module';
 import { ScheduleIdFormatterPipe } from './pipes/schedule-id-formatter/schedule-id-formatter.pipe';
 import { JoinPipe } from './pipes/join/join.pipe';
 import { HexOpacityPipe } from './pipes/hex-opacity/hex-opacity.pipe';
+import { DualActionItemComponent } from './components/dual-action-item/dual-action-item.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatIconButtonSizesModule } from 'mat-icon-button-sizes';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -16,18 +20,23 @@ import { HexOpacityPipe } from './pipes/hex-opacity/hex-opacity.pipe';
     ThemeSwitchModule,
     JoinPipe,
     ScheduleIdFormatterPipe,
-    HexOpacityPipe
+    HexOpacityPipe,
+    DualActionItemComponent
   ],
   declarations: [
     JoinPipe,
     ScheduleIdFormatterPipe,
-    HexOpacityPipe
+    HexOpacityPipe,
+    DualActionItemComponent
   ],
   imports: [
     CommonModule,
     FavouriteModule,
     SchoolPickerModule,
-    ThemeSwitchModule
+    ThemeSwitchModule,
+    MatIconModule,
+    MatIconButtonSizesModule,
+    MatButtonModule
   ]
 })
 export class SharedModule { }

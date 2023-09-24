@@ -8,13 +8,14 @@ import {
   TranslocoModule
 } from '@ngneat/transloco';
 import { Injectable, isDevMode, NgModule } from '@angular/core';
+import { provideTranslocoMessageformat } from '@ngneat/transloco-messageformat';
 
 
 @Injectable({ providedIn: 'root' })
 export class TranslocoHttpLoader implements TranslocoLoader {
   private http: HttpClient;
 
-  constructor(private httpBackend: HttpBackend) {
+  constructor(httpBackend: HttpBackend) {
     this.http = new HttpClient(httpBackend)
   }
 
@@ -37,7 +38,8 @@ export class TranslocoHttpLoader implements TranslocoLoader {
         prodMode: !isDevMode(),
       })
     },
-    { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader }
+    { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader },
+    provideTranslocoMessageformat()
   ]
 })
 export class TranslocoRootModule { }

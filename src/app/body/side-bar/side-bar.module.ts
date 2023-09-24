@@ -9,8 +9,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { SchoolPickerModule } from 'src/app/shared/school-picker/school-picker.module';
 import { SideBarSectionComponent } from './components/side-bar-section/side-bar-section.component';
 import { SideBarItemComponent } from './components/side-bar-item/side-bar-item.component';
-import { DualActionItemComponent } from './components/dual-action-item/dual-action-item.component';
-import { ScheduleModule } from 'src/app/schedule/schedule.module';
 
 
 
@@ -18,8 +16,7 @@ import { ScheduleModule } from 'src/app/schedule/schedule.module';
   declarations: [
     SideBarContainerComponent,
     SideBarSectionComponent,
-    SideBarItemComponent,
-    DualActionItemComponent
+    SideBarItemComponent
   ],
   imports: [
     CommonModule,
@@ -28,8 +25,7 @@ import { ScheduleModule } from 'src/app/schedule/schedule.module';
     MatButtonModule,
     MatIconModule,
     MatIconButtonSizesModule,
-    SchoolPickerModule,
-    ScheduleModule
+    SchoolPickerModule
   ],
   exports: [
     SideBarContainerComponent

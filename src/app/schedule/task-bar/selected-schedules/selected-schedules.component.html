@@ -1,0 +1,19 @@
+<div *transloco="let t" class="container" mat-ripple (click)="toggleSchedulesPopUp()">
+    <p>{{t('schedule.task-bar.schedules-count', { count: countSchedules(schedules | async) })}}</p>
+</div>
+
+<div class="pop-up-container" *ngIf="showSchedulesPopUp">
+    <div class="items-list" *ngFor="let multiSchoolSchedule of schedules | async">
+        <side-bar-dual-action-item *ngFor="let scheduleId of multiSchoolSchedule.scheduleIds"
+            [title]="(scheduleId | scheduleIdFormatter : multiSchoolSchedule.schoolId)"
+            (primaryAction)="addBookmark(scheduleId)" (secondaryAction)="removeTempScheduleId(scheduleId)">
+
+            <mat-icon primaryIcon class="material-symbols" *ngIf="isBookmarked(scheduleId)"
+                id="bookmarked">bookmark</mat-icon>
+            <mat-icon primaryIcon class="material-symbols-outlined"
+                *ngIf="!isBookmarked(scheduleId)">bookmark</mat-icon>
+
+            <mat-icon secondaryIcon class="material-symbols-outlined">close</mat-icon>
+        </side-bar-dual-action-item>
+    </div>
+</div>
