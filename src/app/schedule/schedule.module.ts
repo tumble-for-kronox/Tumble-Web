@@ -9,6 +9,8 @@ import { ListViewModule } from './list-view/list-view.module';
 import { EventDetailsModule } from './event-details/event-details.module';
 import { RouterModule } from '@angular/router';
 import { TaskBarModule } from './task-bar/task-bar.module';
+import { WeekViewModule } from './week-view/week-view.module';
+import { MonthViewModule } from './month-view/month-view.module';
 
 
 
@@ -24,7 +26,9 @@ import { TaskBarModule } from './task-bar/task-bar.module';
     MatProgressSpinnerModule,
     EventDetailsModule,
     RouterModule,
-    TaskBarModule
+    TaskBarModule,
+    WeekViewModule,
+    MonthViewModule
   ],
   exports: [
     ScheduleContainerComponent,

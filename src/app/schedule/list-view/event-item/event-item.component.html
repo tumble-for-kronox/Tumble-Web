@@ -1,5 +1,3 @@
-<!-- The '19' being added is the hex opacity equivalent of 10%. Check https://stackoverflow.com/a/8254129/18690430 for details, could use better implementation. -->
-<!-- <div class="event-info" [ngStyle]="{'background-color': (getEventColor() | async) + '19'}" -->
 <div class="event-info" [ngStyle]="{'background-color': getEventColor() | async | hexOpacity: 0.05}"
     (click)="showEventDetails($event)">
     <div class="time-row">

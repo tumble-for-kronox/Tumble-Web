@@ -1,6 +1,5 @@
 <div class="container">
     <app-task-bar-container [(scheduleView)]="scheduleView"></app-task-bar-container>
-    <p>{{scheduleView}}</p>
     <div class="loading-container" *ngIf="isLoading">
         <div class="text">
             <h1>Hang on!</h1>
@@ -39,10 +38,10 @@
     <div class="schedule-view" *ngIf="loadedSchedule.value != null && !isLoading" [ngSwitch]="scheduleView">
         <schedule-list-view-container [currentSchedule]="loadedSchedule.asObservable()" [smallLayout]="smallLayout"
             *ngSwitchCase="scheduleViewValues['schedule']"></schedule-list-view-container>
-        <schedule-list-view-container [currentSchedule]="loadedSchedule.asObservable()" [smallLayout]="smallLayout"
-            *ngSwitchCase="scheduleViewValues['week']"></schedule-list-view-container>
-        <schedule-list-view-container [currentSchedule]="loadedSchedule.asObservable()" [smallLayout]="smallLayout"
-            *ngSwitchCase="scheduleViewValues['month']"></schedule-list-view-container>
+        <schedule-week-view-container [currentSchedule]="loadedSchedule.asObservable()" [smallLayout]="smallLayout"
+            *ngSwitchCase="scheduleViewValues['week']"></schedule-week-view-container>
+        <schedule-month-view-container [currentSchedule]="loadedSchedule.asObservable()" [smallLayout]="smallLayout"
+            *ngSwitchCase="scheduleViewValues['month']"></schedule-month-view-container>
     </div>
 </div>
 <app-event-details-container></app-event-details-container>

@@ -13,7 +13,7 @@ export class ColorService {
   public currentColors: Observable<Map<string, string>>;
   public specialEventColor: string = '#d40000'
 
-  constructor(private bookmarkService: BookmarkService) {
+  constructor() {
     let storedColors = localStorage.getItem(StorageKeys.savedColors);
     let currentColors: Map<string, string> = new Map()
 
