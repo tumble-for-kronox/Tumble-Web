@@ -11,6 +11,7 @@ import { ScheduleService } from '../../services/schedule/schedule.service';
 import MultiSchoolSchedules from 'src/app/models/web/schoolSchedules';
 import { SchoolEnum } from 'src/app/models/enums/schools';
 import RoutePaths from 'src/app/helpers/routing/paths';
+import { ScheduleView, scheduleViewValues } from 'src/app/models/enums/scheduleView';
 
 @Component({
   selector: 'app-schedule-container',
@@ -26,6 +27,8 @@ export class ScheduleContainerComponent {
   loadedSchedule: BehaviorSubject<Schedule | null> = new BehaviorSubject<Schedule | null>(null)
   isEmptySchedule: boolean = false
   smallLayout: boolean;
+  scheduleView: ScheduleView = ScheduleView.SCHEDULE;
+  scheduleViewValues = scheduleViewValues;
 
   private currentScheduleUpdate?: Subscription
 

@@ -7,7 +7,7 @@
                     <mat-spinner diameter="22"></mat-spinner>
                 </mat-icon>
             </button>
-            <input #inputField (input)="this.dynamicSearch()" (keyup.enter)="this.search()" type="search"
+            <input #inputField (input)="this.onSearchTyped()" (keyup.enter)="this.search()" type="search"
                 [placeholder]="!isSchoolSelected ? t('site-header.search-bar.no-school-search-help-body') : t('site-header.search-bar.placeholder')"
                 [disabled]="!isSchoolSelected" (focus)="this.expanded = true">
 
@@ -44,7 +44,7 @@
                         <mat-spinner diameter="22"></mat-spinner>
                     </mat-icon>
                 </button>
-                <input #inputField (input)="this.dynamicSearch()" type="search"
+                <input #inputField (input)="this.onSearchTyped()" type="search"
                     [placeholder]="t('site-header.search-bar.placeholder')">
                 <button mat-icon-button (click)="this.clearSearchInput()">
                     <mat-icon>cancel</mat-icon>

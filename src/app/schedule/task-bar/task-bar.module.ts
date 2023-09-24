@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 import { TempResetComponent } from './temp-reset/temp-reset.component';
 import { RouterModule } from '@angular/router';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 
@@ -23,7 +24,8 @@ import { RouterModule } from '@angular/router';
     MatRippleModule,
     MatIconModule,
     TranslocoModule,
-    RouterModule
+    RouterModule,
+    MatButtonToggleModule
   ],
   exports: [
     TaskBarContainerComponent,

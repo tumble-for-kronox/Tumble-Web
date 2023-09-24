@@ -13,7 +13,7 @@
     }
 
     &:hover {
-        background-color: clr('primary', $alpha: -0.7);
+        background-color: clr('onBackground', $alpha: -0.7);
         cursor: pointer;
     }
 }
@@ -32,15 +32,12 @@
     background-color: clr('surface');
     color: clr('onSurface');
     border-radius: 10px;
-    border-top-left-radius: 0px;
 
     .items-list {
         display: flex;
         flex-flow: column nowrap;
         gap: 0.5rem;
     }
-
-    &::before {}
 }
 
 #bookmarked {
