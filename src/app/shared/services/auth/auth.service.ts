@@ -1,9 +1,8 @@
-import { HttpBackend, HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Injectable, NgZone } from '@angular/core';
+import { HttpBackend, HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import BodyFields from 'src/app/config/constants/body_fields';
 import Endpoints from 'src/app/config/constants/endpoints';
 import QueryFields from 'src/app/config/constants/query_fields';
-import StorageKeys from 'src/app/config/constants/storage_keys';
 import { map } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs/internal/Observable';
@@ -11,6 +10,7 @@ import { UserResponseHandler } from 'src/app/helpers/backend/response-handlers/U
 import { SchoolEnum } from 'src/app/models/enums/schools';
 import KronoxUser from 'src/app/models/user/kronox_user';
 import { SchoolService } from '../school/school.service';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +23,12 @@ export class AuthService {
 
   constructor(
     httpBackend: HttpBackend,
-    private schoolService: SchoolService
+    private schoolService: SchoolService,
+    private storageService: StorageService
   ) {
     this.http = new HttpClient(httpBackend);
 
-    let storedRefreshToken = localStorage.getItem(StorageKeys.savedUser);
+    let storedRefreshToken = storageService.getRefreshToken();
 
     this.currentUserSubject = new BehaviorSubject<KronoxUser | null>(null);
     if (storedRefreshToken != null && storedRefreshToken != "undefined") {
@@ -38,7 +39,7 @@ export class AuthService {
         },
         next: (value) => {
           const user = KronoxUser.fromJson(value.body);
-          localStorage.setItem(StorageKeys.savedUser, user.refreshToken);
+          storageService.setRefreshToken(user.refreshToken);
           this.currentUserSubject.next(user)
         }
       })
@@ -77,7 +78,7 @@ export class AuthService {
         if (!value.ok) return value;
 
         const user = KronoxUser.fromJson(value.body);
-        localStorage.setItem(StorageKeys.savedUser, user.refreshToken);
+        this.storageService.setRefreshToken(user.refreshToken);
         this.currentUserSubject.next(user);
         return value;
       })
@@ -100,7 +101,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem(StorageKeys.savedUser);
+    this.storageService.clearRefreshToken();
     this.currentUserSubject?.next(null);
   }
 }

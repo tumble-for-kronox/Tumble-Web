@@ -8,8 +8,7 @@
                 </mat-icon>
             </button>
             <input #inputField (input)="this.onSearchTyped()" (keyup.enter)="this.search()" type="search"
-                [placeholder]="!isSchoolSelected ? t('site-header.search-bar.no-school-search-help-body') : t('site-header.search-bar.placeholder')"
-                [disabled]="!isSchoolSelected" (focus)="this.expanded = true">
+                [placeholder]="t('site-header.search-bar.placeholder')" (focus)="this.expanded = true">
 
             <button mat-icon-button *ngIf="this.expanded" (click)="this.clearSearchInput()">
                 <mat-icon>cancel</mat-icon>
@@ -18,11 +17,7 @@
         <div class="divider"></div>
         <div [style.height]="'0.5rem'"></div>
         <div *ngIf="!this.results" class="results-placeholder">
-            <div class="no-school-help" *ngIf="!isSchoolSelected">
-                <h1>{{t('site-header.search-bar.no-school-search-help-title')}}</h1>
-                <h3>{{t('site-header.search-bar.no-school-search-help-body')}}</h3>
-            </div>
-            <h3 *ngIf="isSchoolSelected">{{t('site-header.search-bar.search-help')}}</h3>
+            <h3 *ngIf="isSchoolSelected;else noSchoolSelected">{{t('site-header.search-bar.search-help')}}</h3>
         </div>
         <div *ngIf="this.results" class="results-container">
             <h4>{{t('site-header.search-bar.results', { count: this.resultCount })}}</h4>
@@ -31,6 +26,14 @@
         </div>
     </div>
 </div>
+
+<ng-template #noSchoolSelected>
+    <div *transloco="let t" class="no-school-help">
+        <h1>{{t('site-header.search-bar.no-school-search-help-title')}}</h1>
+        <h3>{{t('site-header.search-bar.no-school-search-help-body')}}</h3>
+    </div>
+</ng-template>
+
 <ng-template #minimizedSearch>
     <button mat-icon-button (click)="openMinimizedSearch()">
         <mat-icon>search</mat-icon>

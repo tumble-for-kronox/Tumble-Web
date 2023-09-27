@@ -1,10 +1,10 @@
 <div class="container">
     <header-logo *ngIf="showLargeSearch"></header-logo>
     <div *ngIf="showLargeSearch" class="search-and-school-container">
-        <search-bar id="large-search-bar"></search-bar>
         <div [style.width]="'7rem'">
             <school-picker (change)="changeSchool($event)" [chosenSchool]="currSchoolValue"></school-picker>
         </div>
+        <search-bar id="large-search-bar"></search-bar>
     </div>
     <button (click)="toggleExpandedSidebar()" *ngIf="showSmallSearch" [ngClass]="expandedSideBar ? 'is-active' : ''"
         class="hamburger hamburger--squeeze" type="button">

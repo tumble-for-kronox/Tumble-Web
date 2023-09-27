@@ -22,7 +22,6 @@ export class TaskBarContainerComponent {
   }
 
   viewChanged(value: ScheduleView) {
-    console.log(value);
     this.scheduleViewChange.emit(value);
   }
 }

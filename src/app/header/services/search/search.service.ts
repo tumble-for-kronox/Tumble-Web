@@ -5,17 +5,21 @@ import QueryFields from 'src/app/config/constants/query_fields';
 import { BehaviorSubject, map, timeout } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { SchoolEnum } from 'src/app/models/enums/schools';
+import { StorageService } from 'src/app/shared/services/storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
 
-  private currentSchoolSubject: BehaviorSubject<SchoolEnum> = new BehaviorSubject<SchoolEnum>(SchoolEnum.NONE);
+  private currentSchoolSubject: BehaviorSubject<SchoolEnum>;
   public currentSchool: Observable<SchoolEnum>;
   public schoolChosen: Observable<boolean>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private storageService: StorageService) {
+    const storedSchool = storageService.getSearchSchool();
+
+    this.currentSchoolSubject = new BehaviorSubject<SchoolEnum>(storedSchool);
     this.currentSchool = this.currentSchoolSubject.asObservable();
     this.schoolChosen = this.currentSchoolSubject.pipe(
       map(value => {
@@ -29,6 +33,7 @@ export class SearchService {
   }
 
   public changeSchool(chosenSchool: SchoolEnum) {
+    this.storageService.setSearchSchool(chosenSchool);
     this.currentSchoolSubject.next(chosenSchool);
   }
 

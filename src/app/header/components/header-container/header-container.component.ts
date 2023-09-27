@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angu
 import { SearchService } from '../../services/search/search.service';
 import { SchoolEnum } from 'src/app/models/enums/schools';
 import { Subscription } from 'rxjs';
+import { StorageService } from 'src/app/shared/services/storage/storage.service';
 
 @Component({
   selector: 'app-header-container',
@@ -18,7 +19,7 @@ export class HeaderContainerComponent implements OnInit, OnDestroy {
   @Input() expandedSideBar!: boolean;
   @Output() expandedEvent = new EventEmitter<void>()
 
-  constructor(private breakpointObserver: BreakpointObserver, private searchService: SearchService) {
+  constructor(private breakpointObserver: BreakpointObserver, private searchService: SearchService, private storageService: StorageService) {
     this._$currSchoolSubscription = this.searchService.currentSchool.subscribe(value => {
       this.currSchoolValue = value;
     });
@@ -46,5 +47,7 @@ export class HeaderContainerComponent implements OnInit, OnDestroy {
 
   changeSchool(school: SchoolEnum) {
     this.searchService.changeSchool(school);
+
+
   }
 }
