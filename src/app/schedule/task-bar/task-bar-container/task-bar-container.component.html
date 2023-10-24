@@ -4,7 +4,7 @@
         <!-- <p *ngIf="tempMode | async">-</p> -->
         <schedule-temp-reset *ngIf="tempMode | async"></schedule-temp-reset>
     </div>
-    <div class="task-group">
+    <!-- <div class="task-group">
         <mat-button-toggle-group #group="matButtonToggleGroup" (change)="viewChanged(group.value)"
             [value]="scheduleView">
             <mat-button-toggle [value]="scheduleViewValues['schedule']" aria-label="Schedule view">
@@ -17,5 +17,5 @@
                 <mat-icon class="material-symbols-outlined">calendar_view_month</mat-icon>
             </mat-button-toggle>
         </mat-button-toggle-group>
-    </div>
+    </div> -->
 </div>
