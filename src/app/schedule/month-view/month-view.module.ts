@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MonthViewContainerComponent } from './month-view-container/month-view-container.component';
+import { CalendarMonthModule } from 'angular-calendar';
 
 
 
@@ -9,7 +10,8 @@ import { MonthViewContainerComponent } from './month-view-container/month-view-c
     MonthViewContainerComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    CalendarMonthModule
   ],
   exports: [
     MonthViewContainerComponent
