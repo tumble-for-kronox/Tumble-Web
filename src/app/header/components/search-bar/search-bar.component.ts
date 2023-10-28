@@ -4,8 +4,7 @@ import { SearchService } from '../../services/search/search.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { ProgrammeResponseHandler } from 'src/app/helpers/backend/response-handlers/ProgrammeResponseHandler';
-import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
-import { SchoolService } from 'src/app/shared/services/school/school.service';
+import { debounceTime, distinctUntilChanged, Subject, Subscription } from 'rxjs';
 import { SchoolEnum } from 'src/app/models/enums/schools';
 
 @Component({
@@ -24,6 +23,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   private _results?: Programme[];
   private _$isSchoolSelected: Subscription
   private _$currSchoolValue: Subscription
+  private _searchQuery$: Subject<string | null> = new Subject();
   loading: boolean = false;
   isSchoolSelected: boolean = false;
   currSchoolValue!: SchoolEnum;
@@ -56,6 +56,16 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     this._$currSchoolValue = searchService.currentSchool.subscribe(value => {
       this.currSchoolValue = value;
     })
+
+    this._searchQuery$.pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+    ).subscribe(val => {
+      if (!val)
+        return;
+
+      this.sendSearchRequest(val);
+    })
   }
 
   ngOnInit(): void {
@@ -64,6 +74,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._$isSchoolSelected.unsubscribe();
     this._$currSchoolValue.unsubscribe();
+    this._searchQuery$.unsubscribe();
   }
 
   public get resultCount() {
@@ -105,7 +116,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     this.clearSearchResults()
   }
 
-  dynamicSearch() {
+  onSearchTyped() {
     let inputLength = this.searchInputField.nativeElement.value.trim().length;
     if (this.isInputTooShortToTriggerSearch(inputLength)) {
       this.clearSearchResults();
@@ -127,11 +138,11 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     this.loading = true;
 
-    this.searchService.submitSearchQuery(this.searchService.currentSchoolValue, this.searchInputField.nativeElement.value.trim())
-      .pipe(
-        debounceTime(1000),
-        distinctUntilChanged(),
-      )
+    this._searchQuery$.next(this.searchInputField.nativeElement.value.trim());
+  }
+
+  sendSearchRequest(val: string) {
+    this.searchService.submitSearchQuery(this.searchService.currentSchoolValue, val)
       .subscribe({
         error: (err) => {
           const responseHandler = new ProgrammeResponseHandler();
@@ -170,5 +181,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   private clearSearchResults() {
     this._resultCount = undefined;
     this._results = undefined;
+    this._searchQuery$.next(null);
   }
 }

@@ -53,6 +53,6 @@ export class EventItemComponent implements OnInit {
 
         return color;
       })
-    )
+    );
   }
 }

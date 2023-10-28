@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="task-group">
+        <app-selected-schedules></app-selected-schedules>
+        <!-- <p *ngIf="tempMode | async">-</p> -->
+        <schedule-temp-reset *ngIf="tempMode | async"></schedule-temp-reset>
+    </div>
+    <!-- <div class="task-group">
+        <mat-button-toggle-group #group="matButtonToggleGroup" (change)="viewChanged(group.value)"
+            [value]="scheduleView">
+            <mat-button-toggle [value]="scheduleViewValues['schedule']" aria-label="Schedule view">
+                <mat-icon class="material-symbols-outlined">calendar_view_day</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle [value]="scheduleViewValues['week']" aria-label="Week view">
+                <mat-icon class="material-symbols-outlined">calendar_view_week</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle [value]="scheduleViewValues['month']" aria-label="Month view">
+                <mat-icon class="material-symbols-outlined">calendar_view_month</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div> -->
+</div>

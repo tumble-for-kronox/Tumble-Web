@@ -11,13 +11,14 @@ import { ScheduleService } from '../../services/schedule/schedule.service';
 import MultiSchoolSchedules from 'src/app/models/web/schoolSchedules';
 import { SchoolEnum } from 'src/app/models/enums/schools';
 import RoutePaths from 'src/app/helpers/routing/paths';
+import { ScheduleView, scheduleViewValues } from 'src/app/models/enums/scheduleView';
 
 @Component({
   selector: 'app-schedule-container',
   templateUrl: './schedule-container.component.html',
   styleUrls: ['./schedule-container.component.scss']
 })
-export class ScheduleContainerComponent implements OnInit {
+export class ScheduleContainerComponent {
   @ViewChild(EventDetailsContainerComponent) eventDetails!: EventDetailsContainerComponent
 
   isTempMode: Observable<boolean>
@@ -26,6 +27,8 @@ export class ScheduleContainerComponent implements OnInit {
   loadedSchedule: BehaviorSubject<Schedule | null> = new BehaviorSubject<Schedule | null>(null)
   isEmptySchedule: boolean = false
   smallLayout: boolean;
+  scheduleView: ScheduleView = ScheduleView.SCHEDULE;
+  scheduleViewValues = scheduleViewValues;
 
   private currentScheduleUpdate?: Subscription
 
@@ -56,6 +59,15 @@ export class ScheduleContainerComponent implements OnInit {
       this.isEmptySchedule = this.scheduleIsEmpty(schedule)
     })
 
+    this.route.queryParamMap.subscribe((paramMap) => {
+      if (this.route.snapshot.url[0].path == RoutePaths.search) {
+        this.scheduleService.setTempMode(true);
+        this.scheduleService.setTempSchedules(this._schoolSchedulesFromPath(paramMap.getAll('scheduleIds')));
+      } else {
+        this.scheduleService.setTempMode(false);
+      }
+    });
+
     if (element.nativeElement.offsetWidth <= 800) {
       this.smallLayout = true
     } else {
@@ -63,21 +75,16 @@ export class ScheduleContainerComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.route.url.subscribe((url) => {
-      if (url[0].path == RoutePaths.search) {
-        this.scheduleService.setTempMode(true)
-      } else {
-        this.scheduleService.setTempMode(false)
-      }
-    });
-
-    this.route.queryParamMap.subscribe(map => {
-      if (this.route.snapshot.url[0].path == RoutePaths.search) {
-        this.scheduleService.setTempSchedules(this._schoolSchedulesFromPath(map.getAll('scheduleIds')));
-      }
-    })
-  }
+  // ngOnInit(): void {
+  //   this.route.queryParamMap.subscribe((paramMap) => {
+  //     if (this.route.snapshot.url[0].path == RoutePaths.search) {
+  //       this.scheduleService.setTempMode(true);
+  //       this.scheduleService.setTempSchedules(this._schoolSchedulesFromPath(paramMap.getAll('scheduleIds')));
+  //     } else {
+  //       this.scheduleService.setTempMode(false);
+  //     }
+  //   });
+  // }
 
   private _schoolSchedulesFromPath(scheduleIdParams: string[]): MultiSchoolSchedules[] {
     return scheduleIdParams.map(entry => {

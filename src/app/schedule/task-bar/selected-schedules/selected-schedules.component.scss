@@ -1,0 +1,45 @@
+@use '/src/theme/color.scss' as *;
+
+.container {
+    padding: 0.5rem;
+    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+
+    p {
+        margin: 0;
+        width: fit-content;
+        height: fit-content;
+    }
+
+    &:hover {
+        background-color: clr('onBackground', $alpha: -0.7);
+        cursor: pointer;
+    }
+}
+
+.pop-up-container {
+    position: absolute;
+    z-index: 99;
+    padding: 0.5rem;
+
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.5rem;
+
+    overflow-y: auto;
+
+    background-color: clr('surface');
+    color: clr('onSurface');
+    border-radius: 10px;
+
+    .items-list {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 0.5rem;
+    }
+}
+
+#bookmarked {
+    color: clr("primary");
+}

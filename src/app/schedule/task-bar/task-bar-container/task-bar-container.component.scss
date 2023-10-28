@@ -1,0 +1,26 @@
+.container {
+    width: 100%;
+    padding: 0.5rem 0rem;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+
+    .task-group {
+        display: flex;
+        flex-flow: row nowrap;
+        height: 100%;
+        width: fit-content;
+        gap: 0.2rem;
+
+        ::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+            padding: 0 6px;
+            line-height: 36px;
+        }
+    }
+
+    p {
+        margin: 0;
+    }
+}

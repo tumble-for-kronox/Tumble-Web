@@ -22,14 +22,12 @@ export class SideBarContainerComponent {
   smallLayout!: boolean;
   bookmarks: Observable<Bookmark[]>;
   multiSchoolSchedules: Observable<MultiSchoolSchedules[]>;
-  currentSchool: Observable<SchoolEnum>;
   tempMode: Observable<boolean>;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private bookmarkService: BookmarkService,
     private scheduleService: ScheduleService,
-    private schoolService: SchoolService,
     private searchService: SearchService,
     private router: Router,
   ) {
@@ -39,7 +37,6 @@ export class SideBarContainerComponent {
 
     this.bookmarks = this.bookmarkService.currentBookmarks;
     this.multiSchoolSchedules = this.scheduleService.currentSelectedScheduleIds;
-    this.currentSchool = this.schoolService.currentSchool;
     this.tempMode = this.scheduleService.tempMode;
   }
 
@@ -68,14 +65,16 @@ export class SideBarContainerComponent {
   }
 
   removeTempScheduleId(scheduleId: string) {
-    const scheduleIds = this.scheduleService.currentSchedulesValue;
+    const multiSchedules = this.scheduleService.currentSchedulesValue;
+
+    const scheduleIds = multiSchedules.reduce((accumulator, value) => accumulator.concat(value.scheduleIds), ([] as string[]))
 
     if (scheduleIds.length <= 1) {
       this.router.navigate([RoutePaths.home]);
       return;
     }
 
-    const updatedScheduleIds = this._removeScheduleId(scheduleId, scheduleIds);
+    const updatedScheduleIds = this._removeScheduleId(scheduleId, multiSchedules);
     this.router.navigate([RoutePaths.search], { queryParams: { scheduleIds: searchQueryParams(updatedScheduleIds) } });
   }
 

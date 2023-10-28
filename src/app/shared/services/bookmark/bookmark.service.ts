@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import StorageKeys from 'src/app/config/constants/storage_keys';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { SchoolEnum } from 'src/app/models/enums/schools';
-import Programme from 'src/app/models/programme';
 import Bookmark from 'src/app/models/web/bookmark';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +12,10 @@ export class BookmarkService {
   public currentBookmarks: Observable<Bookmark[]>;
   public visibleBookmarks: Observable<Bookmark[]>;
 
-  constructor() {
-    let storedBookmarks = localStorage.getItem(StorageKeys.savedBookmarks);
+  constructor(private storageService: StorageService) {
+    const storedBookmarks = storageService.getBookmarks();
 
-    if (storedBookmarks === "undefined" || storedBookmarks === null) {
-      this.currentBookmarksSubject.next([]);
-    } else {
-      this.currentBookmarksSubject.next(this.bookmarkArrayFromJson(JSON.parse(storedBookmarks)));
-    }
-
+    this.currentBookmarksSubject.next(storedBookmarks);
     this.currentBookmarks = this.currentBookmarksSubject.asObservable();
     this.visibleBookmarks = this.currentBookmarksSubject.pipe(
       map(value => {
@@ -79,7 +73,7 @@ export class BookmarkService {
   }
 
   private updateBookmarksValue(newValue: Bookmark[]) {
-    localStorage.setItem(StorageKeys.savedBookmarks, JSON.stringify(newValue));
+    this.storageService.setBookmarks(newValue);
     this.currentBookmarksSubject.next(newValue);
   }
 

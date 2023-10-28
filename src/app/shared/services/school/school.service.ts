@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import StorageKeys from 'src/app/config/constants/storage_keys';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { SchoolEnum } from 'src/app/models/enums/schools';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,10 @@ export class SchoolService {
   public currentSchool: Observable<SchoolEnum>;
   public schoolChosen: Observable<boolean>;
 
-  constructor() {
-    let storedSchool = localStorage.getItem(StorageKeys.savedSchool);
+  constructor(private storageService: StorageService) {
+    let storedSchool = storageService.getSchool();
 
-    this.currentSchoolSubject = storedSchool === "undefined" || storedSchool === null ?
-      new BehaviorSubject<SchoolEnum>(SchoolEnum.NONE) :
-      new BehaviorSubject<SchoolEnum>(parseInt(storedSchool!) as SchoolEnum)
+    this.currentSchoolSubject = new BehaviorSubject<SchoolEnum>(storedSchool);
 
     this.currentSchool = this.currentSchoolSubject.asObservable();
     this.schoolChosen = this.currentSchoolSubject.pipe(
@@ -31,7 +29,7 @@ export class SchoolService {
   }
 
   public changeSchool(chosenSchool: SchoolEnum) {
-    localStorage.setItem(StorageKeys.savedSchool, chosenSchool.toString())
+    this.storageService.setSchool(chosenSchool);
     this.currentSchoolSubject.next(chosenSchool);
   }
 }

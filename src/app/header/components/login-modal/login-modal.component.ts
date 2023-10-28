@@ -66,7 +66,6 @@ export class LoginModalComponent {
   }
 
   updateSchoolVal(value: SchoolEnum) {
-    console.log(`CHANGE SCHOOL VAL: ${this.selectedSchool}`)
     this.selectedSchool = value;
   }
 }

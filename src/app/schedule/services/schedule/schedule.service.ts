@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import Endpoints from 'src/app/config/constants/endpoints';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, shareReplay } from 'rxjs';
 import { SchoolEnum } from 'src/app/models/enums/schools';
 import { BookmarkService } from 'src/app/shared/services/bookmark/bookmark.service';
 import Programme from 'src/app/models/programme';
@@ -91,6 +91,6 @@ export class ScheduleService {
       {
         observe: "response"
       }
-    )
+    );
   }
 }

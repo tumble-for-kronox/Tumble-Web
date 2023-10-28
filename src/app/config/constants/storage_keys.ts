@@ -5,4 +5,5 @@ export default class StorageKeys {
     static savedBookmarks = "currentBookmarks";
     static savedTheme = "currentTheme";
     static savedColors = "currentColors";
+    static savedSerachSchool = "currentSearchSchool";
 }

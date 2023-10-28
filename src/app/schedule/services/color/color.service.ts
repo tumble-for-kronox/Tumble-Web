@@ -1,33 +1,26 @@
 import { Injectable } from '@angular/core';
-import StorageKeys from '@constants/storage_keys';
 import { BehaviorSubject, Observable } from 'rxjs';
-import Bookmark from 'src/app/models/web/bookmark';
-import { BookmarkService } from 'src/app/shared/services/bookmark/bookmark.service';
+import { StorageService } from 'src/app/shared/services/storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ColorService {
 
-  private _currentColorsSubject: BehaviorSubject<Map<string, string>> = new BehaviorSubject<Map<string, string>>(new Map());
+  private _currentColorsSubject: BehaviorSubject<Map<string, string>>;
   public currentColors: Observable<Map<string, string>>;
   public specialEventColor: string = '#d40000'
 
-  constructor(private bookmarkService: BookmarkService) {
-    let storedColors = localStorage.getItem(StorageKeys.savedColors);
-    let currentColors: Map<string, string> = new Map()
-
-    if (storedColors !== "undefined" && storedColors !== null) {
-      currentColors = JSON.parse(storedColors, this._mapReviver);
-    }
+  constructor(storageService: StorageService) {
+    const currentColors = storageService.getColors();
 
     this._currentColorsSubject = new BehaviorSubject(currentColors);
 
     this.currentColors = this._currentColorsSubject.asObservable();
 
     this.currentColors.subscribe(colors => {
-      localStorage.setItem(StorageKeys.savedColors, JSON.stringify(colors, this._mapReplacer));
-    })
+      storageService.setColors(colors);
+    });
   }
 
   public get currentColorsValue(): Map<string, string> {
@@ -36,9 +29,7 @@ export class ColorService {
 
   public updateScheduleColors(courseId: string, color: string) {
     let currentColors = this.currentColorsValue;
-
     currentColors.set(courseId, color);
-
     this._nextColorsValue(currentColors);
   }
 
@@ -61,7 +52,6 @@ export class ColorService {
     let colors = this.currentColorsValue;
 
     colors.delete(scheduleId);
-
     this._nextColorsValue(colors);
   }
 
@@ -148,25 +138,4 @@ export class ColorService {
     "#FFD700", // Gold
     "#FADA5E", // Navel yellow
   ];
-
-  private _mapReplacer(key: string, value: any) {
-    if (value instanceof Map) {
-      return {
-        dataType: 'Map',
-        value: Array.from(value.entries()), // or with spread: value: [...value]
-      };
-    } else {
-      return value;
-    }
-  }
-
-  private _mapReviver(key: string, value: any) {
-    if (typeof value === 'object' && value !== null) {
-      if (value.dataType === 'Map') {
-        return new Map(value.value);
-      }
-    }
-    return value;
-
-  }
 }

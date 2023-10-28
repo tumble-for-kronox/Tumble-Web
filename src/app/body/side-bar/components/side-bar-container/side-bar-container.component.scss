@@ -17,6 +17,8 @@
     width: 100%;
     position: relative;
 
+    overflow-y: scroll;
+
     &::after {
         content: "";
         position: absolute;
@@ -35,6 +37,12 @@
     &>* {
         width: 100%;
     }
+}
+
+.items-list {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.5rem;
 }
 
 .collapse-button-container {

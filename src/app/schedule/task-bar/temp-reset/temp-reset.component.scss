@@ -9,21 +9,22 @@
 
     background-color: clr('background');
     border-radius: 10px;
-    border: 1px solid clr('onBackground');
-    background-color: clr('background');
-    color: clr('onBackground');
+    color: clr('primary');
 
-    width: fit-content;
-    padding: 0.5rem;
     gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
 
-    transition: all 150ms;
+    p {
+        margin: 0;
+        font-weight: 500;
+    }
 
     &:hover {
+        background-color: clr('primary', $alpha: -0.7);
         cursor: pointer;
-        background-color: clr('primary');
-        color: clr('onPrimary');
-        border-color: transparent;
     }
 }
 
