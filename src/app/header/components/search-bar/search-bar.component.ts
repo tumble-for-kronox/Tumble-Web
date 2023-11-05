@@ -1,16 +1,29 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild, OnDestroy, Input } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  OnDestroy,
+  Input,
+} from '@angular/core';
 import Programme from 'src/app/models/programme';
 import { SearchService } from '../../services/search/search.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { ProgrammeResponseHandler } from 'src/app/helpers/backend/response-handlers/ProgrammeResponseHandler';
-import { debounceTime, distinctUntilChanged, Subject, Subscription } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  Subject,
+  Subscription,
+} from 'rxjs';
 import { SchoolEnum } from 'src/app/models/enums/schools';
 
 @Component({
   selector: 'search-bar',
   templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.scss']
+  styleUrls: ['./search-bar.component.scss'],
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
   @ViewChild('inputField') searchInputField!: ElementRef<HTMLInputElement>;
@@ -21,8 +34,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   expanded: boolean = false;
   private _resultCount?: number;
   private _results?: Programme[];
-  private _$isSchoolSelected: Subscription
-  private _$currSchoolValue: Subscription
+  private _isSchoolSelectedSubscription: Subscription;
+  private _currSchoolValueSubscription: Subscription;
   private _searchQuery$: Subject<string | null> = new Subject();
   loading: boolean = false;
   isSchoolSelected: boolean = false;
@@ -42,38 +55,39 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       if (e.composedPath().indexOf(this.searchContainer.nativeElement) === -1) {
         this.expanded = false;
       }
-    })
+    });
 
     this.renderer.listen('window', 'keyup.escape', (_e: Event) => {
-      this.searchInputField.nativeElement.blur()
+      this.searchInputField.nativeElement.blur();
       this.expanded = false;
-    })
+    });
 
-    this._$isSchoolSelected = searchService.schoolChosen.subscribe(value => {
-      this.isSchoolSelected = value;
-    })
+    this._isSchoolSelectedSubscription = searchService.schoolChosen.subscribe(
+      (value) => {
+        this.isSchoolSelected = value;
+      }
+    );
 
-    this._$currSchoolValue = searchService.currentSchool.subscribe(value => {
-      this.currSchoolValue = value;
-    })
+    this._currSchoolValueSubscription = searchService.currentSchool.subscribe(
+      (value) => {
+        this.currSchoolValue = value;
+      }
+    );
 
-    this._searchQuery$.pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-    ).subscribe(val => {
-      if (!val)
-        return;
+    this._searchQuery$
+      .pipe(debounceTime(1000), distinctUntilChanged())
+      .subscribe((val) => {
+        if (!val) return;
 
-      this.sendSearchRequest(val);
-    })
+        this.sendSearchRequest(val);
+      });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
-    this._$isSchoolSelected.unsubscribe();
-    this._$currSchoolValue.unsubscribe();
+    this._isSchoolSelectedSubscription.unsubscribe();
+    this._currSchoolValueSubscription.unsubscribe();
     this._searchQuery$.unsubscribe();
   }
 
@@ -90,17 +104,17 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   openMinimizedSearch() {
-    this.expanded = true
+    this.expanded = true;
   }
 
   closeMinimizedSearch() {
-    this.expanded = false
+    this.expanded = false;
   }
 
   clearSearchInput(): void {
     const inputField = this.searchInputField.nativeElement;
     if (this.minimized && inputField.value == '') {
-      this.closeMinimizedSearch()
+      this.closeMinimizedSearch();
     }
 
     // this.expanded = false
@@ -110,10 +124,10 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   onScheduleSelected() {
-    this.searchInputField.nativeElement.blur()
-    this.searchInputField.nativeElement.value = ''
+    this.searchInputField.nativeElement.blur();
+    this.searchInputField.nativeElement.value = '';
     this.expanded = false;
-    this.clearSearchResults()
+    this.clearSearchResults();
   }
 
   onSearchTyped() {
@@ -142,16 +156,21 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   sendSearchRequest(val: string) {
-    this.searchService.submitSearchQuery(this.searchService.currentSchoolValue, val)
+    this.searchService
+      .submitSearchQuery(this.searchService.currentSchoolValue, val)
       .subscribe({
         error: (err) => {
           const responseHandler = new ProgrammeResponseHandler();
 
           const errResponse = responseHandler.parseSearchError(err);
 
-          this.matSnackBar.open(this.ts.translate(errResponse.error!.message), this.ts.translate('general.dismiss'), {
-            panelClass: ['snackbar-error']
-          });
+          this.matSnackBar.open(
+            this.ts.translate(errResponse.error!.message),
+            this.ts.translate('general.dismiss'),
+            {
+              panelClass: ['snackbar-error'],
+            }
+          );
           this.loading = false;
         },
         next: (value) => {
@@ -160,13 +179,13 @@ export class SearchBarComponent implements OnInit, OnDestroy {
             this._results = [];
             this.loading = false;
           } else {
-            const result = value.body as { count: number, items: Programme[] };
+            const result = value.body as { count: number; items: Programme[] };
 
             this._resultCount = result.count;
             this._results = result.items;
             this.loading = false;
           }
-        }
+        },
       });
   }
 
@@ -175,7 +194,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   private isInputTooShortToTriggerSearch(inputLength: number): Boolean {
-    return inputLength <= 3
+    return inputLength <= 3;
   }
 
   private clearSearchResults() {

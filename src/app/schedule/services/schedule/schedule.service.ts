@@ -9,33 +9,52 @@ import Bookmark from 'src/app/models/web/bookmark';
 import MultiSchoolSchedules from 'src/app/models/web/schoolSchedules';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ScheduleService {
-  private _currentSelectedScheduleIdsSubject: BehaviorSubject<MultiSchoolSchedules[]> = new BehaviorSubject<MultiSchoolSchedules[]>([]);
-  private _currentSelectedProgrammesSubject: BehaviorSubject<Programme[]> = new BehaviorSubject<Programme[]>([]);
-  private _tempMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private _currentSelectedScheduleIdsSubject: BehaviorSubject<
+    MultiSchoolSchedules[]
+  > = new BehaviorSubject<MultiSchoolSchedules[]>([]);
+  private _currentSelectedProgrammesSubject: BehaviorSubject<Programme[]> =
+    new BehaviorSubject<Programme[]>([]);
+  private _tempMode: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
   public currentSelectedScheduleIds: Observable<MultiSchoolSchedules[]>;
   public currentSelectedProgrammes: Observable<Programme[]>;
 
-  constructor(private bookmarkService: BookmarkService, private http: HttpClient) {
-    this.currentSelectedScheduleIds = this._currentSelectedScheduleIdsSubject.asObservable();
-    this.currentSelectedProgrammes = this._currentSelectedProgrammesSubject.asObservable();
+  constructor(
+    private bookmarkService: BookmarkService,
+    private http: HttpClient
+  ) {
+    this.currentSelectedScheduleIds =
+      this._currentSelectedScheduleIdsSubject.asObservable();
 
-    this.bookmarkService.visibleBookmarks.subscribe(bookmarks => {
+    this.currentSelectedProgrammes =
+      this._currentSelectedProgrammesSubject.asObservable();
+
+    this.bookmarkService.visibleBookmarks.subscribe((bookmarks) => {
       if (!this._tempMode.value) {
-        this._currentSelectedScheduleIdsSubject.next(this._schoolSchedulesFromBookmarks(bookmarks));
+        this._currentSelectedScheduleIdsSubject.next(
+          this._schoolSchedulesFromBookmarks(bookmarks)
+        );
       }
     });
 
-    this._tempMode.subscribe(isTempMode => {
+    this._tempMode.subscribe((isTempMode) => {
       if (!isTempMode) {
-        this._currentSelectedScheduleIdsSubject.next(this._schoolSchedulesFromBookmarks(this.bookmarkService.currentBookmarksValue));
+        this._currentSelectedScheduleIdsSubject.next(
+          this._schoolSchedulesFromBookmarks(
+            this.bookmarkService.currentBookmarksValue
+          )
+        );
       }
     });
   }
 
-  private _schoolSchedulesFromBookmarks(bookmarks: Bookmark[]): MultiSchoolSchedules[] {
+  private _schoolSchedulesFromBookmarks(
+    bookmarks: Bookmark[]
+  ): MultiSchoolSchedules[] {
     const scheduleIdsBySchool: { [schoolId in SchoolEnum]: string[] } = {
       [SchoolEnum.NONE]: [],
       [SchoolEnum.HKR]: [],
@@ -46,21 +65,24 @@ export class ScheduleService {
       [SchoolEnum.SH]: [],
       [SchoolEnum.HV]: [],
       [SchoolEnum.HB]: [],
-      [SchoolEnum.MDH]: []
+      [SchoolEnum.MDH]: [],
     };
 
-    bookmarks.forEach(bookmark => {
+    bookmarks.forEach((bookmark) => {
       scheduleIdsBySchool[bookmark.schoolId].push(bookmark.scheduleId);
     });
 
     const output = Object.entries(scheduleIdsBySchool)
       .filter(([_, scheduleIds]) => scheduleIds.length > 0)
-      .map(([schoolId, scheduleIds]) => new MultiSchoolSchedules(
-        parseInt(schoolId) as SchoolEnum,
-        scheduleIds,
-      ));
+      .map(
+        ([schoolId, scheduleIds]) =>
+          new MultiSchoolSchedules(
+            parseInt(schoolId) as SchoolEnum,
+            scheduleIds
+          )
+      );
 
-    return output
+    return output;
   }
 
   public get currentSchedulesValue(): MultiSchoolSchedules[] {
@@ -76,7 +98,7 @@ export class ScheduleService {
   }
 
   setTempMode(val: boolean) {
-    NgZone
+    NgZone;
     this._tempMode.next(val);
   }
 
@@ -84,12 +106,14 @@ export class ScheduleService {
     this._currentSelectedScheduleIdsSubject.next(schoolSchedules);
   }
 
-  fetchSchedules(schoolSchedules: MultiSchoolSchedules[]): Observable<HttpResponse<Object>> {
+  fetchSchedules(
+    schoolSchedules: MultiSchoolSchedules[]
+  ): Observable<HttpResponse<Object>> {
     return this.http.post(
       Endpoints.baseUrl + Endpoints.getSchedule,
       schoolSchedules,
       {
-        observe: "response"
+        observe: 'response',
       }
     );
   }

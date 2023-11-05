@@ -1,5 +1,12 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, OnInit, Output, OnDestroy } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  OnDestroy,
+} from '@angular/core';
 import { SearchService } from '../../services/search/search.service';
 import { SchoolEnum } from 'src/app/models/enums/schools';
 import { Subscription } from 'rxjs';
@@ -8,37 +15,44 @@ import { StorageService } from 'src/app/shared/services/storage/storage.service'
 @Component({
   selector: 'app-header-container',
   templateUrl: './header-container.component.html',
-  styleUrls: ['./header-container.component.scss']
+  styleUrls: ['./header-container.component.scss'],
 })
 export class HeaderContainerComponent implements OnInit, OnDestroy {
   public showLargeSearch!: boolean;
   public showSmallSearch!: boolean;
   currSchoolValue!: SchoolEnum;
-  _$currSchoolSubscription!: Subscription;
+  _currSchoolSubscription!: Subscription;
 
   @Input() expandedSideBar!: boolean;
-  @Output() expandedEvent = new EventEmitter<void>()
+  @Output() expandedEvent = new EventEmitter<void>();
 
-  constructor(private breakpointObserver: BreakpointObserver, private searchService: SearchService, private storageService: StorageService) {
-    this._$currSchoolSubscription = this.searchService.currentSchool.subscribe(value => {
-      this.currSchoolValue = value;
-    });
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private searchService: SearchService
+  ) {
+    this._currSchoolSubscription = this.searchService.currentSchool.subscribe(
+      (value) => {
+        this.currSchoolValue = value;
+      }
+    );
   }
 
   ngOnInit(): void {
-    this.breakpointObserver.observe(['(max-width: 800px)']).subscribe((state: BreakpointState) => {
-      if (state.matches) {
-        this.showLargeSearch = false;
-        this.showSmallSearch = true;
-      } else {
-        this.showLargeSearch = true;
-        this.showSmallSearch = false;
-      }
-    })
+    this.breakpointObserver
+      .observe(['(max-width: 800px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.showLargeSearch = false;
+          this.showSmallSearch = true;
+        } else {
+          this.showLargeSearch = true;
+          this.showSmallSearch = false;
+        }
+      });
   }
 
   ngOnDestroy(): void {
-    this._$currSchoolSubscription.unsubscribe();
+    this._currSchoolSubscription.unsubscribe();
   }
 
   toggleExpandedSidebar() {
@@ -47,7 +61,5 @@ export class HeaderContainerComponent implements OnInit, OnDestroy {
 
   changeSchool(school: SchoolEnum) {
     this.searchService.changeSchool(school);
-
-
   }
 }

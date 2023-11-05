@@ -7,34 +7,38 @@ import { ThemeSwitchService } from './shared/theme-switch/services/theme-switch.
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'tumbleWeb';
   expandedSideBar!: boolean;
-  private theme$: Subscription
+  private themeSubscription: Subscription;
 
   constructor(
     private themeService: ThemeSwitchService,
     private breakpointObserver: BreakpointObserver
   ) {
-    this.theme$ = this.themeService.currentTheme.subscribe(theme => {
-      this.changeBodyTheme(theme);
-    });
+    this.themeSubscription = this.themeService.currentTheme.subscribe(
+      (theme) => {
+        this.changeBodyTheme(theme);
+      }
+    );
   }
 
   ngOnInit(): void {
-    this.breakpointObserver.observe(['(max-width: 800px)']).subscribe((state: BreakpointState) => {
-      if (state.matches) {
-        this.expandedSideBar = false
-      } else {
-        this.expandedSideBar = true
-      }
-    })
+    this.breakpointObserver
+      .observe(['(max-width: 800px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.expandedSideBar = false;
+        } else {
+          this.expandedSideBar = true;
+        }
+      });
   }
 
   ngOnDestroy(): void {
-    this.theme$.unsubscribe();
+    this.themeSubscription.unsubscribe();
   }
 
   private changeBodyTheme(theme: Theme) {
@@ -47,7 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
       return;
     }
 
-    bodyElement.classList.add("dark-mode");
+    bodyElement.classList.add('dark-mode');
   }
 
   toggleExpandedSideBar() {

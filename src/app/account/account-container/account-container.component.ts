@@ -7,25 +7,20 @@ import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
   templateUrl: './account-container.component.html',
-  styleUrls: ['./account-container.component.scss']
+  styleUrls: ['./account-container.component.scss'],
 })
 export class AccountContainerComponent {
-  currentUser!: KronoxUser
+  currentUser!: KronoxUser;
 
-
-  constructor(private route: ActivatedRoute, private scheduleService: ScheduleService, private authService: AuthService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private scheduleService: ScheduleService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.route.url.subscribe((url) => {
-      if (url[0].path == RoutePaths.search) {
-        this.scheduleService.setTempMode(true)
-      } else {
-        this.scheduleService.setTempMode(false)
-      }
-    })
-
-    this.authService.currentUser.subscribe(user => {
+    this.authService.currentUser.subscribe((user) => {
       this.currentUser = user!;
-    })
+    });
   }
 }
