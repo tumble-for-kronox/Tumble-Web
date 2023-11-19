@@ -24,7 +24,6 @@ $mat-dark-theme: mat.define-dark-theme(
         color: (
             primary: $custom-primary,
             accent: $custom-primary,
-            // Using the same as primary for simplicity
             warn: $custom-error,
             background: (
                 background: $background,

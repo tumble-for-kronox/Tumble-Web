@@ -9,6 +9,7 @@ import { HexOpacityPipe } from './pipes/hex-opacity/hex-opacity.pipe';
 import { DualActionItemComponent } from './components/dual-action-item/dual-action-item.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconButtonSizesModule } from 'mat-icon-button-sizes';
 
 
 

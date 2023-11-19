@@ -28,7 +28,7 @@ $mat-light-theme: mat.define-light-theme(
             warn: $custom-error,
             background: (
                 background: $background,
-                status-bar: lighten-color($primary-color, 30%),
+                status-bar: $surface,
                 app-bar: lighten-color($primary-color, 20%),
                 hover: lighten-color($primary-color, 10%),
                 card: $surface,
@@ -51,7 +51,6 @@ $mat-light-theme: mat.define-light-theme(
                 text: rgba(black, 0.87),
             ),
         ),
-        typography: mat.define-typography-config(),
         density: 0,
     )
 );

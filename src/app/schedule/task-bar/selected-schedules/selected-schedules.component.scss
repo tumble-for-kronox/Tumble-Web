@@ -1,4 +1,4 @@
-@use '/src/theme/color.scss' as *;
+@use "/src/theme/color.scss" as *;
 
 .container {
     padding: 0.5rem;
@@ -13,12 +13,13 @@
     }
 
     &:hover {
-        background-color: clr('onBackground', $alpha: -0.7);
+        background-color: clr("onBackground", $alpha: -0.7);
         cursor: pointer;
     }
 }
 
 .pop-up-container {
+    margin-top: 0.8rem;
     position: absolute;
     z-index: 99;
     padding: 0.5rem;
@@ -29,8 +30,8 @@
 
     overflow-y: auto;
 
-    background-color: clr('surface');
-    color: clr('onSurface');
+    background-color: clr("surface");
+    color: clr("onSurface");
     border-radius: 10px;
 
     .items-list {

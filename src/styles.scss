@@ -3,20 +3,21 @@
 @use "./theme/light-theme" as *;
 @use "./theme/dark-theme" as *;
 @use "./theme/color.scss" as *;
+@use "./theme/colors.scss" as *;
 
 @import "../node_modules/mat-icon-button-sizes/styles/mat-icon-button-sizes";
 @import "../node_modules/hamburgers/dist/hamburgers.css";
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 @include mat.core();
+@include mat.all-component-typographies();
 @include MatIconButtonSize("medium", 48px, 32px);
 @include MatIconButtonSize("small-ratio", 28px, 24px);
 
 /* You can add global styles to this file, and also import other style files */
 :root {
     @include light-theme;
-    @include mat.core-theme($mat-light-theme);
-    @include mat.button-theme($mat-light-theme);
+    @include mat.all-component-themes($mat-light-theme);
 
     @each $name, $color in $light-theme {
         @include define-color($name, $color);
@@ -24,8 +25,7 @@
 
     .dark-mode {
         @include dark-theme;
-        @include mat.core-color($mat-dark-theme);
-        @include mat.button-color($mat-dark-theme);
+        @include mat.all-component-themes($mat-dark-theme);
 
         @each $name, $color in $dark-theme {
             @include define-color($name, $color);
@@ -98,4 +98,21 @@ body {
 
 .login-modal-container .mat-mdc-dialog-container {
     --mdc-dialog-container-color: transparent !important;
+}
+
+.mat-button-toggle-group {
+    border: none !important;
+
+    .mat-button-toggle {
+        border: none !important;
+        background-color: transparent;
+
+        &.mat-button-toggle-checked {
+            color: $primary-color;
+            background-color: transparent;
+            &:hover {
+                background-color: clr("primary", $alpha: -0.7);
+            }
+        }
+    }
 }

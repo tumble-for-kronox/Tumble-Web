@@ -15,6 +15,13 @@
         gap: 0.2rem;
     }
 
+    ::ng-deep
+        .mat-button-toggle-appearance-standard
+        .mat-button-toggle-label-content {
+        padding: 0 6px;
+        line-height: 36px;
+    }
+
     p {
         margin: 0;
     }

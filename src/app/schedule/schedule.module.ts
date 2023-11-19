@@ -7,7 +7,6 @@ import { ScheduleContainerComponent } from './components/schedule-container/sche
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ListViewModule } from './list-view/list-view.module';
 import { EventDetailsModule } from './event-details/event-details.module';
-import { RouterModule } from '@angular/router';
 import { TaskBarModule } from './task-bar/task-bar.module';
 import { WeekViewModule } from './week-view/week-view.module';
 import { MonthViewModule } from './month-view/month-view.module';
@@ -25,7 +24,6 @@ import { MonthViewModule } from './month-view/month-view.module';
     ListViewModule,
     MatProgressSpinnerModule,
     EventDetailsModule,
-    RouterModule,
     TaskBarModule,
     WeekViewModule,
     MonthViewModule
