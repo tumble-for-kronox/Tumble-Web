@@ -14,8 +14,8 @@ $dark-theme: (
     "error": $error-color,
     "onPrimary": white,
     "onSecondary": #3b3b3b,
-    "onBackground": #d4d4d4,
-    "onSurface": #d4d4d4,
+    "onBackground": $base-foreground,
+    "onSurface": $base-foreground,
     "onError": white,
 );
 
@@ -41,7 +41,7 @@ $mat-dark-theme: mat.define-dark-theme(
                 disabled-button-toggle: lighten-color($primary-color, 10%),
             ),
             foreground: (
-                base: #d4d4d4,
+                base: $base-foreground,
                 divider: rgba(white, 0.12),
                 disabled: rgba(white, 0.38),
                 disabled-button: rgba(white, 0.38),

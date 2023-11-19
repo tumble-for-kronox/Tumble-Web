@@ -5,6 +5,7 @@
 
 $background: #fffaff;
 $surface: #f5eff5;
+$base-foreground: #4d4d4d;
 
 $light-theme: (
     "primary": $primary-color,
@@ -14,8 +15,8 @@ $light-theme: (
     "error": $error-color,
     "onPrimary": white,
     "onSecondary": #3b3737,
-    "onBackground": #4d4d4d,
-    "onSurface": #4d4d4d,
+    "onBackground": $base-foreground,
+    "onSurface": $base-foreground,
     "onError": white,
 );
 
@@ -40,7 +41,7 @@ $mat-light-theme: mat.define-light-theme(
                 disabled-button-toggle: darken-color($primary-color, 10%),
             ),
             foreground: (
-                base: #4d4d4d,
+                base: $base-foreground,
                 divider: rgba(black, 0.12),
                 disabled: rgba(black, 0.38),
                 disabled-button: rgba(black, 0.38),
