@@ -1,8 +1,8 @@
-<div class="event-info" [ngStyle]="{'background-color': getEventColor() | async | hexOpacity: 0.05}"
+<div class="event-info" [ngStyle]="{'background-color': getEventColor() | hexOpacity: 0.05}"
     (click)="showEventDetails($event)">
     <div class="time-row">
         <div class="time-circle-container">
-            <div class="circle" [style.backgroundColor]="(getEventColor() | async) ?? '#ffffff'"></div>
+            <div class="circle" [style.backgroundColor]="getEventColor()"></div>
             <h3>
                 {{datepipe.transform(event.from, 'HH:mm') + " - " + datepipe.transform(event.to,
                 'HH:mm')}}

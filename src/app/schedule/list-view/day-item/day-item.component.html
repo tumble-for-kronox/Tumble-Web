@@ -3,5 +3,5 @@
         <div *ngIf="!smallLayout"></div>
         <h1>{{ day.name + " - " + datepipe.transform(day.isoString, 'dd/MM')}}</h1>
     </div>
-    <list-event-item *ngFor="let event of day.events" [event]="event" [smallLayout]="smallLayout"></list-event-item>
+    <list-event-item *ngFor="let event of day.events" [currentColors]="currentColors" [event]="event" [smallLayout]="smallLayout"></list-event-item>
 </div>

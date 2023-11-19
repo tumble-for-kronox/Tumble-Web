@@ -36,9 +36,9 @@
         <h2>Seems you found an empty schedule, some of those hang around in KronoX's system</h2>
     </div>
     <div class="schedule-view" *ngIf="loadedSchedule.value != null && !isLoading" [ngSwitch]="scheduleView">
-        <schedule-list-view-container [currentSchedule]="loadedSchedule.asObservable()" [smallLayout]="smallLayout"
+        <schedule-list-view-container [currentColors]="(currentColors$ | async)!" [currentSchedule]="loadedSchedule.asObservable()" [smallLayout]="smallLayout"
             *ngSwitchCase="scheduleViewValues['schedule']"></schedule-list-view-container>
-        <schedule-week-view-container [currentSchedule]="loadedSchedule.asObservable()" [smallLayout]="smallLayout"
+        <schedule-week-view-container [currentColors]="(currentColors$ | async)!" [currentSchedule]="loadedSchedule.asObservable()" [smallLayout]="smallLayout"
             *ngSwitchCase="scheduleViewValues['week']"></schedule-week-view-container>
         <schedule-month-view-container [currentSchedule]="loadedSchedule.asObservable()" [smallLayout]="smallLayout"
             *ngSwitchCase="scheduleViewValues['month']"></schedule-month-view-container>
