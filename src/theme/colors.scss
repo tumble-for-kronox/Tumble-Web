@@ -1,0 +1,75 @@
+@use "sass:map";
+@use "./color.scss" as *;
+@use "@angular/material" as mat;
+
+$primary-color: #ff815e;
+$error-color: rgb(214, 62, 62);
+
+$_custom-primary: (
+    50: lighten-color($primary-color, 95%),
+    100: lighten-color($primary-color, 75%),
+    200: lighten-color($primary-color, 50%),
+    300: lighten-color($primary-color, 25%),
+    400: lighten-color($primary-color, 12%),
+    500: $primary-color,
+    600: darken-color($primary-color, 12%),
+    700: darken-color($primary-color, 25%),
+    800: darken-color($primary-color, 40%),
+    900: darken-color($primary-color, 55%),
+    A100: lighten-color($primary-color, 50%),
+    A200: $primary-color,
+    A400: darken-color($primary-color, 25%),
+    A700: darken-color($primary-color, 40%),
+    contrast: (
+        50: black,
+        100: black,
+        200: black,
+        300: black,
+        400: black,
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: black,
+        A200: white,
+        A400: white,
+        A700: white,
+    ),
+);
+
+$_custom-error: (
+    50: lighten-color($error-color, 95%),
+    100: lighten-color($error-color, 75%),
+    200: lighten-color($error-color, 50%),
+    300: lighten-color($error-color, 25%),
+    400: lighten-color($error-color, 12%),
+    500: $error-color,
+    600: darken-color($error-color, 12%),
+    700: darken-color($error-color, 25%),
+    800: darken-color($error-color, 40%),
+    900: darken-color($error-color, 55%),
+    A100: lighten-color($error-color, 50%),
+    A200: $error-color,
+    A400: darken-color($error-color, 25%),
+    A700: darken-color($error-color, 40%),
+    contrast: (
+        50: black,
+        100: black,
+        200: black,
+        300: black,
+        400: black,
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: black,
+        A200: white,
+        A400: white,
+        A700: white,
+    ),
+);
+
+$custom-primary: mat.define-palette($_custom-primary, 500);
+$custom-error: mat.define-palette($_custom-error, 500);

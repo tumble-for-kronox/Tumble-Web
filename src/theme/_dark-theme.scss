@@ -1,16 +1,55 @@
-@use 'sass:map';
+@use "sass:map";
+@use "./color.scss" as *;
+@use "./colors.scss" as *;
+@use "@angular/material" as mat;
 
-$primary-color: #FF815E;
-$error-color: rgb(135, 12, 12);
+$background: #0f0e12;
+$surface: #24202a;
+$base-foreground: #d4d4d4;
 
 $dark-theme: (
     "primary": $primary-color,
-    "background": #0F0E12,
-    "surface": #24202A,
+    "background": $background,
+    "surface": $surface,
     "error": $error-color,
     "onPrimary": white,
     "onSecondary": #3b3b3b,
     "onBackground": #d4d4d4,
     "onSurface": #d4d4d4,
-    "onError": white
+    "onError": white,
+);
+
+$mat-dark-theme: mat.define-dark-theme(
+    (
+        color: (
+            primary: $custom-primary,
+            accent: $custom-primary,
+            // Using the same as primary for simplicity
+            warn: $custom-error,
+            background: (
+                background: $background,
+                status-bar: darken-color($primary-color, 30%),
+                app-bar: darken-color($primary-color, 20%),
+                hover: darken-color($primary-color, 10%),
+                card: $surface,
+                dialog: $surface,
+                disabled-button: lighten-color($primary-color, 5%),
+                raised-button: $surface,
+                focused-button: darken-color($primary-color, 5%),
+                selected-button: darken-color($primary-color, 10%),
+                selected-disabled-button: darken-color($primary-color, 15%),
+                disabled-button-toggle: lighten-color($primary-color, 10%),
+            ),
+            foreground: (
+                base: #d4d4d4,
+                divider: rgba(white, 0.12),
+                disabled: rgba(white, 0.38),
+                disabled-button: rgba(white, 0.38),
+                hint-text: rgba(white, 0.38),
+                secondary-text: rgba(white, 0.54),
+                icon: rgba(white, 0.54),
+                text: rgba(white, 0.87),
+            ),
+        ),
+    )
 );

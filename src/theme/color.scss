@@ -1,7 +1,18 @@
+@use "sass:color";
+
 @function clr($title, $hue: 0deg, $lightness: 0%, $saturation: 0%, $alpha: 0) {
-    @return hsla(calc(var(--#{$title}-h) + #{$hue}),
+    @return hsla(
+        calc(var(--#{$title}-h) + #{$hue}),
         calc(var(--#{$title}-s) + #{$saturation}),
         calc(var(--#{$title}-l) + #{$lightness}),
-        calc(var(--#{$title}-a) + #{$alpha}),
+        calc(var(--#{$title}-a) + #{$alpha})
     );
+}
+
+@function lighten-color($color, $percentage) {
+    @return color.mix(white, $color, $percentage);
+}
+
+@function darken-color($color, $percentage) {
+    @return color.mix(black, $color, $percentage);
 }

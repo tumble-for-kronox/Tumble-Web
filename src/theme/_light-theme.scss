@@ -1,17 +1,56 @@
-@use 'sass:map';
+@use "sass:map";
+@use "./colors.scss" as *;
+@use "./color.scss" as *;
+@use "@angular/material" as mat;
 
-$primary-color: #FF815E;
-$error-color: rgb(135, 12, 12);
+$background: #fffaff;
+$surface: #f5eff5;
 
 $light-theme: (
     "primary": $primary-color,
-    "background": #FFFAFF,
+    "background": $background,
     // "surface": #e6e6e6,
-    "surface": #F5EFF5,
+    "surface": $surface,
     "error": $error-color,
     "onPrimary": white,
-    "onSecondary": #3b3b3b,
+    "onSecondary": #3b3737,
     "onBackground": #4d4d4d,
     "onSurface": #4d4d4d,
-    "onError": white
+    "onError": white,
+);
+
+$mat-light-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $custom-primary,
+            accent: $custom-primary,
+            warn: $custom-error,
+            background: (
+                background: $background,
+                status-bar: lighten-color($primary-color, 30%),
+                app-bar: lighten-color($primary-color, 20%),
+                hover: lighten-color($primary-color, 10%),
+                card: $surface,
+                dialog: $surface,
+                disabled-button: darken-color($primary-color, 5%),
+                raised-button: $surface,
+                focused-button: lighten-color($primary-color, 5%),
+                selected-button: lighten-color($primary-color, 10%),
+                selected-disabled-button: lighten-color($primary-color, 15%),
+                disabled-button-toggle: darken-color($primary-color, 10%),
+            ),
+            foreground: (
+                base: #4d4d4d,
+                divider: rgba(black, 0.12),
+                disabled: rgba(black, 0.38),
+                disabled-button: rgba(black, 0.38),
+                hint-text: rgba(black, 0.38),
+                secondary-text: rgba(black, 0.54),
+                icon: rgba(black, 0.54),
+                text: rgba(black, 0.87),
+            ),
+        ),
+        typography: mat.define-typography-config(),
+        density: 0,
+    )
 );

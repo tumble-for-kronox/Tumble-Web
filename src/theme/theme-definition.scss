@@ -1,7 +1,7 @@
-@use 'sass:map';
-@use './light-theme' as *;
-@use './dark-theme' as *;
-@use './color.scss' as *;
+@use "sass:map";
+@use "./light-theme" as *;
+@use "./dark-theme" as *;
+@use "./color.scss" as *;
 
 @mixin define-color($title, $color) {
     --#{$title}-h: #{hue($color)};
@@ -19,7 +19,6 @@
 }
 
 @mixin theme-styling($theme) {
-
     .elevated {
         &-low {
             box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.29);
