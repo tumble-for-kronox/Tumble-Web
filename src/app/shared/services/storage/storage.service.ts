@@ -3,6 +3,7 @@ import StorageKeys from '@constants/storage_keys';
 import { SchoolEnum } from 'src/app/models/enums/schools';
 import Bookmark from 'src/app/models/web/bookmark';
 import { Theme } from 'src/app/models/web/themes';
+import SessionDetails from 'src/app/models/web/sessionDetails';
 
 @Injectable({
     providedIn: 'root',
@@ -22,6 +23,20 @@ export class StorageService {
         localStorage.removeItem(StorageKeys.savedUser);
     }
 
+    getSessionDetails(): SessionDetails {
+        let storedSessionDetails = localStorage.getItem(StorageKeys.savedSessionDetails);
+
+        if (!storedSessionDetails) {
+            return new SessionDetails('', '');
+        }
+
+        return SessionDetails.fromJson(JSON.parse(storedSessionDetails));
+    }
+
+    setSessionDetails(value: SessionDetails) {
+        return localStorage.setItem(StorageKeys.savedSessionDetails, JSON.stringify(value));
+    }
+
     getColors(): Map<string, string> {
         let storedColors = localStorage.getItem(StorageKeys.savedColors);
 
@@ -34,16 +49,11 @@ export class StorageService {
     }
 
     setColors(value: Map<string, string>) {
-        localStorage.setItem(
-            StorageKeys.savedColors,
-            JSON.stringify(value, this._mapReplacer),
-        );
+        localStorage.setItem(StorageKeys.savedColors, JSON.stringify(value, this._mapReplacer));
     }
 
     getBookmarks(): Bookmark[] {
-        const storedBookmarks = localStorage.getItem(
-            StorageKeys.savedBookmarks,
-        );
+        const storedBookmarks = localStorage.getItem(StorageKeys.savedBookmarks);
 
         if (!storedBookmarks) {
             return [];

@@ -1,33 +1,47 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpErrorResponse,
-  HttpResponse
-} from '@angular/common/http';
-import { catchError, Observable, timeout } from 'rxjs';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse } from '@angular/common/http';
+import { Observable, tap, timeout } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
-import { SchoolService } from 'src/app/shared/services/school/school.service';
+import { StorageService } from 'src/app/shared/services/storage/storage.service';
+import SessionDetails from 'src/app/models/web/sessionDetails';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class AuthHeaderInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) { }
+    constructor(
+        private authService: AuthService,
+        private storageService: StorageService,
+    ) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (this.authService.loggedIn) {
-      request = request.clone({
-        setHeaders: {
-          "X-auth-header": this.authService.currentUserValue!.refreshToken
+    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+        if (this.authService.loggedIn) {
+            let storedSessionDetails = this.storageService.getSessionDetails();
+            console.log(storedSessionDetails);
+            request = request.clone({
+                setHeaders: {
+                    'X-auth-token': this.authService.currentUserValue!.refreshToken,
+                    'X-session-token': storedSessionDetails.toJson(),
+                },
+            });
         }
-      })
-    }
 
-    return next.handle(request).pipe(
-      timeout(5000)
-    );
-  }
+        return next.handle(request).pipe(
+            tap((event) => {
+                if (event instanceof HttpResponse) {
+                    const refreshToken = event.headers.get('X-auth-header');
+                    const sessionDetails = event.headers.get('X-session-token');
+
+                    if (refreshToken !== null) {
+                        this.storageService.setRefreshToken(refreshToken);
+                    }
+
+                    if (sessionDetails !== null) {
+                        this.storageService.setSessionDetails(SessionDetails.fromJson(sessionDetails));
+                    }
+                }
+            }),
+            timeout(5000),
+        );
+    }
 }
