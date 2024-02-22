@@ -17,7 +17,6 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         if (this.authService.loggedIn) {
             let storedSessionDetails = this.storageService.getSessionDetails();
-            console.log(storedSessionDetails);
             request = request.clone({
                 setHeaders: {
                     'X-auth-token': this.authService.currentUserValue!.refreshToken,
