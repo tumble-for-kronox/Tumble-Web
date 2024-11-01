@@ -13,3 +13,4 @@ FROM nginx:1.26
 COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
 #Copy default nginx configuration
 COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
+CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
