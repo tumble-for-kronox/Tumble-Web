@@ -1,1 +1,1 @@
-web: bin/start-nginx exec npm start
+web: npm run start:prod
