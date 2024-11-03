@@ -7,7 +7,6 @@ ARG configuration=production
 RUN npm run build -- --output-path=./dist/out --configuration $configuration
 
 FROM nginx:1.26
-RUN mkdir -p /var/log/nginx
 
 COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
 COPY ./nginx.conf /etc/nginx/nginx.conf
