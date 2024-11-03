@@ -11,7 +11,5 @@ FROM nginx:1.26
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
 
-COPY nginx.conf /etc/nginx/nginx.conf
-RUN sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/nginx.conf
-
-CMD ["nginx", "-c", "/etc/nginx/nginx.conf", "-g", "daemon off;"]
+COPY nginx.conf config/nginx.conf.erb
+RUN sed -i -e 's/$PORT/'"$PORT"'/g' config/nginx.conf.erb
