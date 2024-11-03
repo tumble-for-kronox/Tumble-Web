@@ -10,3 +10,6 @@ FROM nginx:1.26
 
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
+
+RUN sed -i -e 's/$PORT/'"$PORT"'/g' config/nginx.conf.erb
+RUN touch /tmp/app-initialized
